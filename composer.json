@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": "^5.5.9 || ^7.0",
-        "laravie/blueprint": "~1.0",
+        "laravie/blueprint": "~0.1",
         "doctrine/annotations": "1.2.*",
         "illuminate/routing": "~5.1",
         "illuminate/support": "~5.1",
@@ -37,12 +37,6 @@
         "phpunit/phpunit": "^4.8 || ^5.0",
         "tymon/jwt-auth": "1.0.*"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/laravie/blueprint.git"
-        }
-    ],
     "suggest": {
         "lucadegasperi/oauth2-server-laravel": "Protect your API with OAuth 2.0.",
         "tymon/jwt-auth": "Protect your API with JSON Web Tokens"
