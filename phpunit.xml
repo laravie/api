@@ -12,7 +12,7 @@
 >
 
     <testsuites>
-        <testsuite name="Laravel HTML Test Suite">
+        <testsuite name="API Test Suite">
             <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>
