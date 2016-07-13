@@ -1,5 +1,5 @@
 {
-    "name": "dingo/api",
+    "name": "laravie/api",
     "description": "A RESTful API package for the Laravel and Lumen frameworks.",
     "keywords": [
         "api",
@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": "^5.5.9 || ^7.0",
-        "dingo/blueprint": "0.2.*",
+        "laravie/blueprint": "~0.1",
         "doctrine/annotations": "1.2.*",
         "illuminate/routing": "~5.1",
         "illuminate/support": "~5.1",
