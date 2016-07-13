@@ -35,7 +35,7 @@ class RateLimit
      */
     public function __construct(Router $router, Handler $handler)
     {
-        $this->router = $router;
+        $this->router  = $router;
         $this->handler = $handler;
     }
 
@@ -100,9 +100,9 @@ class RateLimit
     protected function getHeaders()
     {
         return [
-            'X-RateLimit-Limit' => $this->handler->getThrottleLimit(),
+            'X-RateLimit-Limit'     => $this->handler->getThrottleLimit(),
             'X-RateLimit-Remaining' => $this->handler->getRemainingLimit(),
-            'X-RateLimit-Reset' => $this->handler->getRateLimitReset(),
+            'X-RateLimit-Reset'     => $this->handler->getRateLimitReset(),
         ];
     }
 }

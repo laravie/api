@@ -51,7 +51,7 @@ class OAuth2 extends Authorization
      */
     public function __construct(ResourceServer $resource, $httpHeadersOnly = false)
     {
-        $this->resource = $resource;
+        $this->resource        = $resource;
         $this->httpHeadersOnly = $httpHeadersOnly;
     }
 

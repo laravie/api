@@ -43,8 +43,8 @@ class LumenServiceProvider extends DingoServiceProvider
         });
 
         $this->app->routeMiddleware([
-            'api.auth' => 'Dingo\Api\Http\Middleware\Auth',
-            'api.throttle' => 'Dingo\Api\Http\Middleware\RateLimit',
+            'api.auth'        => 'Dingo\Api\Http\Middleware\Auth',
+            'api.throttle'    => 'Dingo\Api\Http\Middleware\RateLimit',
             'api.controllers' => 'Dingo\Api\Http\Middleware\PrepareController',
         ]);
     }
@@ -71,7 +71,7 @@ class LumenServiceProvider extends DingoServiceProvider
         parent::register();
 
         $this->app->singleton('api.router.adapter', function ($app) {
-            return new LumenAdapter($app, new StdRouteParser, new GcbDataGenerator, 'FastRoute\Dispatcher\GroupCountBased');
+            return new LumenAdapter($app, new StdRouteParser(), new GcbDataGenerator(), 'FastRoute\Dispatcher\GroupCountBased');
         });
     }
 

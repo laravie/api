@@ -79,11 +79,11 @@ class Docs extends Command
     {
         parent::__construct();
 
-        $this->router = $router;
+        $this->router    = $router;
         $this->blueprint = $blueprint;
-        $this->writer = $writer;
-        $this->name = $name;
-        $this->version = $version;
+        $this->writer    = $writer;
+        $this->name      = $name;
+        $this->version   = $version;
     }
 
     /**
@@ -157,7 +157,7 @@ class Docs extends Command
      */
     protected function getControllers()
     {
-        $controllers = new Collection;
+        $controllers = new Collection();
 
         foreach ($this->router->getRoutes() as $collections) {
             foreach ($collections as $route) {

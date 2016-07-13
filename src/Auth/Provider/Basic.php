@@ -33,7 +33,7 @@ class Basic extends Authorization
      */
     public function __construct(AuthManager $auth, $identifier = 'email')
     {
-        $this->auth = $auth;
+        $this->auth       = $auth;
         $this->identifier = $identifier;
     }
 

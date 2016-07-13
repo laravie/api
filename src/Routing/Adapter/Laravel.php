@@ -70,7 +70,7 @@ class Laravel implements Adapter
     public function dispatch(Request $request, $version)
     {
         if (! isset($this->routes[$version])) {
-            throw new UnknownVersionException;
+            throw new UnknownVersionException();
         }
 
         $routes = $this->mergeOldRoutes($version);
@@ -158,7 +158,7 @@ class Laravel implements Adapter
     {
         foreach ($versions as $version) {
             if (! isset($this->routes[$version])) {
-                $this->routes[$version] = new RouteCollection;
+                $this->routes[$version] = new RouteCollection();
             }
         }
     }

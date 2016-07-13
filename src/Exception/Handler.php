@@ -59,8 +59,8 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
     public function __construct(IlluminateExceptionHandler $parentHandler, array $format, $debug)
     {
         $this->parentHandler = $parentHandler;
-        $this->format = $format;
-        $this->debug = $debug;
+        $this->format        = $format;
+        $this->debug         = $debug;
     }
 
     /**
@@ -209,7 +209,7 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
         }
 
         $replacements = [
-            ':message' => $message,
+            ':message'     => $message,
             ':status_code' => $statusCode,
         ];
 
@@ -223,8 +223,8 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
 
         if ($this->runningInDebugMode()) {
             $replacements[':debug'] = [
-                'line' => $exception->getLine(),
-                'file' => $exception->getFile(),
+                'line'  => $exception->getLine(),
+                'file'  => $exception->getFile(),
                 'class' => get_class($exception),
                 'trace' => explode("\n", $exception->getTraceAsString()),
             ];

@@ -42,9 +42,9 @@ class Accept implements Parser
     public function __construct($standardsTree, $subtype, $version, $format)
     {
         $this->standardsTree = $standardsTree;
-        $this->subtype = $subtype;
-        $this->version = $version;
-        $this->format = $format;
+        $this->subtype       = $subtype;
+        $this->version       = $version;
+        $this->format        = $format;
     }
 
     /**

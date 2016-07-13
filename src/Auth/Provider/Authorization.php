@@ -30,7 +30,7 @@ abstract class Authorization implements \Dingo\Api\Contract\Auth\Provider
             return true;
         }
 
-        throw new BadRequestHttpException;
+        throw new BadRequestHttpException();
     }
 
     /**

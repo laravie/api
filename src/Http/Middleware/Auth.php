@@ -31,7 +31,7 @@ class Auth
     public function __construct(Router $router, Authentication $auth)
     {
         $this->router = $router;
-        $this->auth = $auth;
+        $this->auth   = $auth;
     }
 
     /**

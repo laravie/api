@@ -103,11 +103,11 @@ class Router
      */
     public function __construct(Adapter $adapter, ExceptionHandler $exception, Container $container, $domain, $prefix)
     {
-        $this->adapter = $adapter;
+        $this->adapter   = $adapter;
         $this->exception = $exception;
         $this->container = $container;
-        $this->domain = $domain;
-        $this->prefix = $prefix;
+        $this->domain    = $domain;
+        $this->prefix    = $prefix;
     }
 
     /**
@@ -346,7 +346,7 @@ class Router
      */
     public function controller($uri, $controller, $names = [])
     {
-        $routable = (new ControllerInspector)->getRoutable($this->addGroupNamespace($controller), $uri);
+        $routable = (new ControllerInspector())->getRoutable($this->addGroupNamespace($controller), $uri);
 
         foreach ($routable as $method => $routes) {
             if ($method == 'getMethodProperties') {
@@ -356,7 +356,7 @@ class Router
             foreach ($routes as $route) {
                 $this->{$route['verb']}($route['uri'], [
                     'uses' => $controller.'@'.$method,
-                    'as' => Arr::get($names, $method),
+                    'as'   => Arr::get($names, $method),
                 ]);
             }
         }

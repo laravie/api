@@ -175,9 +175,9 @@ class Dispatcher
     public function __construct(Container $container, Filesystem $files, Router $router, Auth $auth)
     {
         $this->container = $container;
-        $this->files = $files;
-        $this->router = $router;
-        $this->auth = $auth;
+        $this->files     = $files;
+        $this->router    = $router;
+        $this->auth      = $auth;
 
         $this->setupRequestStack();
     }

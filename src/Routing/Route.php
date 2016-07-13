@@ -137,9 +137,9 @@ class Route
      */
     public function __construct(Adapter $adapter, Container $container, Request $request, $route)
     {
-        $this->adapter = $adapter;
+        $this->adapter   = $adapter;
         $this->container = $container;
-        $this->route = $route;
+        $this->route     = $route;
 
         $this->setupRouteProperties($request, $route);
     }
@@ -153,14 +153,14 @@ class Route
     {
         list($this->uri, $this->methods, $this->action) = $this->adapter->getRouteProperties($route, $request);
 
-        $this->versions = Arr::pull($this->action, 'version');
-        $this->conditionalRequest = Arr::pull($this->action, 'conditionalRequest', true);
-        $this->middleware = Arr::pull($this->action, 'middleware', []);
-        $this->throttle = Arr::pull($this->action, 'throttle');
-        $this->scopes = Arr::pull($this->action, 'scopes', []);
+        $this->versions                = Arr::pull($this->action, 'version');
+        $this->conditionalRequest      = Arr::pull($this->action, 'conditionalRequest', true);
+        $this->middleware              = Arr::pull($this->action, 'middleware', []);
+        $this->throttle                = Arr::pull($this->action, 'throttle');
+        $this->scopes                  = Arr::pull($this->action, 'scopes', []);
         $this->authenticationProviders = Arr::pull($this->action, 'providers', []);
-        $this->rateLimit = Arr::pull($this->action, 'limit', 0);
-        $this->rateExpiration = Arr::pull($this->action, 'expires', 0);
+        $this->rateLimit               = Arr::pull($this->action, 'limit', 0);
+        $this->rateExpiration          = Arr::pull($this->action, 'expires', 0);
 
         // Now that the default route properties have been set we'll go ahead and merge
         // any controller properties to fully configure the route.
@@ -215,7 +215,7 @@ class Route
         }
 
         if ($property = $this->findControllerPropertyOptions('rateLimit')) {
-            $this->rateLimit = $property['limit'];
+            $this->rateLimit      = $property['limit'];
             $this->rateExpiration = $property['expires'];
         }
     }
