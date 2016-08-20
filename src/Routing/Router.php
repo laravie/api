@@ -103,11 +103,11 @@ class Router
      */
     public function __construct(Adapter $adapter, ExceptionHandler $exception, Container $container, $domain, $prefix)
     {
-        $this->adapter   = $adapter;
+        $this->adapter = $adapter;
         $this->exception = $exception;
         $this->container = $container;
-        $this->domain    = $domain;
-        $this->prefix    = $prefix;
+        $this->domain = $domain;
+        $this->prefix = $prefix;
     }
 
     /**

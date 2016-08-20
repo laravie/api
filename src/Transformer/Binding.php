@@ -55,10 +55,10 @@ class Binding
      */
     public function __construct(Container $container, $resolver, array $parameters = [], Closure $callback = null)
     {
-        $this->container  = $container;
-        $this->resolver   = $resolver;
+        $this->container = $container;
+        $this->resolver = $resolver;
         $this->parameters = $parameters;
-        $this->callback   = $callback;
+        $this->callback = $callback;
     }
 
     /**

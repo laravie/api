@@ -32,6 +32,6 @@ class ResponseIsMorphing
     public function __construct(Response $response, &$content)
     {
         $this->response = $response;
-        $this->content  = &$content;
+        $this->content = &$content;
     }
 }

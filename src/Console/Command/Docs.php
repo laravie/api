@@ -79,11 +79,11 @@ class Docs extends Command
     {
         parent::__construct();
 
-        $this->router    = $router;
+        $this->router = $router;
         $this->blueprint = $blueprint;
-        $this->writer    = $writer;
-        $this->name      = $name;
-        $this->version   = $version;
+        $this->writer = $writer;
+        $this->name = $name;
+        $this->version = $version;
     }
 
     /**

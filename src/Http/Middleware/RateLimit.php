@@ -35,7 +35,7 @@ class RateLimit
      */
     public function __construct(Router $router, Handler $handler)
     {
-        $this->router  = $router;
+        $this->router = $router;
         $this->handler = $handler;
     }
 

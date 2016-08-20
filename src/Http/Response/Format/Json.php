@@ -39,7 +39,7 @@ class Json extends Format
         }
 
         $model = $collection->first();
-        $key   = Str::plural($model->getTable());
+        $key = Str::plural($model->getTable());
 
         if (! $model::$snakeAttributes) {
             $key = Str::camel($key);

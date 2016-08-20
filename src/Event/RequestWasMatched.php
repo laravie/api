@@ -32,6 +32,6 @@ class RequestWasMatched
     public function __construct(Request $request, Container $app)
     {
         $this->request = $request;
-        $this->app     = $app;
+        $this->app = $app;
     }
 }

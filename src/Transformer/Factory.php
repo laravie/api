@@ -45,7 +45,7 @@ class Factory
     public function __construct(Container $container, Adapter $adapter)
     {
         $this->container = $container;
-        $this->adapter   = $adapter;
+        $this->adapter = $adapter;
     }
 
     /**

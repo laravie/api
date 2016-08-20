@@ -55,10 +55,10 @@ class Fractal implements Adapter
      */
     public function __construct(FractalManager $fractal, $includeKey = 'include', $includeSeparator = ',', $eagerLoading = true)
     {
-        $this->fractal          = $fractal;
-        $this->includeKey       = $includeKey;
+        $this->fractal = $fractal;
+        $this->includeKey = $includeKey;
         $this->includeSeparator = $includeSeparator;
-        $this->eagerLoading     = $eagerLoading;
+        $this->eagerLoading = $eagerLoading;
     }
 
     /**

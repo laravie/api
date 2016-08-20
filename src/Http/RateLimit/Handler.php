@@ -72,7 +72,7 @@ class Handler
      */
     public function __construct(Container $container, CacheManager $cache, array $throttles)
     {
-        $this->cache     = $cache;
+        $this->cache = $cache;
         $this->container = $container;
         $this->throttles = new Collection($throttles);
     }

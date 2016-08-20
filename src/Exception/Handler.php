@@ -59,8 +59,8 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
     public function __construct(IlluminateExceptionHandler $parentHandler, array $format, $debug)
     {
         $this->parentHandler = $parentHandler;
-        $this->format        = $format;
-        $this->debug         = $debug;
+        $this->format = $format;
+        $this->debug = $debug;
     }
 
     /**

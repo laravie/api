@@ -70,11 +70,11 @@ class Request
      */
     public function __construct(Container $app, ExceptionHandler $exception, Router $router, RequestValidator $validator, EventDispatcher $events)
     {
-        $this->app       = $app;
+        $this->app = $app;
         $this->exception = $exception;
-        $this->router    = $router;
+        $this->router = $router;
         $this->validator = $validator;
-        $this->events    = $events;
+        $this->events = $events;
     }
 
     /**

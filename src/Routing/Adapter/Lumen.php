@@ -70,9 +70,9 @@ class Lumen implements Adapter
      */
     public function __construct(Application $app, RouteParser $parser, DataGenerator $generator, $dispatcher)
     {
-        $this->app        = $app;
-        $this->parser     = $parser;
-        $this->generator  = $generator;
+        $this->app = $app;
+        $this->parser = $parser;
+        $this->generator = $generator;
         $this->dispatcher = $dispatcher;
     }
 
@@ -129,9 +129,9 @@ class Lumen implements Adapter
      */
     public function getRouteProperties($route, Request $request)
     {
-        $uri     = ltrim(isset($route['uri']) ? $route['uri'] : $request->getRequestUri(), '/');
+        $uri = ltrim(isset($route['uri']) ? $route['uri'] : $request->getRequestUri(), '/');
         $methods = isset($route['methods']) ? $route['methods'] : (array) $request->getMethod();
-        $action  = (isset($route[1]) && is_array($route[1])) ? $route[1] : $route;
+        $action = (isset($route[1]) && is_array($route[1])) ? $route[1] : $route;
 
         if ($request->getMethod() === 'GET' && ! in_array('HEAD', $methods)) {
             $methods[] = 'HEAD';
@@ -224,7 +224,7 @@ class Lumen implements Adapter
         $this->middlewareRemoved = true;
 
         $reflection = new ReflectionClass($this->app);
-        $property   = $reflection->getProperty('middleware');
+        $property = $reflection->getProperty('middleware');
         $property->setAccessible(true);
 
         $property->setValue($this->app, []);
