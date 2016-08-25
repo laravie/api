@@ -479,7 +479,7 @@ class Router
         $new['where'] = array_merge(Arr::get($old, 'where', []), Arr::get($new, 'where', []));
 
         if (isset($old['as'])) {
-            $new['as'] = $old['as'].Arr::get($new, 'as', '');
+            $new['as'] = trim($old['as'].'.'.Arr::get($new, 'as', ''), '.');
         }
 
         return array_merge_recursive(array_except($old, ['namespace', 'prefix', 'where', 'as']), $new);
