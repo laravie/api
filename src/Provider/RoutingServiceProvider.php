@@ -10,8 +10,6 @@ class RoutingServiceProvider extends ServiceProvider
 {
     /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register()
     {
@@ -22,8 +20,6 @@ class RoutingServiceProvider extends ServiceProvider
 
     /**
      * Register the router.
-     *
-     * @return void
      */
     protected function registerRouter()
     {
@@ -48,17 +44,43 @@ class RoutingServiceProvider extends ServiceProvider
 
     /**
      * Register the URL generator.
-     *
-     * @return void
      */
     protected function registerUrlGenerator()
     {
         $this->app->singleton('api.url', function ($app) {
-            $url = new UrlGenerator($app['request']);
+            $routes = $app['router']->getRoutes();
+
+            $app->instance('routes', $routes);
+
+            $url = new UrlGenerator(
+                $routes, $app->rebinding(
+                    'request', $this->requestRebinder()
+                )
+            );
+
+            $url->setSessionResolver(function () {
+                return $this->app['session'];
+            });
+
+            $app->rebinding('routes', function ($app, $routes) {
+                $app['url']->setRoutes($routes);
+            });
 
             $url->setRouteCollections($app['Dingo\Api\Routing\Router']->getRoutes());
 
             return $url;
         });
+    }
+
+    /**
+     * Get the URL generator request rebinder.
+     *
+     * @return \Closure
+     */
+    private function requestRebinder()
+    {
+        return function ($app, $request) {
+            $app['api.url']->setRequest($request);
+        };
     }
 }

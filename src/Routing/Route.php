@@ -132,8 +132,6 @@ class Route
      * @param \Illuminate\Container\Container     $container
      * @param \Illuminate\Http\Request            $request
      * @param array|\Illuminate\Routing\Route     $route
-     *
-     * @return void
      */
     public function __construct(Adapter $adapter, Container $container, Request $request, $route)
     {
@@ -146,8 +144,6 @@ class Route
 
     /**
      * Setup the route properties.
-     *
-     * @return void
      */
     protected function setupRouteProperties(Request $request, $route)
     {
@@ -175,8 +171,6 @@ class Route
 
     /**
      * Merge the controller properties onto the route properties.
-     *
-     * @return void
      */
     protected function mergeControllerProperties()
     {
@@ -223,10 +217,9 @@ class Route
     /**
      * Find the controller options and whether or not it will apply to this routes controller method.
      *
-     * @param string   $option
-     * @param \Closure $callback
+     * @param string $name
      *
-     * @return void
+     * @return array
      */
     protected function findControllerPropertyOptions($name)
     {
