@@ -11,7 +11,7 @@ return Symfony\CS\Config\Config::create()
     ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
     ->fixers([
         '-psr0',
-        'align_double_arrow',
+        '-align_double_arrow',
         '-align_equals',
         'blankline_after_open_tag',
         'concat_without_spaces',
@@ -23,7 +23,7 @@ return Symfony\CS\Config\Config::create()
         'join_function',
         'multiline_array_trailing_comma',
         'multiline_spaces_before_semicolon',
-        'new_with_braces',
+        '-new_with_braces',
         'no_blank_lines_after_class_opening',
         'no_empty_lines_after_phpdocs',
         'object_operator',
