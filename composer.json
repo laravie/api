@@ -36,6 +36,9 @@
         "phpunit/phpunit": "^4.8 || ^5.0",
         "tymon/jwt-auth": "1.0.*"
     },
+    "replace": {
+        "dingo/api": "*"
+    },
     "suggest": {
         "lucadegasperi/oauth2-server-laravel": "Protect your API with OAuth 2.0.",
         "tymon/jwt-auth": "Protect your API with JSON Web Tokens."
