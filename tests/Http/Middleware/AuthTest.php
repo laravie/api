@@ -3,12 +3,15 @@
 namespace Dingo\Api\Tests\Http\Middleware;
 
 use Mockery as m;
+use Dingo\Api\Auth\Auth;
 use Dingo\Api\Http\Request;
 use Dingo\Api\Routing\Route;
+use Dingo\Api\Routing\Router;
 use PHPUnit_Framework_TestCase;
 use Illuminate\Container\Container;
-use Dingo\Api\Http\Middleware\Auth;
 use Dingo\Api\Tests\Stubs\RoutingAdapterStub;
+use Illuminate\Routing\Route as IlluminateRoute;
+use Dingo\Api\Http\Middleware\Auth as AuthMiddleware;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class AuthTest extends PHPUnit_Framework_TestCase
@@ -17,16 +20,16 @@ class AuthTest extends PHPUnit_Framework_TestCase
     {
         $this->container = new Container;
         $this->adapter = new RoutingAdapterStub;
-        $this->router = m::mock('Dingo\Api\Routing\Router');
-        $this->auth = m::mock('Dingo\Api\Auth\Auth');
-        $this->middleware = new Auth($this->router, $this->auth);
+        $this->router = m::mock(Router::class);
+        $this->auth = m::mock(Auth::class);
+        $this->middleware = new AuthMiddleware($this->router, $this->auth);
     }
 
     public function testProtectedRouteFiresAuthenticationAndPasses()
     {
         $request = Request::create('test', 'GET');
 
-        $route = new Route($this->adapter, $this->container, $request, new \Illuminate\Routing\Route('GET', '/test', [
+        $route = new Route($this->adapter, $this->container, $request, new IlluminateRoute('GET', '/test', [
             'providers' => [],
         ]));
 
@@ -44,7 +47,7 @@ class AuthTest extends PHPUnit_Framework_TestCase
     {
         $request = Request::create('test', 'GET');
 
-        $route = new Route($this->adapter, $this->container, $request, new \Illuminate\Routing\Route('GET', '/test', [
+        $route = new Route($this->adapter, $this->container, $request, new IlluminateRoute('GET', '/test', [
             'providers' => [],
         ]));
 
@@ -66,7 +69,7 @@ class AuthTest extends PHPUnit_Framework_TestCase
 
         $request = Request::create('test', 'GET');
 
-        $route = new Route($this->adapter, $this->container, $request, new \Illuminate\Routing\Route('GET', '/test', [
+        $route = new Route($this->adapter, $this->container, $request, new IlluminateRoute('GET', '/test', [
             'providers' => [],
         ]));
 

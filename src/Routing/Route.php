@@ -132,6 +132,8 @@ class Route
      * @param \Illuminate\Container\Container     $container
      * @param \Illuminate\Http\Request            $request
      * @param array|\Illuminate\Routing\Route     $route
+     *
+     * @return void
      */
     public function __construct(Adapter $adapter, Container $container, Request $request, $route)
     {
@@ -293,7 +295,7 @@ class Route
             $traits = array_merge(class_uses($trait, false), $traits);
         }
 
-        return isset($traits['Dingo\Api\Routing\Helpers']);
+        return isset($traits[Helpers::class]);
     }
 
     /**
