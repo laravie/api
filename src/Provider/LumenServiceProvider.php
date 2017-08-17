@@ -46,6 +46,10 @@ class LumenServiceProvider extends DingoServiceProvider
 
                 return $property->getValue($app);
             });
+
+            $request->setUserResolver(function () use ($app) {
+                $app->make('api.auth')->user();
+            });
         });
 
         $this->app->routeMiddleware([
