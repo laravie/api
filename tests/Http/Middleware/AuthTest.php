@@ -7,16 +7,16 @@ use Dingo\Api\Auth\Auth;
 use Dingo\Api\Http\Request;
 use Dingo\Api\Routing\Route;
 use Dingo\Api\Routing\Router;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 use Dingo\Api\Tests\Stubs\RoutingAdapterStub;
 use Illuminate\Routing\Route as IlluminateRoute;
 use Dingo\Api\Http\Middleware\Auth as AuthMiddleware;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class AuthTest extends PHPUnit_Framework_TestCase
+class AuthTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->container = new Container;
         $this->adapter = new RoutingAdapterStub;

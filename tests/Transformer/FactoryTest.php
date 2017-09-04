@@ -3,17 +3,17 @@
 namespace Dingo\Api\Tests\Transformer;
 
 use Mockery;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dingo\Api\Transformer\Factory;
 use Illuminate\Support\Collection;
-use Illuminate\Container\Container;
 use Dingo\Api\Tests\Stubs\UserStub;
+use Illuminate\Container\Container;
 use Dingo\Api\Tests\Stubs\TransformerStub;
 use Dingo\Api\Tests\Stubs\UserTransformerStub;
 
-class FactoryTest extends PHPUnit_Framework_TestCase
+class FactoryTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $container = new Container;
         $container['request'] = Mockery::mock('Dingo\Api\Http\Request');
@@ -21,7 +21,7 @@ class FactoryTest extends PHPUnit_Framework_TestCase
         $this->factory = new Factory($container, new TransformerStub);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         Mockery::close();
     }

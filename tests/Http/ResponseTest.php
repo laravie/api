@@ -5,7 +5,7 @@ namespace Dingo\Api\Tests\Http;
 use StdClass;
 use Mockery as m;
 use Dingo\Api\Http\Response;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dingo\Api\Transformer\Binding;
 use Illuminate\Container\Container;
 use Dingo\Api\Event\ResponseIsMorphing;
@@ -13,14 +13,14 @@ use Dingo\Api\Event\ResponseWasMorphed;
 use Dingo\Api\Http\Response\Format\Json;
 use Illuminate\Events\Dispatcher as EventDispatcher;
 
-class ResponseTest extends PHPUnit_Framework_TestCase
+class ResponseTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         Response::setEventDispatcher($this->events = new EventDispatcher);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

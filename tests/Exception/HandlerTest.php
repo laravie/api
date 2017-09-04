@@ -2,20 +2,20 @@
 
 namespace Dingo\Api\Tests\Exception;
 
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Mockery as m;
 use RuntimeException;
 use Illuminate\Http\Response;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dingo\Api\Exception\Handler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Dingo\Api\Http\Request as ApiRequest;
 use Dingo\Api\Exception\ResourceException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class HandlerTest extends PHPUnit_Framework_TestCase
+class HandlerTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->parentHandler = m::mock('Illuminate\Contracts\Debug\ExceptionHandler');
         $this->exceptionHandler = new Handler($this->parentHandler, [
@@ -27,7 +27,7 @@ class HandlerTest extends PHPUnit_Framework_TestCase
         ], false);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

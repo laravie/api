@@ -6,12 +6,12 @@ use Mockery as m;
 use Dingo\Api\Http\Request;
 use Dingo\Api\Routing\Router;
 use Dingo\Api\Http\Validation;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dingo\Api\Exception\Handler;
+use Dingo\Api\Http\RequestValidator;
 use Dingo\Api\Http\Validation\Accept;
 use Dingo\Api\Http\Validation\Domain;
 use Dingo\Api\Http\Validation\Prefix;
-use Dingo\Api\Http\RequestValidator;
 use Dingo\Api\Tests\Stubs\ApplicationStub;
 use Dingo\Api\Http\Parser\Accept as AcceptParser;
 use Illuminate\Http\Request as IlluminateRequest;
@@ -19,9 +19,9 @@ use Illuminate\Events\Dispatcher as EventDispatcher;
 use Dingo\Api\Contract\Http\Request as RequestContract;
 use Dingo\Api\Http\Middleware\Request as RequestMiddleware;
 
-class RequestTest extends PHPUnit_Framework_TestCase
+class RequestTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->app = new ApplicationStub;
         $this->router = m::mock(Router::class);
@@ -34,7 +34,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->middleware = new RequestMiddleware($this->app, $this->handler, $this->router, $this->validator, $this->events);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

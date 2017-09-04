@@ -5,18 +5,18 @@ namespace Dingo\Api\Tests\Auth\Provider;
 use Mockery as m;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dingo\Api\Auth\Provider\Basic;
 
-class BasicTest extends PHPUnit_Framework_TestCase
+class BasicTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->auth = m::mock('Illuminate\Auth\AuthManager');
         $this->provider = new Basic($this->auth);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

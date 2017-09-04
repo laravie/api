@@ -4,20 +4,20 @@ namespace Dingo\Api\Tests\Http\Response\Format;
 
 use Mockery;
 use Dingo\Api\Http\Response;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Support\MessageBag;
 use Dingo\Api\Http\Response\Format\Json;
 use Dingo\Api\Tests\Stubs\EloquentModelStub;
 use Illuminate\Database\Eloquent\Collection;
 
-class JsonTest extends PHPUnit_Framework_TestCase
+class JsonTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         Response::setFormatters(['json' => new Json]);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         Mockery::close();
 

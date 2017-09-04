@@ -36,7 +36,7 @@
         "illuminate/pagination": "~5.4.0",
         "laravel/lumen-framework": "~5.4.0",
         "mockery/mockery": "~0.9.4",
-        "phpunit/phpunit": "^4.8 || ^5.0",
+        "phpunit/phpunit": "^5.7",
         "tymon/jwt-auth": "1.0.*"
     },
     "replace": {

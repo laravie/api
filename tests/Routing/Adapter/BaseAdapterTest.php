@@ -5,12 +5,12 @@ namespace Dingo\Api\Tests\Routing\Adapter;
 use Mockery as m;
 use Dingo\Api\Http;
 use Dingo\Api\Routing\Router;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dingo\Api\Tests\Stubs\MiddlewareStub;
 
-abstract class BaseAdapterTest extends PHPUnit_Framework_TestCase
+abstract class BaseAdapterTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->container = $this->getContainerInstance();
         $this->container['Illuminate\Container\Container'] = $this->container;
@@ -28,7 +28,7 @@ abstract class BaseAdapterTest extends PHPUnit_Framework_TestCase
         Http\Response::setFormatters(['json' => new Http\Response\Format\Json]);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

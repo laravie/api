@@ -7,22 +7,22 @@ use Dingo\Api\Auth\Auth;
 use Dingo\Api\Http\Request;
 use Dingo\Api\Routing\Route;
 use Dingo\Api\Routing\Router;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 use Dingo\Api\Contract\Auth\Provider;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class AuthTest extends PHPUnit_Framework_TestCase
+class AuthTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->container = new Container;
         $this->router = m::mock(Router::class);
         $this->auth = new Auth($this->router, $this->container, []);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
