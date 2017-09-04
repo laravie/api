@@ -1,12 +1,7 @@
 {
     "name": "laravie/api",
     "description": "A RESTful API package for the Laravel and Lumen frameworks.",
-    "keywords": [
-        "api",
-        "dingo",
-        "laravel",
-        "restful"
-    ],
+    "keywords": ["api", "dingo", "laravel", "restful"],
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -18,33 +13,6 @@
             "email": "crynobone@gmail.com"
         }
     ],
-    "require": {
-        "php": "^5.5.9 || ^5.6.0 || ^7.0",
-        "illuminate/routing": "~5.4.0",
-        "illuminate/support": "~5.4.0",
-        "laravie/blueprint": "^1.0",
-        "league/fractal": ">=0.12.0"
-    },
-    "require-dev": {
-        "illuminate/auth": "~5.4.0",
-        "illuminate/cache": "~5.4.0",
-        "illuminate/console": "~5.4.0",
-        "illuminate/database": "~5.4.0",
-        "illuminate/events": "~5.4.0",
-        "illuminate/filesystem": "~5.4.0",
-        "illuminate/log": "~5.4.0",
-        "illuminate/pagination": "~5.4.0",
-        "laravel/lumen-framework": "~5.4.0",
-        "mockery/mockery": "~0.9.4",
-        "phpunit/phpunit": "^5.7",
-        "tymon/jwt-auth": "^1.0.0"
-    },
-    "replace": {
-        "dingo/api": "*"
-    },
-    "suggest": {
-        "tymon/jwt-auth": "Protect your API with JSON Web Tokens."
-    },
     "autoload": {
         "psr-4": {
             "Dingo\\Api\\": "src/"
@@ -57,6 +25,29 @@
         "psr-4": {
             "Dingo\\Api\\Tests\\": "tests/"
         }
+    },
+    "require": {
+        "php": "^5.5.9 || ^5.6.0 || ^7.0",
+        "illuminate/routing": "~5.4.0",
+        "illuminate/support": "~5.4.0",
+        "laravie/blueprint": "^1.0",
+        "league/fractal": ">=0.12.0"
+    },
+    "require-dev": {
+        "laravel/lumen-framework": "~5.4.0",
+        "mockery/mockery": "~0.9.4",
+        "orchestra/testbench": "~3.4.0",
+        "phpunit/phpunit": "^5.7",
+        "tymon/jwt-auth": "^1.0.0"
+    },
+    "replace": {
+        "dingo/api": "*"
+    },
+    "suggest": {
+        "tymon/jwt-auth": "Protect your API with JSON Web Tokens."
+    },
+    "config": {
+        "sort-packages": true
     },
     "minimum-stability": "dev",
     "prefer-stable": true
