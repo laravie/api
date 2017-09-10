@@ -27,6 +27,10 @@ class JWTTest extends TestCase
     public function testValidatingAuthorizationHeaderFailsAndThrowsException()
     {
         $request = Request::create('foo', 'GET');
+
+        $this->auth->shouldReceive('parseToken')->andReturnSelf();
+        $this->auth->shouldReceive('authenticate')->andReturnNull();
+
         $this->provider->authenticate($request, m::mock('Dingo\Api\Routing\Route'));
     }
 
@@ -38,7 +42,7 @@ class JWTTest extends TestCase
         $request = Request::create('foo', 'GET');
         $request->headers->set('authorization', 'Bearer foo');
 
-        $this->auth->shouldReceive('setToken')->with('foo')->andReturn(m::self());
+        $this->auth->shouldReceive('parseToken')->andReturnSelf();
         $this->auth->shouldReceive('authenticate')->once()->andThrow(new JWTException('foo'));
 
         $this->provider->authenticate($request, m::mock('Dingo\Api\Routing\Route'));
@@ -49,7 +53,7 @@ class JWTTest extends TestCase
         $request = Request::create('foo', 'GET');
         $request->headers->set('authorization', 'Bearer foo');
 
-        $this->auth->shouldReceive('setToken')->with('foo')->andReturn(m::self());
+        $this->auth->shouldReceive('parseToken')->andReturnSelf();
         $this->auth->shouldReceive('authenticate')->once()->andReturn((object) ['id' => 1]);
 
         $this->assertSame(1, $this->provider->authenticate($request, m::mock('Dingo\Api\Routing\Route'))->id);
@@ -59,7 +63,7 @@ class JWTTest extends TestCase
     {
         $request = Request::create('foo', 'GET', ['token' => 'foo']);
 
-        $this->auth->shouldReceive('setToken')->with('foo')->andReturn(m::self());
+        $this->auth->shouldReceive('parseToken')->andReturnSelf();
         $this->auth->shouldReceive('authenticate')->once()->andReturn((object) ['id' => 1]);
 
         $this->assertSame(1, $this->provider->authenticate($request, m::mock('Dingo\Api\Routing\Route'))->id);

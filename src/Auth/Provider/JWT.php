@@ -7,6 +7,7 @@ use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use Dingo\Api\Routing\Route;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class JWT extends Authorization
@@ -40,10 +41,10 @@ class JWT extends Authorization
      */
     public function authenticate(Request $request, Route $route)
     {
-        $token = $this->getToken($request);
+        $this->validateAuthorizationHeader($request);
 
         try {
-            if (! $user = $this->auth->setToken($token)->authenticate()) {
+            if (! $user = $this->auth->parseToken()->authenticate()) {
                 throw new UnauthorizedHttpException('JWTAuth', 'Unable to authenticate with invalid token.');
             }
         } catch (JWTException $exception) {
@@ -54,39 +55,25 @@ class JWT extends Authorization
     }
 
     /**
-     * Get the JWT from the request.
+     * Validate the requests authorization header for the provider.
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @throws \Exception
+     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      *
-     * @return string
+     * @return bool
      */
-    protected function getToken(Request $request)
+    public function validateAuthorizationHeader(Request $request)
     {
         try {
-            $this->validateAuthorizationHeader($request);
-
-            $token = $this->parseAuthorizationHeader($request);
-        } catch (Exception $exception) {
-            if (! $token = $request->query('token', false)) {
+            return parent::validateAuthorizationHeader($request);
+        } catch (BadRequestHttpException $exception) {
+            if (empty($request->query('token', ''))) {
                 throw $exception;
             }
         }
 
-        return $token;
-    }
-
-    /**
-     * Parse JWT from the authorization header.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return string
-     */
-    protected function parseAuthorizationHeader(Request $request)
-    {
-        return trim(str_ireplace($this->getAuthorizationMethod(), '', $request->header('authorization')));
+        return true;
     }
 
     /**
