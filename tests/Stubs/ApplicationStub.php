@@ -52,6 +52,16 @@ class ApplicationStub extends Container implements Application
         //
     }
 
+    public function getCachedPackagesPath()
+    {
+        //
+    }
+
+    public function runningInConsole()
+    {
+        return true;
+    }
+
     public function boot()
     {
         //
