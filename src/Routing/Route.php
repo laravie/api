@@ -25,6 +25,11 @@ class Route
      */
     protected $container;
 
+    /**
+     * Route implementation.
+     *
+     * @var array|\Illuminate\Routing\Route
+     */
     protected $route;
 
     /**
