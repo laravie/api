@@ -11,22 +11,38 @@ php:
 env:
   global:
     - setup=basic
+  matrix:
+    - laravel=5.4.*
+    - laravel=5.5.*
 
 cache:
   directories:
     - $HOME/.composer/cache
 
-matrix:
-  include:
-    - php: 5.6
-      env: setup=lowest
-    - php: 5.6
-      env: setup=stable
-
 install:
-  - if [[ $setup = 'basic' ]]; then travis_retry composer install --prefer-dist --no-interaction --no-suggest; fi
-  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
+  - if [[ $setup = 'basic' ]]; then travis_retry composer require "laravel/framework=${laravel}" --prefer-dist --no-interaction --no-suggest; fi
+  - if [[ $setup = 'stable' ]]; then travis_retry composer require "laravel/framework=${laravel}" --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer require "laravel/framework=${laravel}" --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
 
 script:
   - vendor/bin/phpunit
+
+matrix:
+  include:
+    - php: 5.6
+      env:
+        - setup=lowest
+        - laravel=5.4.*
+    - php: 5.6
+      env:
+        - setup=stable
+        - laravel=5.4.*
+    - php: 7.0
+      env:
+        - setup=lowest
+        - laravel=5.5.*
+    - php: 7.0
+      env:
+        - setup=stable
+        - laravel=5.5.*
+  fast_finish: true
