@@ -618,9 +618,23 @@ class Route
     /**
      * Get the domain defined for the route.
      *
+     * @deprecated Laravel 5.5.0
+     *
      * @return string|null
      */
     public function domain()
+    {
+        return Arr::get($this->action, 'domain');
+    }
+
+    /**
+     * Get the domain defined for the route. Used in Laravel 5.5+.
+     *
+     * @since Laravel 5.5.0
+     *
+     * @return string|null
+     */
+    public function getDomain()
     {
         return Arr::get($this->action, 'domain');
     }

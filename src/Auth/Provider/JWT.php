@@ -2,7 +2,6 @@
 
 namespace Dingo\Api\Auth\Provider;
 
-use Exception;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use Dingo\Api\Routing\Route;
