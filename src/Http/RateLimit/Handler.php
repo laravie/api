@@ -94,7 +94,7 @@ class Handler
         // per usual.
         if ($this->throttle instanceof Throttle) {
 
-        // If the developer specified a certain amount of requests or expiration
+            // If the developer specified a certain amount of requests or expiration
         // time on a specific route then we'll always use the route specific
         // throttle with the given values.
         } elseif ($limit > 0 || $expires > 0) {
@@ -102,7 +102,7 @@ class Handler
 
             $this->keyPrefix = sha1($request->path());
 
-        // Otherwise we'll use the throttle that gives the consumer the largest
+            // Otherwise we'll use the throttle that gives the consumer the largest
         // amount of requests. If no matching throttle is found then rate
         // limiting will not be imposed for the request.
         } else {

@@ -31,7 +31,7 @@ class JWTTest extends TestCase
         $this->auth->shouldReceive('parseToken')->andReturnSelf();
         $this->auth->shouldReceive('authenticate')->andReturnNull();
 
-        $this->provider->authenticate($request, m::mock('Dingo\Api\Routing\Route'));
+        $this->provider->authenticate($request, m::mock(\Dingo\Api\Routing\Route::class));
     }
 
     /**
@@ -45,7 +45,7 @@ class JWTTest extends TestCase
         $this->auth->shouldReceive('parseToken')->andReturnSelf();
         $this->auth->shouldReceive('authenticate')->once()->andThrow(new JWTException('foo'));
 
-        $this->provider->authenticate($request, m::mock('Dingo\Api\Routing\Route'));
+        $this->provider->authenticate($request, m::mock(\Dingo\Api\Routing\Route::class));
     }
 
     public function testAuthenticatingSucceedsAndReturnsUserObject()
@@ -56,7 +56,7 @@ class JWTTest extends TestCase
         $this->auth->shouldReceive('parseToken')->andReturnSelf();
         $this->auth->shouldReceive('authenticate')->once()->andReturn((object) ['id' => 1]);
 
-        $this->assertSame(1, $this->provider->authenticate($request, m::mock('Dingo\Api\Routing\Route'))->id);
+        $this->assertSame(1, $this->provider->authenticate($request, m::mock(\Dingo\Api\Routing\Route::class))->id);
     }
 
     public function testAuthenticatingWithQueryStringSucceedsAndReturnsUserObject()
@@ -66,6 +66,6 @@ class JWTTest extends TestCase
         $this->auth->shouldReceive('parseToken')->andReturnSelf();
         $this->auth->shouldReceive('authenticate')->once()->andReturn((object) ['id' => 1]);
 
-        $this->assertSame(1, $this->provider->authenticate($request, m::mock('Dingo\Api\Routing\Route'))->id);
+        $this->assertSame(1, $this->provider->authenticate($request, m::mock(\Dingo\Api\Routing\Route::class))->id);
     }
 }

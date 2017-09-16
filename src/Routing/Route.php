@@ -151,6 +151,11 @@ class Route
 
     /**
      * Setup the route properties.
+     *
+     * @param Request $request
+     * @param $route
+     *
+     * @return void
      */
     protected function setupRouteProperties(Request $request, $route)
     {
