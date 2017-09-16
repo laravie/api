@@ -14,6 +14,9 @@ env:
     - laravel=5.4.*
     - laravel=5.5.*
 
+# HHVM is no longer supported on Ubuntu Precise. Please consider using Trusty with `dist: trusty`.
+dist: trusty
+
 cache:
   directories:
     - $HOME/.composer/cache
