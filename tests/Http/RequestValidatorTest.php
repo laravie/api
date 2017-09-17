@@ -11,6 +11,8 @@ use Dingo\Api\Http\Parser\Accept as AcceptParser;
 
 class RequestValidatorTest extends TestCase
 {
+    protected $container;
+
     protected function setUp()
     {
         $this->container = new Container;

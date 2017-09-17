@@ -12,6 +12,10 @@ use Dingo\Api\Http\RateLimit\Throttle\Route;
 
 class HandlerTest extends TestCase
 {
+    protected $container;
+    protected $cache;
+    protected $limiter;
+
     protected function setUp()
     {
         $this->container = new Container;

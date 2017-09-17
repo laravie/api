@@ -12,6 +12,9 @@ use Illuminate\Routing\Route as IlluminateRoute;
 
 class RouteTest extends TestCase
 {
+    protected $adapter;
+    protected $container;
+
     protected function setUp()
     {
         $this->adapter = new RoutingAdapterStub;

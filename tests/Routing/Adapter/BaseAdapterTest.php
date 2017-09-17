@@ -10,6 +10,11 @@ use Dingo\Api\Tests\Stubs\MiddlewareStub;
 
 abstract class BaseAdapterTest extends TestCase
 {
+    protected $container;
+    protected $adapter;
+    protected $exception;
+    protected $router;
+
     protected function setUp()
     {
         $this->container = $this->getContainerInstance();

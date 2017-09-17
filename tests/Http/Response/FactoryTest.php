@@ -12,6 +12,9 @@ use Dingo\Api\Transformer\Factory as TransformerFactory;
 
 class FactoryTest extends TestCase
 {
+    protected $transformer;
+    protected $factory;
+
     protected function setUp()
     {
         $this->transformer = Mockery::mock(TransformerFactory::class);

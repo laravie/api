@@ -27,7 +27,7 @@ class AcceptTest extends TestCase
     {
         $parser = new Accept('vnd', 'api', 'v1', 'json');
 
-        $accept = $parser->parse($this->createRequest('foo', 'GET', ['accept' => 'application/vnd.foo.v2+xml']), true);
+        $parser->parse($this->createRequest('foo', 'GET', ['accept' => 'application/vnd.foo.v2+xml']), true);
     }
 
     public function testParsingValidAcceptReturnsHeaderValues()

@@ -10,6 +10,9 @@ use Dingo\Api\Auth\Provider\Basic;
 
 class BasicTest extends TestCase
 {
+    protected $auth;
+    protected $provider;
+
     protected function setUp()
     {
         $this->auth = m::mock('Illuminate\Auth\AuthManager');
