@@ -11,7 +11,6 @@ env:
   global:
     - setup=basic
   matrix:
-    - laravel=5.4.*
     - laravel=5.5.*
 
 # HHVM is no longer supported on Ubuntu Precise. Please consider using Trusty with `dist: trusty`.
@@ -31,18 +30,6 @@ script:
 
 matrix:
   include:
-    - php: 5.6
-      env:
-        - setup=basic
-        - laravel=5.4.*
-    - php: 5.6
-      env:
-        - setup=lowest
-        - laravel=5.4.*
-    - php: 5.6
-      env:
-        - setup=stable
-        - laravel=5.4.*
     - php: 7.0
       env:
         - setup=lowest
