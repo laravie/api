@@ -13,11 +13,11 @@
         "email": "jason.lewis1991@gmail.com"
     }],
     "require": {
-        "php": "^5.5.9 || ^5.6.0 || ^7.0",
-        "dingo/blueprint": "0.2.*",
-        "illuminate/routing": "~5.1.0 || ~5.2.0 || ~5.3.0 || ~5.4.0",
-        "illuminate/support": "~5.1.0 || ~5.2.0 || ~5.3.0 || ~5.4.0",
-        "league/fractal": ">=0.12.0"
+        "php": "^7.0",
+        "dingo/blueprint": "^0.2",
+        "illuminate/routing": "^5.1",
+        "illuminate/support": "^5.1",
+        "league/fractal": "^0.17"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "~2",
@@ -29,9 +29,8 @@
         "illuminate/filesystem": "^5.1",
         "illuminate/log": "^5.1",
         "illuminate/pagination": "^5.1",
-        "laravel/lumen-framework": "5.1.* || 5.2.*",
-        "lucadegasperi/oauth2-server-laravel": "5.0.*",
-        "mockery/mockery": "~0.9.4",
+        "laravel/lumen-framework": "^5.1",
+        "mockery/mockery": "~0.9",
         "phpunit/phpunit": "^4.8 || ^5.0",
         "tymon/jwt-auth": "1.0.*"
     },
@@ -39,7 +38,6 @@
         "dingo/api": "*"
     },
     "suggest": {
-        "lucadegasperi/oauth2-server-laravel": "Protect your API with OAuth 2.0.",
         "tymon/jwt-auth": "Protect your API with JSON Web Tokens."
     },
     "autoload": {
@@ -57,15 +55,14 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "2.0-dev"
         },
         "laravel": {
             "providers": [
                 "Dingo\\Api\\Provider\\LaravelServiceProvider"
             ],
             "aliases": {
-                "API": "Dingo\\Api\\Facade\\API",
-                "Route": "Dingo\\Api\\Facade\\Route"
+                "API": "Dingo\\Api\\Facade\\API"
             }
         }
     },
