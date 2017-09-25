@@ -2,14 +2,13 @@
 
 namespace Dingo\Api\Routing;
 
-use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Container\Container;
 use Dingo\Api\Contract\Routing\Adapter;
 
-class Route
+class Route extends \Illuminate\Routing\Route
 {
     /**
      * Routing adapter instance.
@@ -17,41 +16,6 @@ class Route
      * @var \Dingo\Api\Contract\Routing\Adapter
      */
     protected $adapter;
-
-    /**
-     * Container instance.
-     *
-     * @var \Illuminate\Container\Container
-     */
-    protected $container;
-
-    /**
-     * Route implementation.
-     *
-     * @var array|\Illuminate\Routing\Route
-     */
-    protected $route;
-
-    /**
-     * Route URI.
-     *
-     * @var string
-     */
-    protected $uri;
-
-    /**
-     * Array of HTTP methods.
-     *
-     * @var array
-     */
-    protected $methods;
-
-    /**
-     * Array of route action attributes.
-     *
-     * @var array
-     */
-    protected $action;
 
     /**
      * Array of versions this route will respond to.
@@ -96,20 +60,6 @@ class Route
     protected $throttle;
 
     /**
-     * Controller instance.
-     *
-     * @var object
-     */
-    protected $controller;
-
-    /**
-     * Controller method name.
-     *
-     * @var string
-     */
-    protected $controllerMethod;
-
-    /**
      * Controller class name.
      *
      * @var string
@@ -129,6 +79,7 @@ class Route
      * @var array
      */
     protected $middleware;
+    private $route;
 
     /**
      * Create a new route instance.
@@ -137,8 +88,6 @@ class Route
      * @param \Illuminate\Container\Container     $container
      * @param \Illuminate\Http\Request            $request
      * @param array|\Illuminate\Routing\Route     $route
-     *
-     * @return void
      */
     public function __construct(Adapter $adapter, Container $container, Request $request, $route)
     {
@@ -147,13 +96,15 @@ class Route
         $this->route = $route;
 
         $this->setupRouteProperties($request, $route);
+
+        parent::__construct($this->methods, $this->uri, $this->action);
     }
 
     /**
      * Setup the route properties.
      *
      * @param Request $request
-     * @param $route
+     * @param         $route
      *
      * @return void
      */
@@ -186,7 +137,8 @@ class Route
      */
     protected function mergeControllerProperties()
     {
-        if (isset($this->action['uses']) && is_string($this->action['uses']) && Str::contains($this->action['uses'], '@')) {
+        if (isset($this->action['uses']) && is_string($this->action['uses']) && Str::contains($this->action['uses'],
+                '@')) {
             $this->action['controller'] = $this->action['uses'];
 
             $this->makeControllerInstance();
@@ -261,7 +213,8 @@ class Route
     {
         if (empty($options)) {
             return true;
-        } elseif (isset($options['only']) && in_array($this->controllerMethod, $this->explodeOnPipes($options['only']))) {
+        } elseif (isset($options['only']) && in_array($this->controllerMethod,
+                $this->explodeOnPipes($options['only']))) {
             return true;
         } elseif (isset($options['except'])) {
             return ! in_array($this->controllerMethod, $this->explodeOnPipes($options['except']));
@@ -327,29 +280,10 @@ class Route
     {
         list($this->controllerClass, $this->controllerMethod) = explode('@', $this->action['uses']);
 
-        $this->container->instance($this->controllerClass, $this->controller = $this->container->make($this->controllerClass));
+        $this->container->instance($this->controllerClass,
+            $this->controller = $this->container->make($this->controllerClass));
 
         return $this->controller;
-    }
-
-    /**
-     * Get the middleware for this route.
-     *
-     * @return array
-     */
-    public function middleware()
-    {
-        return $this->middleware;
-    }
-
-    /**
-     * Get the middleware for this route.
-     *
-     * @return array
-     */
-    public function getMiddleware()
-    {
-        return $this->middleware;
     }
 
     /**
@@ -427,7 +361,7 @@ class Route
      */
     public function scopeStrict()
     {
-        return Arr::get($this->action, 'scopeStrict', false);
+        return $this->action['scopeStrict'] ?? false;
     }
 
     /**
@@ -497,7 +431,7 @@ class Route
      */
     public function getName()
     {
-        return Arr::get($this->action, 'as', null);
+        return $this->action['as'] ?? null;
     }
 
     /**
@@ -508,26 +442,6 @@ class Route
     public function requestIsConditional()
     {
         return $this->conditionalRequest === true;
-    }
-
-    /**
-     * Get the route action.
-     *
-     * @return array
-     */
-    public function getAction()
-    {
-        return $this->action;
-    }
-
-    /**
-     * Get the action name for the route.
-     *
-     * @return string
-     */
-    public function getActionName()
-    {
-        return Arr::get($this->action, 'controller', Arr::get($this->action, 'uses', 'Closure'));
     }
 
     /**
@@ -618,39 +532,5 @@ class Route
     public function secure()
     {
         return in_array('https', $this->action, true);
-    }
-
-    /**
-     * Get the domain defined for the route.
-     *
-     * @deprecated Laravel 5.5.0
-     *
-     * @return string|null
-     */
-    public function domain()
-    {
-        return Arr::get($this->action, 'domain');
-    }
-
-    /**
-     * Get the domain defined for the route. Used in Laravel 5.5+.
-     *
-     * @since Laravel 5.5.0
-     *
-     * @return string|null
-     */
-    public function getDomain()
-    {
-        return Arr::get($this->action, 'domain');
-    }
-
-    /**
-     * Get the original route.
-     *
-     * @return array|\Illuminate\Routing\Route
-     */
-    public function getOriginalRoute()
-    {
-        return $this->route;
     }
 }
