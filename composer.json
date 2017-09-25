@@ -31,7 +31,7 @@
         "illuminate/routing": "~5.4.0 || ~5.5.0",
         "illuminate/support": "~5.4.0 || ~5.5.0",
         "laravie/blueprint": "^0.2",
-        "league/fractal": ">=0.12.0"
+        "league/fractal": "^0.17"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.0",
@@ -46,9 +46,6 @@
     },
     "suggest": {
         "tymon/jwt-auth": "Protect your API with JSON Web Tokens."
-    },
-    "config": {
-        "sort-packages": true
     },
     "config": {
         "sort-packages": true

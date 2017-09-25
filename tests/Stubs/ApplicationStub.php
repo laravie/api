@@ -47,19 +47,14 @@ class ApplicationStub extends Container implements Application
         //
     }
 
-    public function getCachedServicesPath()
-    {
-        //
-    }
-
     public function getCachedPackagesPath()
     {
         //
     }
 
-    public function runningInConsole()
+    public function getCachedServicesPath()
     {
-        return true;
+        //
     }
 
     public function boot()
@@ -75,5 +70,10 @@ class ApplicationStub extends Container implements Application
     public function booted($callback)
     {
         //
+    }
+
+    public function runningInConsole()
+    {
+        return true;
     }
 }
