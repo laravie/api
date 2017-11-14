@@ -132,11 +132,7 @@ class LaravelServiceProvider extends DingoServiceProvider
     {
         $router = $this->app['router'];
 
-        if (method_exists($router, 'aliasMiddleware')) {
-            return $router->aliasMiddleware($name, $class);
-        }
-
-        return $router->middleware($name, $class);
+        return $this->app['router']->aliasMiddleware($name, $class);
     }
 
     /**
