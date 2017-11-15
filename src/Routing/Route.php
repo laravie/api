@@ -79,7 +79,13 @@ class Route extends \Illuminate\Routing\Route
      * @var array
      */
     protected $middleware;
-    private $route;
+
+    /**
+     * The route.
+     *
+     * @var array|\Illuminate\Routing\Route
+     */
+    protected $route;
 
     /**
      * Create a new route instance.
@@ -103,8 +109,8 @@ class Route extends \Illuminate\Routing\Route
     /**
      * Setup the route properties.
      *
-     * @param Request $request
-     * @param         $route
+     * @param \Illuminate\Http\Request $request
+     * @param array|\Illuminate\Routing\Route $route
      *
      * @return void
      */
