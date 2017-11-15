@@ -210,7 +210,7 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
         }
 
         $replacements = [
-            ':message'     => $message,
+            ':message' => $message,
             ':status_code' => $statusCode,
         ];
 
@@ -224,8 +224,8 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
 
         if ($this->runningInDebugMode()) {
             $replacements[':debug'] = [
-                'line'  => $exception->getLine(),
-                'file'  => $exception->getFile(),
+                'line' => $exception->getLine(),
+                'file' => $exception->getFile(),
                 'class' => get_class($exception),
                 'trace' => explode("\n", $exception->getTraceAsString()),
             ];

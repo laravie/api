@@ -109,7 +109,7 @@ class Route extends \Illuminate\Routing\Route
     /**
      * Setup the route properties.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request        $request
      * @param array|\Illuminate\Routing\Route $route
      *
      * @return void
