@@ -76,4 +76,9 @@ class ApplicationStub extends Container implements Application
     {
         return true;
     }
+
+    public function runningUnitTests()
+    {
+        return true;
+    }
 }
