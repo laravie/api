@@ -3,7 +3,6 @@ sudo: false
 dist: trusty
 
 php:
-  - 7.0
   - 7.1
   - 7.2
 
@@ -31,6 +30,10 @@ script:
 
 matrix:
   include:
+    - php: 7.0
+      env:
+        - setup=basic
+        - laravel=5.5.*
     - php: 7.0
       env:
         - setup=lowest
