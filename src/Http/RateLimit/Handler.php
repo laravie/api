@@ -57,7 +57,7 @@ class Handler
     /**
      * A callback used to define the limiter.
      *
-     * @var callback
+     * @var callable
      */
     protected $limiter;
 
@@ -93,19 +93,20 @@ class Handler
         // If the throttle instance is already set then we'll just carry on as
         // per usual.
         if ($this->throttle instanceof Throttle) {
-
-            // If the developer specified a certain amount of requests or expiration
-        // time on a specific route then we'll always use the route specific
-        // throttle with the given values.
         } elseif ($limit > 0 || $expires > 0) {
+            // If the developer specified a certain amount of requests or expiration
+            // time on a specific route then we'll always use the route specific
+            // throttle with the given values.
+
             $this->throttle = new Route(['limit' => $limit, 'expires' => $expires]);
 
             $this->keyPrefix = sha1($request->path());
 
-            // Otherwise we'll use the throttle that gives the consumer the largest
-        // amount of requests. If no matching throttle is found then rate
-        // limiting will not be imposed for the request.
         } else {
+            // Otherwise we'll use the throttle that gives the consumer the largest
+            // amount of requests. If no matching throttle is found then rate
+            // limiting will not be imposed for the request.
+
             $this->throttle = $this->getMatchingThrottles()->sort(function ($a, $b) {
                 return $a->getLimit() < $b->getLimit();
             })->first();
