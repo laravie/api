@@ -110,7 +110,7 @@ class Auth
         $exception = array_shift($exceptionStack);
 
         if ($exception === null) {
-            $exception = new UnauthorizedHttpException('', 'Failed to authenticate because of bad credentials or an invalid authorization header.');
+            $exception = new UnauthorizedHttpException('dingo', 'Failed to authenticate because of bad credentials or an invalid authorization header.');
         }
 
         throw $exception;
