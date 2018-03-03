@@ -7,13 +7,13 @@ php:
   - 7.2
 
 env:
-  global:
-    - laravel=5.5.*
-    - laravel=5.6.*
   matrix:
-    - setup=basic
-    - setup=lowest
-    - setup=stable
+    - setup=basic laravel=5.5.*
+    - setup=lowest laravel=5.5.*
+    - setup=stable laravel=5.5.*
+    - setup=basic laravel=5.6.*
+    - setup=lowest laravel=5.6.*
+    - setup=stable laravel=5.6.*
 
 # HHVM is no longer supported on Ubuntu Precise. Please consider using Trusty with `dist: trusty`.
 dist: trusty
