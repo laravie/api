@@ -2,6 +2,15 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.0.2
+
+Released: 2018-03-03
+
+### Changes
+
+* Show `errors` and `status_code` for `Illuminate\Validation\ValidationException`. ([@yangliulnn](https://github.com/yangliulnn))
+* Use `Illuminate\Validation\ValidationException::$status` if it's available as HTTP response status code. ([@SamsamBabadi](https://github.com/SamsamBabadi))
+
 ## 2.0.1
 
 Released: 2018-02-12
