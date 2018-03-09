@@ -59,4 +59,6 @@ matrix:
       env:
         - setup=stable
         - laravel=5.7.*
+  allow_failures:
+    - env: laravel=5.7.*
   fast_finish: true
