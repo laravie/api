@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Container\Container;
 use Dingo\Api\Http\RateLimit\Throttle\Route;
 use Dingo\Api\Contract\Http\RateLimit\Throttle;
+use Illuminate\Http\Request as IlluminateRequest;
 use Dingo\Api\Contract\Http\RateLimit\HasRateLimiter;
 
 class Handler
@@ -43,7 +44,7 @@ class Handler
     /**
      * Request instance being throttled.
      *
-     * @var \Dingo\Api\Http\Request
+     * @var \Illuminate\Http\Request
      */
     protected $request;
 
@@ -80,13 +81,13 @@ class Handler
     /**
      * Execute the rate limiting for the given request.
      *
-     * @param \Dingo\Api\Http\Request $request
-     * @param int                     $limit
-     * @param int                     $expires
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $limit
+     * @param int                      $expires
      *
      * @return void
      */
-    public function rateLimitRequest(Request $request, $limit = 0, $expires = 0)
+    public function rateLimitRequest(IlluminateRequest $request, $limit = 0, $expires = 0)
     {
         $this->request = $request;
 
