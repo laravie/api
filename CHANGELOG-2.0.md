@@ -2,6 +2,18 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.0.3
+
+Released: 2018-04-03
+
+### Added
+
+* Add `Dingo\Api\Routing\Route::getMiddleware()` method. ([@gazben](https://github.com/gazben))
+
+### Fixes
+
+* Fixes `Dingo\Api\Http\FormRequest` compatibility with Lumen and Laravel. ([@gazben](https://github.com/gazben))
+
 ## 2.0.2
 
 Released: 2018-03-03
