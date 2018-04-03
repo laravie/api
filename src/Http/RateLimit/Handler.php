@@ -2,13 +2,12 @@
 
 namespace Dingo\Api\Http\RateLimit;
 
-use Dingo\Api\Http\Request;
+use Illuminate\Http\Request;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Support\Collection;
 use Illuminate\Container\Container;
 use Dingo\Api\Http\RateLimit\Throttle\Route;
 use Dingo\Api\Contract\Http\RateLimit\Throttle;
-use Illuminate\Http\Request as IlluminateRequest;
 use Dingo\Api\Contract\Http\RateLimit\HasRateLimiter;
 
 class Handler
@@ -87,7 +86,7 @@ class Handler
      *
      * @return void
      */
-    public function rateLimitRequest(IlluminateRequest $request, $limit = 0, $expires = 0)
+    public function rateLimitRequest(Request $request, $limit = 0, $expires = 0)
     {
         $this->request = $request;
 
