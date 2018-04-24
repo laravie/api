@@ -113,7 +113,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     /**
      * Create the default validator instance.
      *
-     * @param  \Illuminate\Contracts\Validation\Factory  $factory
+     * @param \Illuminate\Contracts\Validation\Factory $factory
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -140,7 +140,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     /**
      * Handle a failed validation attempt.
      *
-     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @param \Illuminate\Contracts\Validation\Validator $validator
      *
      * @return void
      */
@@ -156,7 +156,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     /**
      * Get the proper failed validation response for the request.
      *
-     * @param  array  $errors
+     * @param array $errors
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -174,7 +174,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     /**
      * Format the errors from the given Validator instance.
      *
-     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @param \Illuminate\Contracts\Validation\Validator $validator
      *
      * @return array
      */
@@ -268,7 +268,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
     /**
      * Set the container implementation.
      *
-     * @param  \Illuminate\Contracts\Container\Container  $container
+     * @param \Illuminate\Contracts\Container\Container $container
      *
      * @return $this
      */
