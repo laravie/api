@@ -10,7 +10,6 @@ env:
   global:
     - setup=basic
   matrix:
-    - laravel=5.5.*
     - laravel=5.6.*
     - laravel=5.7.*
 
@@ -31,18 +30,6 @@ script:
 
 matrix:
   include:
-    - php: 7.0
-      env:
-        - setup=basic
-        - laravel=5.5.*
-    - php: 7.0
-      env:
-        - setup=lowest
-        - laravel=5.5.*
-    - php: 7.0
-      env:
-        - setup=stable
-        - laravel=5.5.*
     - php: 7.1
       env:
         - setup=lowest
