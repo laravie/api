@@ -2,6 +2,15 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.0.4
+
+Released: 2018-04-30
+
+### Changes
+
+* Use `Illuminate\Http\Request` as typehint for`Dingo\Api\Http\RateLimit\Handler`.
+* Override `Dingo\Api\Routing\ResourceRegistrar::register()` to prevent imcompatibility with breaking changes introduced in Laravel Framework v5.6.17.
+
 ## 2.0.3
 
 Released: 2018-04-03
