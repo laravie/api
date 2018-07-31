@@ -196,6 +196,8 @@ return [
     | responses prior to formatting. You can easily replace
     | this with your own transformer.
     |
+    | 'Dingo\Api\Transformer\Adapter\Illuminate' or 'Dingo\Api\Transformer\Adapter\Fractal'
+    |
     */
 
     'transformer' => env('API_TRANSFORMER', Dingo\Api\Transformer\Adapter\Illuminate::class),
