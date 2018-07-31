@@ -2,6 +2,8 @@
 
 namespace Dingo\Api\Transformer\Adapter;
 
+use Dingo\Api\Http\Request;
+use Dingo\Api\Transformer\Binding;
 use Dingo\Api\Contract\Transformer\Adapter;
 
 class Illuminate implements Adapter
