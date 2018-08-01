@@ -2,6 +2,14 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.0.5
+
+Released: 2018-08-01
+
+### Added
+
+* Added `Dingo\Api\Transformer\Adapter\Illuminate`.
+
 ## 2.0.4
 
 Released: 2018-04-30
