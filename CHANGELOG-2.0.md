@@ -2,6 +2,14 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.0.6
+
+Released: 2018-08-10
+
+### Fixes
+
+* Allow `Dingo\Api\Http\FormRequest::setRedirector()` to accept instance of `Laravel\Lumen\Http\Redirector` or `Illuminate\Routing\Redirector`. ([@gazben](https://github.com/gazben))
+
 ## 2.0.5
 
 Released: 2018-08-01
