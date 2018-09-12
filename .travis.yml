@@ -12,6 +12,7 @@ env:
   matrix:
     - laravel=5.6.*
     - laravel=5.7.*
+    - laravel=dev-master
 
 # HHVM is no longer supported on Ubuntu Precise. Please consider using Trusty with `dist: trusty`.
 dist: trusty
@@ -39,5 +40,5 @@ matrix:
         - setup=stable
         - laravel=5.6.*
   allow_failures:
-    - env: laravel=5.7.*
+    - env: laravel=dev-master
   fast_finish: true
