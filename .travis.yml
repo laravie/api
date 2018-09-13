@@ -26,7 +26,7 @@ install:
   - if [[ $setup = 'lowest' ]]; then travis_retry composer require "laravel/framework=${laravel}" --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
 
 script:
-  - vendor/bin/phpunit
+  - vendor/bin/phpunit -c ./ --verbose
 
 matrix:
   include:
