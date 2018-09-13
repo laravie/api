@@ -4,7 +4,7 @@ This changelog references the relevant changes (bug and security fixes) done to 
 
 ## 2.0.6
 
-Released: 2018-08-10
+Released: 2018-09-13
 
 ### Fixes
 
