@@ -164,7 +164,7 @@ class LaravelServiceProvider extends DingoServiceProvider
     /**
      * Initialize the form request with data from the given request.
      *
-     * @param FormRequest $form
+     * @param FormRequest       $form
      * @param IlluminateRequest $current
      *
      * @return void
