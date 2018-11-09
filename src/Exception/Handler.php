@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Dingo\Api\Contract\Debug\ExceptionHandler;
 use Dingo\Api\Contract\Debug\MessageBagErrors;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Illuminate\Contracts\Debug\ExceptionHandler as IlluminateExceptionHandler;
@@ -184,7 +185,7 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
             return $exception->status;
         }
 
-        return $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : 500;
+        return $this->getExceptionStatusCode($exception);
     }
 
     /**
@@ -300,6 +301,10 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
      */
     protected function getExceptionStatusCode(Exception $exception, $defaultStatusCode = 500)
     {
+        if ($exception instanceof ModelNotFoundException) {
+            return 404;
+        }
+
         return ($exception instanceof HttpExceptionInterface) ? $exception->getStatusCode() : $defaultStatusCode;
     }
 
