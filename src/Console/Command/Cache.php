@@ -23,32 +23,13 @@ class Cache extends Command
     public $description = 'Create a route cache file for faster route registration';
 
     /**
-     * Filesystem instance.
-     *
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $files;
-
-    /**
-     * Create a new cache command instance.
+     * Execute the console command.
      *
      * @param \Illuminate\Filesystem\Filesystem $files
      *
-     * @return void
-     */
-    public function __construct(Filesystem $files)
-    {
-        $this->files = $files;
-
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
      * @return mixed
      */
-    public function handle()
+    public function handle(Filesystem $files)
     {
         $this->callSilent('route:clear');
 
@@ -67,11 +48,11 @@ class Cache extends Command
         $stub = "app('api.router')->setAdapterRoutes(unserialize(base64_decode('{{routes}}')));";
         $path = $this->laravel->getCachedRoutesPath();
 
-        if (! $this->files->exists($path)) {
+        if (! $files->exists($path)) {
             $stub = "<?php\n\n$stub";
         }
 
-        $this->files->append(
+        $files->append(
             $path,
             str_replace('{{routes}}', base64_encode(serialize($routes)), $stub)
         );
