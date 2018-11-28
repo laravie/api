@@ -2,6 +2,14 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.0.7
+
+Released: 2018-11-26
+
+### Changes
+
+* Use `Illuminate\Contracts\Events\Dispatcher` instead of concrete `Illuminate\Events\Dispatcher`.
+
 ## 2.0.6
 
 Released: 2018-09-13
