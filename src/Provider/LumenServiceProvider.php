@@ -32,7 +32,7 @@ class LumenServiceProvider extends DingoServiceProvider
 
         $this->app->configure('api');
 
-        $reflection = new ReflectionClass($this->app->router);
+        $reflection = new ReflectionClass($this->app);
 
         $this->app[Request::class]->mergeMiddlewares(
             $this->gatherAppMiddleware($reflection)
@@ -45,7 +45,7 @@ class LumenServiceProvider extends DingoServiceProvider
         // set the route resolver to get the current route.
         $this->app->rebinding(IlluminateRequest::class, function ($app, $request) {
             $request->setRouteResolver(function () use ($app) {
-                $reflection = new ReflectionClass($app->router);
+                $reflection = new ReflectionClass($app);
 
                 $property = $reflection->getProperty('currentRoute');
                 $property->setAccessible(true);
