@@ -43,7 +43,8 @@
         "dingo/api": "*"
     },
     "suggest": {
-        "tymon/jwt-auth": "Protect your API with JSON Web Tokens."
+        "league/fractal": "Transform response using Fractal (^0.17).",
+        "tymon/jwt-auth": "Protect your API with JSON Web Tokens (^1.0)."
     },
     "config": {
         "sort-packages": true
