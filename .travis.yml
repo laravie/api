@@ -36,5 +36,7 @@ script:
 
 matrix:
   allow_failures:
-    - env: laravel=dev-master
+    -  env: laravel=dev-master
+    -  env: setup=lowest laravel=dev-master
+    -  env: setup=stable laravel=dev-master
   fast_finish: true
