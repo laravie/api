@@ -14,6 +14,10 @@ env:
   matrix:
     - laravel=5.7.*
     - laravel=dev-master
+    - setup=lowest laravel=5.7.*
+    - setup=lowest laravel=dev-master
+    - setup=stable laravel=5.7.*
+    - setup=stable laravel=dev-master
 
 # HHVM is no longer supported on Ubuntu Precise. Please consider using Trusty with `dist: trusty`.
 dist: trusty
@@ -23,23 +27,14 @@ cache:
     - $HOME/.composer/cache
 
 install:
-  - if [[ $setup = 'basic' ]]; then travis_retry composer require "laravel/framework=${laravel}" --prefer-dist --no-interaction --no-suggest; fi
-  - if [[ $setup = 'stable' ]]; then travis_retry composer require "laravel/framework=${laravel}" --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer require "laravel/framework=${laravel}" --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
+  - travis_retry composer require "laravel/framework=${laravel}" --prefer-dist --no-interaction --no-suggest
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
 
 script:
   - vendor/bin/phpunit -c ./ --verbose
 
 matrix:
-  include:
-    - php: 7.1
-      env:
-        - setup=lowest
-        - laravel=5.7.*
-    - php: 7.1
-      env:
-        - setup=stable
-        - laravel=5.7.*
   allow_failures:
     - env: laravel=dev-master
   fast_finish: true
