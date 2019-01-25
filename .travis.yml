@@ -13,7 +13,6 @@ env:
     - setup=basic
   matrix:
     - laravel=5.7.*
-    - laravel=dev-master
     - setup=lowest laravel=5.7.*
     - setup=stable laravel=5.7.*
 
@@ -31,9 +30,10 @@ script:
   - vendor/bin/phpunit -c ./ --verbose
 
 matrix:
+  include:
+    - php: 7.1
+      env: setup=basic laravel=dev-master
   allow_failures:
     - php: nightly
-    - env: laravel=dev-master
-    - env: setup=lowest laravel=dev-master
-    - env: setup=stable laravel=dev-master
+    - env: setup=basic laravel=dev-master
   fast_finish: true
