@@ -19,11 +19,9 @@ env:
     - setup=lowest laravel=5.5.*
     - setup=lowest laravel=5.6.*
     - setup=lowest laravel=5.7.*
-    - setup=lowest laravel=dev-master
     - setup=stable laravel=5.5.*
     - setup=stable laravel=5.6.*
     - setup=stable laravel=5.7.*
-    - setup=stable laravel=dev-master
 
 dist: trusty
 
