@@ -19,12 +19,10 @@ env:
     - setup=stable laravel=5.7.*
     - setup=stable laravel=dev-master
 
-# HHVM is no longer supported on Ubuntu Precise. Please consider using Trusty with `dist: trusty`.
 dist: trusty
 
-cache:
-  directories:
-    - $HOME/.composer/cache
+before_install:
+  - if [[ $xdebug = 'true' ]] ; then phpenv config-rm xdebug.ini; fi
 
 install:
   - travis_retry composer require "laravel/framework=${laravel}" --prefer-dist --no-interaction --no-suggest
@@ -36,7 +34,8 @@ script:
 
 matrix:
   allow_failures:
-    -  env: laravel=dev-master
-    -  env: setup=lowest laravel=dev-master
-    -  env: setup=stable laravel=dev-master
+    - php: nightly
+    - env: laravel=dev-master
+    - env: setup=lowest laravel=dev-master
+    - env: setup=stable laravel=dev-master
   fast_finish: true
