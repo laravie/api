@@ -65,11 +65,7 @@ class Cache extends Command
      */
     protected function getFreshApplication()
     {
-        if (method_exists($this->laravel, 'bootstrapPath')) {
-            $app = require $this->laravel->bootstrapPath().'/app.php';
-        } else {
-            $app = require $this->laravel->basePath().'/bootstrap/app.php';
-        }
+        $app = require $this->laravel->bootstrapPath().'/app.php';
 
         $app->make(Kernel::class)->bootstrap();
 
