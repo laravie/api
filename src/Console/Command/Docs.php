@@ -5,6 +5,7 @@ namespace Dingo\Api\Console\Command;
 use ReflectionClass;
 use Dingo\Blueprint\Writer;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Dingo\Api\Routing\Router;
 use Dingo\Blueprint\Blueprint;
 use Illuminate\Console\Command;
@@ -101,7 +102,9 @@ class Docs extends Command
      */
     public function handle()
     {
-        $contents = $this->blueprint->generate($this->getControllers(), $this->getDocName(), $this->getVersion(), $this->getIncludePath());
+        $contents = $this->blueprint->generate(
+            $this->getControllers(), $this->getDocName(), $this->getVersion(), $this->getIncludePath()
+        );
 
         if ($file = $this->option('output-file')) {
             $this->writer->write($contents, $file);
@@ -122,7 +125,9 @@ class Docs extends Command
         $name = $this->option('name') ?: $this->name;
 
         if (! $name) {
-            $this->comment('A name for the documentation was not supplied. Use the --name option or set a default in the configuration.');
+            $this->comment(
+                'A name for the documentation was not supplied. Use the --name option or set a default in the configuration.'
+            );
 
             exit;
         }
@@ -137,7 +142,7 @@ class Docs extends Command
      */
     protected function getIncludePath()
     {
-        return base_path($this->option('include-path'));
+        return \base_path($this->option('include-path'));
     }
 
     /**
@@ -150,7 +155,9 @@ class Docs extends Command
         $version = $this->option('use-version') ?: $this->version;
 
         if (! $version) {
-            $this->comment('A version for the documentation was not supplied. Use the --use-version option or set a default in the configuration.');
+            $this->comment(
+                'A version for the documentation was not supplied. Use the --use-version option or set a default in the configuration.'
+            );
 
             exit;
         }
@@ -168,7 +175,7 @@ class Docs extends Command
         $controllers = new Collection();
 
         if ($controller = $this->option('use-controller')) {
-            $this->addControllerIfNotExists($controllers, app($controller));
+            $this->addControllerIfNotExists($controllers, \app($controller));
 
             return $controllers;
         }
@@ -196,7 +203,7 @@ class Docs extends Command
      */
     protected function addControllerIfNotExists(Collection $controllers, $controller)
     {
-        $class = get_class($controller);
+        $class = \get_class($controller);
 
         if ($controllers->has($class)) {
             return;
@@ -205,7 +212,7 @@ class Docs extends Command
         $reflection = new ReflectionClass($controller);
 
         $interface = Arr::first($reflection->getInterfaces(), function ($key, $value) {
-            return ends_with($key, 'Docs');
+            return Str::endsWith($key, 'Docs');
         });
 
         if ($interface) {

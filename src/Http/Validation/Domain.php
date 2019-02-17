@@ -38,7 +38,7 @@ class Domain implements Validator
      */
     public function validate(Request $request)
     {
-        return ! is_null($this->domain) && $request->getHost() === $this->getStrippedDomain();
+        return ! \is_null($this->domain) && $request->getHost() === $this->getStrippedDomain();
     }
 
     /**
@@ -51,7 +51,7 @@ class Domain implements Validator
     protected function stripProtocol($domain)
     {
         if (Str::contains($domain, '://')) {
-            $domain = substr($domain, strpos($domain, '://') + 3);
+            $domain = \substr($domain, \strpos($domain, '://') + 3);
         }
 
         return $domain;
@@ -66,7 +66,7 @@ class Domain implements Validator
      */
     protected function stripPort($domain)
     {
-        if ($domainStripped = preg_replace(self::PATTERN_STRIP_PROTOCOL, null, $domain)) {
+        if ($domainStripped = \preg_replace(self::PATTERN_STRIP_PROTOCOL, null, $domain)) {
             return $domainStripped;
         }
 

@@ -70,11 +70,11 @@ class Binding
      */
     public function resolveTransformer()
     {
-        if (is_string($this->resolver)) {
+        if (\is_string($this->resolver)) {
             return $this->container->make($this->resolver);
-        } elseif (is_callable($this->resolver)) {
-            return call_user_func($this->resolver, $this->container);
-        } elseif (is_object($this->resolver)) {
+        } elseif (\is_callable($this->resolver)) {
+            return \call_user_func($this->resolver, $this->container);
+        } elseif (\is_object($this->resolver)) {
             return $this->resolver;
         }
 
@@ -90,8 +90,8 @@ class Binding
      */
     public function fireCallback($parameters = null)
     {
-        if (is_callable($this->callback)) {
-            call_user_func_array($this->callback, func_get_args());
+        if (\is_callable($this->callback)) {
+            \call_user_func($this->callback, ...\func_get_args());
         }
     }
 

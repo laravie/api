@@ -99,13 +99,13 @@ class Routes extends RouteListCommand
             foreach ($collection->getRoutes() as $route) {
                 $routes[] = $this->filterRoute([
                     'host' => $route->domain(),
-                    'method' => implode('|', $route->methods()),
+                    'method' => \implode('|', $route->methods()),
                     'uri' => $route->uri(),
                     'name' => $route->getName(),
                     'action' => $route->getActionName(),
                     'protected' => $route->isProtected() ? 'Yes' : 'No',
-                    'versions' => implode(', ', $route->versions()),
-                    'scopes' => implode(', ', $route->scopes()),
+                    'versions' => \implode(', ', $route->versions()),
+                    'scopes' => \implode(', ', $route->scopes()),
                     'rate' => $this->routeRateLimit($route),
                 ]);
             }
@@ -118,18 +118,18 @@ class Routes extends RouteListCommand
         }
 
         if ($this->option('reverse')) {
-            $routes = array_reverse($routes);
+            $routes = \array_reverse($routes);
         }
 
         if ($this->option('short')) {
             $this->headers = ['Method', 'URI', 'Name', 'Version(s)'];
 
-            $routes = array_map(function ($item) {
+            $routes = \array_map(function ($item) {
                 return Arr::only($item, ['method', 'uri', 'name', 'versions']);
             }, $routes);
         }
 
-        return array_filter(array_unique($routes, SORT_REGULAR));
+        return \array_filter(\array_unique($routes, SORT_REGULAR));
     }
 
     /**
@@ -147,7 +147,7 @@ class Routes extends RouteListCommand
         list($limit, $expires) = [$route->getRateLimit(), $route->getRateLimitExpiration()];
 
         if ($limit && $expires) {
-            return sprintf('%s req/s', round($limit / ($expires * 60), 2));
+            return \sprintf('%s req/s', \round($limit / ($expires * 60), 2));
         }
     }
 
@@ -163,7 +163,7 @@ class Routes extends RouteListCommand
         $filters = ['name', 'path', 'protected', 'unprotected', 'versions', 'scopes'];
 
         foreach ($filters as $filter) {
-            if ($this->option($filter) && ! $this->{'filterBy'.ucfirst($filter)}($route)) {
+            if ($this->option($filter) && ! $this->{'filterBy'.\ucfirst($filter)}($route)) {
                 return;
             }
         }
@@ -186,7 +186,7 @@ class Routes extends RouteListCommand
             }
         }
 
-        return array_merge(
+        return \array_merge(
             $options,
             [
                 ['sort', null, InputOption::VALUE_OPTIONAL, 'The column (domain, method, uri, name, action) to sort by'],

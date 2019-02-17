@@ -78,7 +78,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
             throw new AccessDeniedHttpException();
         }
 
-        $validator = app('validator')->make($this->all(), $this->rules(), $this->messages());
+        $validator = \app('validator')->make($this->all(), $this->rules(), $this->messages());
 
         if ($validator->fails()) {
             throw new ValidationHttpException($validator->errors());
@@ -96,13 +96,13 @@ class FormRequest extends Request implements ValidatesWhenResolved
     {
         $factory = $this->container->make(ValidationFactory::class);
 
-        if (method_exists($this, 'validator')) {
+        if (\method_exists($this, 'validator')) {
             $validator = $this->container->call([$this, 'validator'], compact('factory'));
         } else {
             $validator = $this->createDefaultValidator($factory);
         }
 
-        if (method_exists($this, 'withValidator')) {
+        if (\method_exists($this, 'withValidator')) {
             $this->withValidator($validator);
         }
 
@@ -209,7 +209,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
      */
     protected function passesAuthorization()
     {
-        if (method_exists($this, 'authorize')) {
+        if (\method_exists($this, 'authorize')) {
             return $this->container->call([$this, 'authorize']);
         }
 

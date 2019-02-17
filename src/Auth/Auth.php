@@ -107,10 +107,12 @@ class Auth
      */
     protected function throwUnauthorizedException(array $exceptionStack)
     {
-        $exception = array_shift($exceptionStack);
+        $exception = \array_shift($exceptionStack);
 
         if ($exception === null) {
-            $exception = new UnauthorizedHttpException('dingo', 'Failed to authenticate because of bad credentials or an invalid authorization header.');
+            $exception = new UnauthorizedHttpException(
+                'dingo', 'Failed to authenticate because of bad credentials or an invalid authorization header.'
+            );
         }
 
         throw $exception;
@@ -129,7 +131,7 @@ class Auth
             return $this->providers;
         }
 
-        return array_intersect_key($this->providers, array_flip($providers));
+        return \array_intersect_key($this->providers, \array_flip($providers));
     }
 
     /**
@@ -189,7 +191,7 @@ class Auth
      */
     public function check($authenticate = false)
     {
-        return ! is_null($this->user($authenticate));
+        return ! \is_null($this->user($authenticate));
     }
 
     /**
@@ -212,8 +214,8 @@ class Auth
      */
     public function extend($key, $provider)
     {
-        if (is_callable($provider)) {
-            $provider = call_user_func($provider, $this->container);
+        if (\is_callable($provider)) {
+            $provider = \call_user_func($provider, $this->container);
         }
 
         $this->providers[$key] = $provider;

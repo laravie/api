@@ -107,7 +107,7 @@ class Lumen implements Adapter
         $this->removeMiddlewareFromApp();
 
         $routeCollector = $this->mergeOldRoutes($version);
-        $dispatcher = call_user_func($this->dispatcherResolver, $routeCollector);
+        $dispatcher = \call_user_func($this->dispatcherResolver, $routeCollector);
 
         $this->app->setDispatcher($dispatcher);
 
@@ -149,7 +149,7 @@ class Lumen implements Adapter
     {
         $query = $request->server->get('QUERY_STRING');
 
-        $uri = '/'.trim(str_replace('?'.$query, '', $request->server->get('REQUEST_URI')), '/').($query ? '?'.$query : '');
+        $uri = '/'.\trim(\str_replace('?'.$query, '', $request->server->get('REQUEST_URI')), '/').($query ? '?'.$query : '');
 
         $request->server->set('REQUEST_URI', $uri);
     }
@@ -164,11 +164,11 @@ class Lumen implements Adapter
      */
     public function getRouteProperties($route, Request $request)
     {
-        $uri = ltrim(isset($route['uri']) ? $route['uri'] : $request->getRequestUri(), '/');
+        $uri = \ltrim(isset($route['uri']) ? $route['uri'] : $request->getRequestUri(), '/');
         $methods = isset($route['methods']) ? $route['methods'] : (array) $request->getMethod();
-        $action = (isset($route[1]) && is_array($route[1])) ? $route[1] : $route;
+        $action = (isset($route[1]) && \is_array($route[1])) ? $route[1] : $route;
 
-        if (in_array('GET', $methods) && ! in_array('HEAD', $methods)) {
+        if (\in_array('GET', $methods) && ! \in_array('HEAD', $methods)) {
             $methods[] = 'HEAD';
         }
 
@@ -209,9 +209,9 @@ class Lumen implements Adapter
             return (array) $uri;
         }
 
-        $segments = preg_split(
+        $segments = \preg_split(
             '/\/(\{.*?\})/',
-            preg_replace('/\{(.*?)\?\}/', '{$1}', $uri),
+            \preg_replace('/\{(.*?)\?\}/', '{$1}', $uri),
             -1,
             PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY
         );
@@ -219,9 +219,9 @@ class Lumen implements Adapter
         $uris = [];
 
         while ($segments) {
-            $uris[] = implode('/', $segments);
+            $uris[] = \implode('/', $segments);
 
-            array_pop($segments);
+            \array_pop($segments);
         }
 
         return $uris;
@@ -263,11 +263,13 @@ class Lumen implements Adapter
         $property->setAccessible(true);
         $oldMiddlewares = $property->getValue($this->app);
         $newMiddlewares = [];
+
         foreach ($oldMiddlewares as $middle) {
             if ((new ReflectionClass($middle))->hasMethod('terminate') && $middle != 'Dingo\Api\Http\Middleware\Request') {
-                $newMiddlewares = array_merge($newMiddlewares, [$middle]);
+                $newMiddlewares = \array_merge($newMiddlewares, [$middle]);
             }
         }
+
         $property->setValue($this->app, $newMiddlewares);
         $property->setAccessible(false);
     }
@@ -281,7 +283,7 @@ class Lumen implements Adapter
      */
     public function getRoutes($version = null)
     {
-        if (! is_null($version)) {
+        if (! \is_null($version)) {
             return $this->routes[$version];
         }
 
@@ -343,7 +345,7 @@ class Lumen implements Adapter
      */
     protected function normalizeStaticRoutes(array $routes)
     {
-        foreach (array_keys($routes) as $key) {
+        foreach (\array_keys($routes) as $key) {
             // If any of the keys are  an HTTP method then we are running on a newer version of
             // Lumen and FastRoute which means we can leave the routes as they are.
             if ($this->stringIsHttpMethod($key)) {
@@ -376,7 +378,7 @@ class Lumen implements Adapter
     {
         $methods = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
 
-        return in_array($string, $methods, true);
+        return \in_array($string, $methods, true);
     }
 
     /**
@@ -427,7 +429,7 @@ class Lumen implements Adapter
     private function setRouteMethods($route, $method)
     {
         return isset($route['methods'])
-            ? array_push($route['methods'], $method)
+            ? \array_push($route['methods'], $method)
             : [$method];
     }
 }

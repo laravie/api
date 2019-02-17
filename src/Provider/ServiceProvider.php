@@ -25,9 +25,9 @@ abstract class ServiceProvider extends IlluminateServiceProvider
      */
     protected function config($item, $instantiate = true)
     {
-        $value = $this->app['config']->get('api.'.$item);
+        $value = $this->app->make('config')->get("api.{$item}");
 
-        if (is_array($value)) {
+        if (\is_array($value)) {
             return $instantiate ? $this->instantiateConfigValues($item, $value) : $value;
         }
 
@@ -61,7 +61,7 @@ abstract class ServiceProvider extends IlluminateServiceProvider
      */
     protected function instantiateConfigValue($item, $value)
     {
-        if (is_string($value) && in_array($item, $this->instantiable)) {
+        if (\is_string($value) && \in_array($item, $this->instantiable)) {
             return $this->app->make($value);
         }
 

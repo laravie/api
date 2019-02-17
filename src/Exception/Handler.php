@@ -4,6 +4,7 @@ namespace Dingo\Api\Exception;
 
 use Exception;
 use ReflectionFunction;
+use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Dingo\Api\Contract\Debug\ExceptionHandler;
 use Dingo\Api\Contract\Debug\MessageBagErrors;
@@ -167,8 +168,8 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
 
         $response = $this->newResponseArray();
 
-        array_walk_recursive($response, function (&$value, $key) use ($exception, $replacements) {
-            if (starts_with($value, ':') && isset($replacements[$value])) {
+        \array_walk_recursive($response, function (&$value, $key) use ($exception, $replacements) {
+            if (Str::startsWith($value, ':') && isset($replacements[$value])) {
                 $value = $replacements[$value];
             }
         });
@@ -218,7 +219,7 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
         $statusCode = $this->getStatusCode($exception);
 
         if (! $message = $exception->getMessage()) {
-            $message = sprintf('%d %s', $statusCode, Response::$statusTexts[$statusCode]);
+            $message = \sprintf('%d %s', $statusCode, Response::$statusTexts[$statusCode]);
         }
 
         $replacements = [
@@ -243,22 +244,22 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
             $replacements[':debug'] = [
                 'line' => $exception->getLine(),
                 'file' => $exception->getFile(),
-                'class' => get_class($exception),
-                'trace' => explode("\n", $exception->getTraceAsString()),
+                'class' => \get_class($exception),
+                'trace' => \explode("\n", $exception->getTraceAsString()),
             ];
 
             // Attach trace of previous exception, if exists
-            if (! is_null($exception->getPrevious())) {
+            if (! \is_null($exception->getPrevious())) {
                 $currentTrace = $replacements[':debug']['trace'];
 
                 $replacements[':debug']['trace'] = [
-                    'previous' => explode("\n", $exception->getPrevious()->getTraceAsString()),
+                    'previous' => \explode("\n", $exception->getPrevious()->getTraceAsString()),
                     'current' => $currentTrace,
                 ];
             }
         }
 
-        return array_merge($replacements, $this->replacements);
+        return \array_merge($replacements, $this->replacements);
     }
 
     /**
@@ -283,14 +284,14 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
     protected function recursivelyRemoveEmptyReplacements(array $input)
     {
         foreach ($input as &$value) {
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 $value = $this->recursivelyRemoveEmptyReplacements($value);
             }
         }
 
-        return array_filter($input, function ($value) {
-            if (is_string($value)) {
-                return ! starts_with($value, ':');
+        return \array_filter($input, function ($value) {
+            if (\is_string($value)) {
+                return ! Str::startsWith($value, ':');
             }
 
             return true;

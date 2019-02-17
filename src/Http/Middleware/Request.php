@@ -148,8 +148,8 @@ class Request
         // application middlewares now so that we can terminate them. Laravel does
         // not need this as it handles things a little more gracefully so it
         // can terminate the application ones itself.
-        if (class_exists(Application::class, false)) {
-            $middlewares = array_merge($middlewares, $this->middleware);
+        if (\class_exists(Application::class, false)) {
+            $middlewares = \array_merge($middlewares, $this->middleware);
         }
 
         foreach ($middlewares as $middleware) {
@@ -161,7 +161,7 @@ class Request
 
             $instance = $this->app->make($name);
 
-            if (method_exists($instance, 'terminate')) {
+            if (\method_exists($instance, 'terminate')) {
                 $instance->terminate($request, $response);
             }
         }
@@ -178,10 +178,10 @@ class Request
      */
     protected function parseMiddleware($middleware)
     {
-        list($name, $parameters) = array_pad(explode(':', $middleware, 2), 2, []);
+        list($name, $parameters) = \array_pad(\explode(':', $middleware, 2), 2, []);
 
-        if (is_string($parameters)) {
-            $parameters = explode(',', $parameters);
+        if (\is_string($parameters)) {
+            $parameters = \explode(',', $parameters);
         }
 
         return [$name, $parameters];
@@ -224,6 +224,6 @@ class Request
      */
     public function mergeMiddlewares(array $middleware)
     {
-        $this->middleware = array_merge($this->middleware, $middleware);
+        $this->middleware = \array_merge($this->middleware, $middleware);
     }
 }

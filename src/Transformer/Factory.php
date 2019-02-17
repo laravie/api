@@ -98,7 +98,7 @@ class Factory
      */
     public function transformableType($value)
     {
-        return is_object($value) || is_string($value);
+        return \is_object($value) || \is_string($value);
     }
 
     /**
@@ -116,7 +116,7 @@ class Factory
             return $this->getBindingFromCollection($class);
         }
 
-        $class = is_object($class) ? get_class($class) : $class;
+        $class = \is_object($class) ? \get_class($class) : $class;
 
         if (! $this->hasBinding($class)) {
             throw new RuntimeException('Unable to find bound transformer for "'.$class.'" class.');
@@ -164,7 +164,7 @@ class Factory
             $class = $class->first();
         }
 
-        $class = is_object($class) ? get_class($class) : $class;
+        $class = \is_object($class) ? \get_class($class) : $class;
 
         return isset($this->bindings[$class]);
     }
@@ -200,8 +200,8 @@ class Factory
      */
     public function setAdapter($adapter)
     {
-        if (is_callable($adapter)) {
-            $adapter = call_user_func($adapter, $this->container);
+        if (\is_callable($adapter)) {
+            $adapter = \call_user_func($adapter, $this->container);
         }
 
         $this->adapter = $adapter;
@@ -243,6 +243,6 @@ class Factory
      */
     public function __call($method, $parameters)
     {
-        return call_user_func_array([$this->adapter, $method], $parameters);
+        return \call_user_func([$this->adapter, $method], ...$parameters);
     }
 }

@@ -69,7 +69,7 @@ class Jsonp extends Json
         $jsonString = parent::encode($content);
 
         if ($this->hasValidCallback()) {
-            return sprintf('%s(%s);', $this->getCallback(), $jsonString);
+            return \sprintf('%s(%s);', $this->getCallback(), $jsonString);
         }
 
         return $jsonString;

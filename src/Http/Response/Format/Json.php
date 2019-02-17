@@ -66,7 +66,7 @@ class Json extends Format
     {
         $content = $this->morphToArray($content);
 
-        array_walk_recursive($content, function (&$value) {
+        \array_walk_recursive($content, function (&$value) {
             $value = $this->morphToArray($value);
         });
 

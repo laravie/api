@@ -96,9 +96,9 @@ class Factory
     public function collection(Collection $collection, $transformer, $parameters = [], Closure $after = null)
     {
         if ($collection->isEmpty()) {
-            $class = get_class($collection);
+            $class = \get_class($collection);
         } else {
-            $class = get_class($collection->first());
+            $class = \get_class($collection->first());
         }
 
         if ($parameters instanceof \Closure) {
@@ -123,7 +123,7 @@ class Factory
      */
     public function item($item, $transformer, $parameters = [], Closure $after = null)
     {
-        $class = get_class($item);
+        $class = \get_class($item);
 
         if ($parameters instanceof \Closure) {
             $after = $parameters;
@@ -148,9 +148,9 @@ class Factory
     public function paginator(Paginator $paginator, $transformer, array $parameters = [], Closure $after = null)
     {
         if ($paginator->isEmpty()) {
-            $class = get_class($paginator);
+            $class = \get_class($paginator);
         } else {
-            $class = get_class($paginator->first());
+            $class = \get_class($paginator->first());
         }
 
         $binding = $this->transformer->register($class, $transformer, $parameters, $after);
@@ -270,7 +270,7 @@ class Factory
     public function __call($method, $parameters)
     {
         if (Str::startsWith($method, 'with')) {
-            return call_user_func_array([$this, Str::camel(substr($method, 4))], $parameters);
+            return \call_user_func([$this, Str::camel(\substr($method, 4))], ...$parameters);
         } elseif ($method == 'array') {
             // Because PHP won't let us name the method "array" we'll simply watch for it
             // in here and return the new binding. Gross. This is now DEPRECATED and
@@ -279,6 +279,6 @@ class Factory
             return new Response($parameters[0]);
         }
 
-        throw new ErrorException('Undefined method '.get_class($this).'::'.$method);
+        throw new ErrorException('Undefined method '.\get_class($this).'::'.$method);
     }
 }

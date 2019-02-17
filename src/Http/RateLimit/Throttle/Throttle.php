@@ -22,7 +22,7 @@ abstract class Throttle implements RateLimitThrottle
      */
     public function __construct(array $options = [])
     {
-        $this->options = array_merge($this->options, $options);
+        $this->options = \array_merge($this->options, $options);
     }
 
     /**

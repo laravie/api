@@ -53,7 +53,7 @@ trait Helpers
      */
     protected function throttle($class, array $options = [])
     {
-        $this->throttles[] = compact('class', 'options');
+        $this->throttles[] = \compact('class', 'options');
     }
 
     /**
@@ -67,7 +67,7 @@ trait Helpers
      */
     protected function rateLimit($limit, $expires, array $options = [])
     {
-        $this->rateLimit[] = compact('limit', 'expires', 'options');
+        $this->rateLimit[] = \compact('limit', 'expires', 'options');
     }
 
     /**
@@ -82,7 +82,7 @@ trait Helpers
     {
         $scopes = $this->getPropertyValue($scopes);
 
-        $this->scopes[] = compact('scopes', 'options');
+        $this->scopes[] = \compact('scopes', 'options');
     }
 
     /**
@@ -97,7 +97,7 @@ trait Helpers
     {
         $providers = $this->getPropertyValue($providers);
 
-        $this->authenticationProviders[] = compact('providers', 'options');
+        $this->authenticationProviders[] = \compact('providers', 'options');
     }
 
     /**
@@ -109,7 +109,7 @@ trait Helpers
      */
     protected function getPropertyValue($value)
     {
-        return is_string($value) ? explode('|', $value) : $value;
+        return \is_string($value) ? \explode('|', $value) : $value;
     }
 
     /**
@@ -159,7 +159,7 @@ trait Helpers
      */
     public function api()
     {
-        return app(Dispatcher::class);
+        return \app(Dispatcher::class);
     }
 
     /**
@@ -169,7 +169,7 @@ trait Helpers
      */
     protected function user()
     {
-        return app(Auth::class)->user();
+        return \app(Auth::class)->user();
     }
 
     /**
@@ -179,7 +179,7 @@ trait Helpers
      */
     protected function auth()
     {
-        return app(Auth::class);
+        return \app(Auth::class);
     }
 
     /**
@@ -189,7 +189,7 @@ trait Helpers
      */
     protected function response()
     {
-        return app(Factory::class);
+        return \app(Factory::class);
     }
 
     /**
@@ -207,11 +207,11 @@ trait Helpers
             'api', 'user', 'auth', 'response',
         ];
 
-        if (in_array($key, $callable) && method_exists($this, $key)) {
+        if (\in_array($key, $callable) && \method_exists($this, $key)) {
             return $this->$key();
         }
 
-        throw new ErrorException('Undefined property '.get_class($this).'::'.$key);
+        throw new ErrorException('Undefined property '.\get_class($this).'::'.$key);
     }
 
     /**
@@ -226,10 +226,10 @@ trait Helpers
      */
     public function __call($method, $parameters)
     {
-        if (method_exists($this->response(), $method) || $method == 'array') {
-            return call_user_func_array([$this->response(), $method], $parameters);
+        if (\method_exists($this->response(), $method) || $method == 'array') {
+            return \call_user_func([$this->response(), $method], ...$parameters);
         }
 
-        throw new ErrorException('Undefined method '.get_class($this).'::'.$method);
+        throw new ErrorException('Undefined method '.\get_class($this).'::'.$method);
     }
 }

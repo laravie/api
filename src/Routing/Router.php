@@ -125,13 +125,13 @@ class Router
      */
     public function version($version, $second, $third = null)
     {
-        if (func_num_args() == 2) {
-            list($version, $callback, $attributes) = array_merge(func_get_args(), [[]]);
+        if (\func_num_args() == 2) {
+            list($version, $callback, $attributes) = \array_merge(\func_get_args(), [[]]);
         } else {
-            list($version, $attributes, $callback) = func_get_args();
+            list($version, $attributes, $callback) = \func_get_args();
         }
 
-        $attributes = array_merge($attributes, ['version' => $version]);
+        $attributes = \array_merge($attributes, ['version' => $version]);
 
         $this->group($attributes, $callback);
     }
@@ -168,9 +168,9 @@ class Router
 
         $this->groupStack[] = $attributes;
 
-        call_user_func($callback, $this);
+        \call_user_func($callback, $this);
 
-        array_pop($this->groupStack);
+        \array_pop($this->groupStack);
     }
 
     /**
@@ -277,7 +277,7 @@ class Router
      */
     public function match($methods, $uri, $action)
     {
-        return $this->addRoute(array_map('strtoupper', (array) $methods), $uri, $action);
+        return $this->addRoute(\array_map('strtoupper', (array) $methods), $uri, $action);
     }
 
     /**
@@ -292,7 +292,7 @@ class Router
         foreach ($resources as $name => $resource) {
             $options = [];
 
-            if (is_array($resource)) {
+            if (\is_array($resource)) {
                 list($resource, $options) = $resource;
             }
 
@@ -331,7 +331,7 @@ class Router
      */
     public function addRoute($methods, $uri, $action)
     {
-        if (is_string($action)) {
+        if (\is_string($action)) {
             $action = ['uses' => $action, 'controller' => $action];
         } elseif ($action instanceof Closure) {
             $action = [$action];
@@ -341,10 +341,10 @@ class Router
 
         $action = $this->addControllerMiddlewareToRouteAction($action);
 
-        $uri = $uri === '/' ? $uri : '/'.trim($uri, '/');
+        $uri = $uri === '/' ? $uri : '/'.\trim($uri, '/');
 
         if (! empty($action['prefix'])) {
-            $uri = '/'.ltrim(rtrim(trim($action['prefix'], '/').'/'.trim($uri, '/'), '/'), '/');
+            $uri = '/'.\ltrim(\rtrim(\trim($action['prefix'], '/').'/'.\trim($uri, '/'), '/'), '/');
 
             unset($action['prefix']);
         }
@@ -363,7 +363,7 @@ class Router
      */
     protected function addControllerMiddlewareToRouteAction(array $action)
     {
-        array_unshift($action['middleware'], 'api.controllers');
+        \array_unshift($action['middleware'], 'api.controllers');
 
         return $action;
     }
@@ -381,7 +381,7 @@ class Router
             return $this->mergeGroup($attributes, []);
         }
 
-        return $this->mergeGroup($attributes, end($this->groupStack));
+        return $this->mergeGroup($attributes, \end($this->groupStack));
     }
 
     /**
@@ -414,13 +414,13 @@ class Router
             $new['uses'] = $this->formatUses($new, $old);
         }
 
-        $new['where'] = array_merge(Arr::get($old, 'where', []), Arr::get($new, 'where', []));
+        $new['where'] = \array_merge(($old['where'] ?? []), ($new['where'] ?? []));
 
         if (isset($old['as'])) {
-            $new['as'] = trim($old['as'].'.'.Arr::get($new, 'as', ''), '.');
+            $new['as'] = \trim($old['as'].'.'.($new['as'] ?? ''), '.');
         }
 
-        return array_merge_recursive(Arr::except($old, ['namespace', 'prefix', 'where', 'as']), $new);
+        return \array_merge_recursive(Arr::except($old, ['namespace', 'prefix', 'where', 'as']), $new);
     }
 
     /**
@@ -435,7 +435,7 @@ class Router
     {
         $value = Arr::get($new, $option, []);
 
-        return is_string($value) ? explode('|', $value) : $value;
+        return \is_string($value) ? \explode('|', $value) : $value;
     }
 
     /**
@@ -448,7 +448,7 @@ class Router
      */
     protected function formatUses(array $new, array $old)
     {
-        if (isset($old['namespace']) && is_string($new['uses']) && strpos($new['uses'], '\\') !== 0) {
+        if (isset($old['namespace']) && \is_string($new['uses']) && \strpos($new['uses'], '\\') !== 0) {
             return $old['namespace'].'\\'.$new['uses'];
         }
 
@@ -461,7 +461,7 @@ class Router
      * @param array $new
      * @param array $old
      *
-     * @return string
+     * @return string|null
      */
     protected function formatNamespace(array $new, array $old)
     {
@@ -471,7 +471,7 @@ class Router
             return trim($new['namespace'], '\\');
         }
 
-        return Arr::get($old, 'namespace');
+        return $old['namespace'] ?? null;
     }
 
     /**
@@ -485,10 +485,10 @@ class Router
     protected function formatPrefix($new, $old)
     {
         if (isset($new['prefix'])) {
-            return trim(Arr::get($old, 'prefix'), '/').'/'.trim($new['prefix'], '/');
+            return \trim(($old['prefix'] ?? ''), '/').'/'.\trim($new['prefix'], '/');
         }
 
-        return Arr::get($old, 'prefix', '');
+        return $old['prefix'] ?? '';
     }
 
     /**
@@ -680,7 +680,7 @@ class Router
             return '';
         }
 
-        $group = end($this->groupStack);
+        $group = \end($this->groupStack);
 
         return $group['prefix'];
     }
@@ -696,7 +696,7 @@ class Router
     {
         $routes = $this->adapter->getIterableRoutes($version);
 
-        if (! is_null($version)) {
+        if (! \is_null($version)) {
             $routes = [$version => $routes];
         }
 
@@ -712,7 +712,7 @@ class Router
             }
         }
 
-        return is_null($version) ? $collections : $collections[$version];
+        return \is_null($version) ? $collections : $collections[$version];
     }
 
     /**
@@ -778,7 +778,7 @@ class Router
      */
     public function is()
     {
-        foreach (func_get_args() as $pattern) {
+        foreach (\func_get_args() as $pattern) {
             if (Str::is($pattern, $this->currentRouteName())) {
                 return true;
             }
@@ -812,7 +812,7 @@ class Router
 
         $action = $route->getAction();
 
-        return is_string($action['uses']) ? $action['uses'] : null;
+        return \is_string($action['uses']) ? $action['uses'] : null;
     }
 
     /**
@@ -824,7 +824,7 @@ class Router
      */
     public function uses()
     {
-        foreach (func_get_args() as $pattern) {
+        foreach (\func_get_args() as $pattern) {
             if (Str::is($pattern, $this->currentRouteAction())) {
                 return true;
             }

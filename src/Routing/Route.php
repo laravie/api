@@ -537,7 +537,7 @@ class Route extends \Illuminate\Routing\Route
      */
     public function secure()
     {
-        return in_array('https', $this->action, true);
+        return \in_array('https', $this->action, true);
     }
 
     /**

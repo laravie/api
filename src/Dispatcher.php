@@ -3,6 +3,7 @@
 namespace Dingo\Api;
 
 use Dingo\Api\Auth\Auth;
+use Illuminate\Support\Str;
 use Dingo\Api\Routing\Router;
 use Dingo\Api\Http\InternalRequest;
 use Illuminate\Container\Container;
@@ -202,12 +203,12 @@ class Dispatcher
     public function attach(array $files)
     {
         foreach ($files as $key => $file) {
-            if (is_array($file)) {
-                $file = new UploadedFile($file['path'], basename($file['path']), $file['mime'], $file['size']);
-            } elseif (is_string($file)) {
-                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            if (\is_array($file)) {
+                $file = new UploadedFile($file['path'], \basename($file['path']), $file['mime'], $file['size']);
+            } elseif (\is_string($file)) {
+                $finfo = \finfo_open(FILEINFO_MIME_TYPE);
 
-                $file = new UploadedFile($file, basename($file), finfo_file($finfo, $file), $this->files->size($file));
+                $file = new UploadedFile($file, \basename($file), \finfo_file($finfo, $file), $this->files->size($file));
             } elseif (! $file instanceof UploadedFile) {
                 continue;
             }
@@ -241,8 +242,8 @@ class Dispatcher
      */
     public function json($content)
     {
-        if (is_array($content)) {
-            $content = json_encode($content);
+        if (\is_array($content)) {
+            $content = \json_encode($content);
         }
 
         $this->content = $content;
@@ -311,7 +312,7 @@ class Dispatcher
      */
     public function with($parameters)
     {
-        $this->parameters = array_merge($this->parameters, is_array($parameters) ? $parameters : func_get_args());
+        $this->parameters = \array_merge($this->parameters, \is_array($parameters) ? $parameters : \func_get_args());
 
         return $this;
     }
@@ -436,7 +437,7 @@ class Dispatcher
         // this internal request. This will generally occur during tests when
         // using the crawler to navigate pages that also make internal
         // requests.
-        if (end($this->requestStack) != $this->container['request']) {
+        if (\end($this->requestStack) != $this->container['request']) {
             $this->requestStack[] = $this->container['request'];
         }
 
@@ -456,15 +457,16 @@ class Dispatcher
      */
     protected function createRequest($verb, $uri, $parameters)
     {
-        $parameters = array_merge($this->parameters, (array) $parameters);
+        $parameters = \array_merge($this->parameters, (array) $parameters);
 
         $uri = $this->addPrefixToUri($uri);
 
         // If the URI does not have a scheme then we can assume that there it is not an
         // absolute URI, in this case we'll prefix the root requests path to the URI.
         $rootUrl = $this->getRootRequest()->root();
-        if ((! parse_url($uri, PHP_URL_SCHEME)) && parse_url($rootUrl) !== false) {
-            $uri = rtrim($rootUrl, '/').'/'.ltrim($uri, '/');
+
+        if ((! \parse_url($uri, PHP_URL_SCHEME)) && \parse_url($rootUrl) !== false) {
+            $uri = \rtrim($rootUrl, '/').'/'.ltrim($uri, '/');
         }
 
         $request = InternalRequest::create(
@@ -501,13 +503,13 @@ class Dispatcher
             return $uri;
         }
 
-        $uri = trim($uri, '/');
+        $uri = \trim($uri, '/');
 
-        if (starts_with($uri, $this->prefix)) {
+        if (Str::startsWith($uri, $this->prefix)) {
             return $uri;
         }
 
-        return rtrim('/'.trim($this->prefix, '/').'/'.$uri, '/');
+        return \rtrim('/'.\trim($this->prefix, '/').'/'.$uri, '/');
     }
 
     /**
@@ -517,7 +519,9 @@ class Dispatcher
      */
     protected function getAcceptHeader()
     {
-        return sprintf('application/%s.%s.%s+%s', $this->getStandardsTree(), $this->getSubtype(), $this->getVersion(), $this->getFormat());
+        return \sprintf(
+            'application/%s.%s.%s+%s', $this->getStandardsTree(), $this->getSubtype(), $this->getVersion(), $this->getFormat()
+        );
     }
 
     /**
@@ -575,7 +579,7 @@ class Dispatcher
             $this->persistAuthentication = true;
         }
 
-        if ($route = array_pop($this->routeStack)) {
+        if ($route = \array_pop($this->routeStack)) {
             $this->router->setCurrentRoute($route);
         }
 
@@ -597,9 +601,9 @@ class Dispatcher
      */
     protected function replaceRequestInstance()
     {
-        array_pop($this->requestStack);
+        \array_pop($this->requestStack);
 
-        $this->container->instance('request', end($this->requestStack));
+        $this->container->instance('request', \end($this->requestStack));
     }
 
     /**
@@ -622,7 +626,7 @@ class Dispatcher
      */
     protected function getRootRequest()
     {
-        return reset($this->requestStack);
+        return \reset($this->requestStack);
     }
 
     /**

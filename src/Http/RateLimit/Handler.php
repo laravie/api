@@ -93,13 +93,14 @@ class Handler
         // If the throttle instance is already set then we'll just carry on as
         // per usual.
         if ($this->throttle instanceof Throttle) {
+            //
         } elseif ($limit > 0 || $expires > 0) {
             // If the developer specified a certain amount of requests or expiration
             // time on a specific route then we'll always use the route specific
             // throttle with the given values.
 
             $this->throttle = new Route(['limit' => $limit, 'expires' => $expires]);
-            $this->keyPrefix = sha1($request->path());
+            $this->keyPrefix = \sha1($request->path());
         } else {
             // Otherwise we'll use the throttle that gives the consumer the largest
             // amount of requests. If no matching throttle is found then rate
@@ -110,7 +111,7 @@ class Handler
             })->first();
         }
 
-        if (is_null($this->throttle)) {
+        if (\is_null($this->throttle)) {
             return;
         }
 
@@ -122,7 +123,7 @@ class Handler
 
         $this->cache('requests', 0, $this->throttle->getExpires());
         $this->cache('expires', $this->throttle->getExpires(), $this->throttle->getExpires());
-        $this->cache('reset', time() + ($this->throttle->getExpires() * 60), $this->throttle->getExpires());
+        $this->cache('reset', \time() + ($this->throttle->getExpires() * 60), $this->throttle->getExpires());
         $this->increment('requests');
     }
 
@@ -171,7 +172,7 @@ class Handler
      */
     protected function key($key)
     {
-        return sprintf('dingo.api.%s.%s', $key, $this->getRateLimiter());
+        return \sprintf('dingo.api.%s.%s', $key, $this->getRateLimiter());
     }
 
     /**
@@ -231,7 +232,7 @@ class Handler
      */
     public function requestWasRateLimited()
     {
-        return ! is_null($this->throttle);
+        return ! \is_null($this->throttle);
     }
 
     /**
@@ -241,7 +242,7 @@ class Handler
      */
     public function getRateLimiter()
     {
-        return call_user_func($this->limiter ?: function ($container, $request) {
+        return \call_user_func($this->limiter ?: function ($container, $request) {
             return $request->getClientIp();
         }, $this->container, $this->request);
     }
@@ -267,7 +268,7 @@ class Handler
      */
     public function setThrottle($throttle)
     {
-        if (is_string($throttle)) {
+        if (\is_string($throttle)) {
             $throttle = $this->container->make($throttle);
         }
 
@@ -325,8 +326,8 @@ class Handler
      */
     public function extend($throttle)
     {
-        if (is_callable($throttle)) {
-            $throttle = call_user_func($throttle, $this->container);
+        if (\is_callable($throttle)) {
+            $throttle = \call_user_func($throttle, $this->container);
         }
 
         $this->throttles->push($throttle);

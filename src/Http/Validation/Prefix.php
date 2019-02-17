@@ -40,7 +40,7 @@ class Prefix implements Validator
 
         $path = $this->filterAndExplode($request->getPathInfo());
 
-        return ! is_null($this->prefix) && $prefix == array_slice($path, 0, count($prefix));
+        return ! \is_null($this->prefix) && $prefix == \array_slice($path, 0, \count($prefix));
     }
 
     /**
@@ -52,6 +52,6 @@ class Prefix implements Validator
      */
     protected function filterAndExplode($array)
     {
-        return array_filter(explode('/', $array));
+        return \array_filter(\explode('/', $array));
     }
 }

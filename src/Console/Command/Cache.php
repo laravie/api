@@ -54,7 +54,7 @@ class Cache extends Command
 
         $files->append(
             $path,
-            str_replace('{{routes}}', base64_encode(serialize($routes)), $stub)
+            \str_replace('{{routes}}', \base64_encode(\serialize($routes)), $stub)
         );
     }
 

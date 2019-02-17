@@ -171,7 +171,7 @@ class Laravel implements Adapter
      */
     public function getRoutes($version = null)
     {
-        if (! is_null($version)) {
+        if (! \is_null($version)) {
             return $this->routes[$version];
         }
 

@@ -64,7 +64,7 @@ trait JsonOptionalFormatting
     {
         return $this->isJsonPrettyPrintEnabled() &&
             isset($this->options['indent_style']) &&
-            in_array($this->options['indent_style'], $this->indentStyles);
+            \in_array($this->options['indent_style'], $this->indentStyles);
     }
 
     /**
@@ -81,8 +81,8 @@ trait JsonOptionalFormatting
 
         $optionsBitmask = $this->calucateJsonEncodeOptionsBitmask($jsonEncodeOptions);
 
-        if (($encodedString = json_encode($content, $optionsBitmask)) === false) {
-            throw new \ErrorException('Error encoding data in JSON format: '.json_last_error());
+        if (($encodedString = \json_encode($content, $optionsBitmask)) === false) {
+            throw new \ErrorException('Error encoding data in JSON format: '.\json_last_error());
         }
 
         return $encodedString;
@@ -97,7 +97,7 @@ trait JsonOptionalFormatting
      */
     protected function filterJsonEncodeOptions(array $jsonEncodeOptions)
     {
-        return array_intersect($jsonEncodeOptions, $this->jsonEncodeOptionsWhitelist);
+        return \array_intersect($jsonEncodeOptions, $this->jsonEncodeOptionsWhitelist);
     }
 
     /**
@@ -109,7 +109,7 @@ trait JsonOptionalFormatting
      */
     protected function calucateJsonEncodeOptionsBitmask(array $jsonEncodeOptions)
     {
-        return array_sum($jsonEncodeOptions);
+        return \array_sum($jsonEncodeOptions);
     }
 
     /**
@@ -172,7 +172,7 @@ trait JsonOptionalFormatting
      */
     protected function hasVariousIndentSize($indentStyle)
     {
-        return in_array($indentStyle, $this->hasVariousIndentSize);
+        return \in_array($indentStyle, $this->hasVariousIndentSize);
     }
 
     /**
@@ -189,8 +189,8 @@ trait JsonOptionalFormatting
     protected function peformIndentation($jsonString, $indentChar = "\t", $indentSize = 1, $defaultSpaces = 4)
     {
         $pattern = '/(^|\G) {'.$defaultSpaces.'}/m';
-        $replacement = str_repeat($indentChar, $indentSize).'$1';
+        $replacement = \str_repeat($indentChar, $indentSize).'$1';
 
-        return preg_replace($pattern, $replacement, $jsonString);
+        return \preg_replace($pattern, $replacement, $jsonString);
     }
 }

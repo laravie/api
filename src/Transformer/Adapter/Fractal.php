@@ -98,7 +98,7 @@ class Fractal implements Adapter
 
         $binding->fireCallback($resource, $this->fractal);
 
-        $identifier = isset($parameters['identifier']) ? $parameters['identifier'] : null;
+        $identifier = $parameters['identifier'] ?? null;
 
         return $this->fractal->createData($resource, $identifier)->toArray();
     }
@@ -143,7 +143,7 @@ class Fractal implements Adapter
      */
     protected function createResource($response, $transformer, array $parameters)
     {
-        $key = isset($parameters['key']) ? $parameters['key'] : null;
+        $key = $parameters['key'] ?? null;
 
         if ($response instanceof IlluminatePaginator || $response instanceof IlluminateCollection) {
             return new FractalCollection($response, $transformer, $key);
@@ -163,8 +163,8 @@ class Fractal implements Adapter
     {
         $includes = $request->input($this->includeKey);
 
-        if (! is_array($includes)) {
-            $includes = array_map('trim', array_filter(explode($this->includeSeparator, $includes)));
+        if (! \is_array($includes)) {
+            $includes = \array_map('trim', \array_filter(\explode($this->includeSeparator, $includes)));
         }
 
         $this->fractal->parseIncludes($includes);
@@ -190,20 +190,20 @@ class Fractal implements Adapter
      */
     protected function mergeEagerLoads($transformer, $requestedIncludes)
     {
-        $includes = array_merge($requestedIncludes, $transformer->getDefaultIncludes());
+        $includes = \array_merge($requestedIncludes, $transformer->getDefaultIncludes());
 
         $eagerLoads = [];
 
         foreach ($includes as $key => $value) {
-            $eagerLoads[] = is_string($key) ? $key : $value;
+            $eagerLoads[] = \is_string($key) ? $key : $value;
         }
 
-        if (property_exists($transformer, 'lazyLoadedIncludes')) {
-            $eagerLoads = array_diff($eagerLoads, $transformer->lazyLoadedIncludes);
+        if (\property_exists($transformer, 'lazyLoadedIncludes')) {
+            $eagerLoads = \array_diff($eagerLoads, $transformer->lazyLoadedIncludes);
         }
 
-        if (property_exists($transformer, 'lazyLoadedIncludes')) {
-            $eagerLoads = array_diff($eagerLoads, $transformer->lazyLoadedIncludes);
+        if (\property_exists($transformer, 'lazyLoadedIncludes')) {
+            $eagerLoads = \array_diff($eagerLoads, $transformer->lazyLoadedIncludes);
         }
 
         return $eagerLoads;

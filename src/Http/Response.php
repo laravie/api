@@ -3,6 +3,7 @@
 namespace Dingo\Api\Http;
 
 use ArrayObject;
+use Illuminate\Support\Str;
 use UnexpectedValueException;
 use Illuminate\Http\JsonResponse;
 use Dingo\Api\Transformer\Binding;
@@ -107,8 +108,8 @@ class Response extends IlluminateResponse
         // If the contents of the JsonResponse does not starts with /**/ (typical laravel jsonp response)
         // we assume that it is a valid json response that can be decoded, or we just use the raw jsonp
         // contents for building the response
-        if (! starts_with($json->getContent(), '/**/')) {
-            $content = json_decode($json->getContent(), true);
+        if (! Str::startsWith($json->getContent(), '/**/')) {
+            $content = \json_decode($json->getContent(), true);
         }
 
         $new = static::create($content, $json->getStatusCode());
@@ -149,7 +150,7 @@ class Response extends IlluminateResponse
             $this->content = $formatter->formatEloquentModel($this->content);
         } elseif ($this->content instanceof EloquentCollection) {
             $this->content = $formatter->formatEloquentCollection($this->content);
-        } elseif (is_array($this->content) || $this->content instanceof ArrayObject || $this->content instanceof Arrayable) {
+        } elseif (\is_array($this->content) || $this->content instanceof ArrayObject || $this->content instanceof Arrayable) {
             $this->content = $formatter->formatArray($this->content);
         } else {
             $this->headers->set('Content-Type', $defaultContentType);

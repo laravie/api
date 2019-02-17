@@ -29,10 +29,10 @@ class ResourceException extends HttpException implements MessageBagErrors
      */
     public function __construct($message = null, $errors = null, Exception $previous = null, $headers = [], $code = 0)
     {
-        if (is_null($errors)) {
+        if (\is_null($errors)) {
             $this->errors = new MessageBag();
         } else {
-            $this->errors = is_array($errors) ? new MessageBag($errors) : $errors;
+            $this->errors = \is_array($errors) ? new MessageBag($errors) : $errors;
         }
 
         parent::__construct(422, $message, $previous, $headers, $code);

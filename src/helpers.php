@@ -1,7 +1,7 @@
 <?php
 
 
-if (! function_exists('version')) {
+if (! \function_exists('version')) {
     /**
      * Set the version to generate API URLs to.
      *
@@ -11,6 +11,6 @@ if (! function_exists('version')) {
      */
     function version($version)
     {
-        return app('api.url')->version($version);
+        return \app('api.url')->version($version);
     }
 }

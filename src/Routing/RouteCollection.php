@@ -74,7 +74,7 @@ class RouteCollection implements Countable, IteratorAggregate
      */
     public function getByName($name)
     {
-        return isset($this->names[$name]) ? $this->names[$name] : null;
+        return $this->names[$name] ?? null;
     }
 
     /**
@@ -86,7 +86,7 @@ class RouteCollection implements Countable, IteratorAggregate
      */
     public function getByAction($action)
     {
-        return isset($this->actions[$action]) ? $this->actions[$action] : null;
+        return $this->actions[$action] ?? null;
     }
 
     /**
@@ -116,6 +116,6 @@ class RouteCollection implements Countable, IteratorAggregate
      */
     public function count()
     {
-        return count($this->getRoutes());
+        return \count($this->getRoutes());
     }
 }

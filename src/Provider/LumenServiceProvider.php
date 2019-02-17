@@ -34,7 +34,7 @@ class LumenServiceProvider extends DingoServiceProvider
 
         $reflection = new ReflectionClass($this->app);
 
-        $this->app[Request::class]->mergeMiddlewares(
+        $this->app->make(Request::class)->mergeMiddlewares(
             $this->gatherAppMiddleware($reflection)
         );
 
@@ -63,7 +63,7 @@ class LumenServiceProvider extends DingoServiceProvider
         });
 
         $this->app->resolving(FormRequest::class, function (FormRequest $request, Application $app) {
-            $this->initializeRequest($request, $app['request']);
+            $this->initializeRequest($request, $app->make('request'));
 
             $request->setContainer($app)->setRedirector($app->make(Redirector::class));
         });
@@ -128,7 +128,7 @@ class LumenServiceProvider extends DingoServiceProvider
 
         $middleware = $property->getValue($this->app);
 
-        array_unshift($middleware, Request::class);
+        \array_unshift($middleware, Request::class);
 
         $property->setValue($this->app, $middleware);
         $property->setAccessible(false);
@@ -164,7 +164,7 @@ class LumenServiceProvider extends DingoServiceProvider
     {
         $files = $current->files->all();
 
-        $files = is_array($files) ? array_filter($files) : $files;
+        $files = \is_array($files) ? \array_filter($files) : $files;
 
         $form->initialize(
             $current->query->all(),

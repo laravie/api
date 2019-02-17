@@ -61,7 +61,7 @@ class RequestValidator
      */
     public function merge(array $validators)
     {
-        $this->validators = array_merge($this->validators, $validators);
+        $this->validators = \array_merge($this->validators, $validators);
     }
 
     /**
