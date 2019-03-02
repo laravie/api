@@ -13,7 +13,6 @@ use Dingo\Api\Http\Validation\Accept;
 use Dingo\Api\Http\Validation\Domain;
 use Dingo\Api\Http\Validation\Prefix;
 use Dingo\Api\Tests\Stubs\ApplicationStub;
-use Dingo\Api\Tests\ChecksLaravelVersionTrait;
 use Dingo\Api\Http\Parser\Accept as AcceptParser;
 use Illuminate\Http\Request as IlluminateRequest;
 use Illuminate\Events\Dispatcher as EventDispatcher;

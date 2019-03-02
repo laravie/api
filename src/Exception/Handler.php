@@ -83,7 +83,7 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
     /**
      * Determine if the exception should be reported.
      *
-     * @param  \Exception  $e
+     * @param \Exception $e
      *
      * @return bool
      */

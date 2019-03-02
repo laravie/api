@@ -861,7 +861,7 @@ class Router
     /**
      * Add the necessary where clauses to the route based on its initial registration.
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param \Illuminate\Routing\Route $route
      *
      * @return \Illuminate\Routing\Route
      */
