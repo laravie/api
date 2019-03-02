@@ -867,7 +867,7 @@ class Router
      */
     protected function addWhereClausesToRoute($route)
     {
-        $patterns = \app(\Illuminate\Routing\Router::class)->getPatterns();
+        $patterns = \resolve(\Illuminate\Routing\Router::class)->getPatterns();
 
         $route->where(\array_merge(
             $patterns, $route->getAction()['where'] ?? []
