@@ -12,6 +12,7 @@ use Dingo\Api\Http\RequestValidator;
 use Dingo\Api\Http\Validation\Accept;
 use Dingo\Api\Http\Validation\Domain;
 use Dingo\Api\Http\Validation\Prefix;
+use Dingo\Api\Tests\Stubs\ApplicationStub;
 use Dingo\Api\Tests\ChecksLaravelVersionTrait;
 use Dingo\Api\Http\Parser\Accept as AcceptParser;
 use Illuminate\Http\Request as IlluminateRequest;
@@ -21,8 +22,6 @@ use Dingo\Api\Http\Middleware\Request as RequestMiddleware;
 
 class RequestTest extends TestCase
 {
-    use ChecksLaravelVersionTrait;
-
     protected $app;
     protected $router;
     protected $validator;
@@ -32,7 +31,7 @@ class RequestTest extends TestCase
 
     protected function setUp()
     {
-        $this->app = $this->getApplicationStub();
+        $this->app = new ApplicationStub;
         $this->router = m::mock(Router::class);
         $this->validator = new RequestValidator($this->app);
         $this->handler = m::mock(Handler::class);
