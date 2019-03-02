@@ -30,7 +30,7 @@
         "php": "^7.1",
         "illuminate/routing": "~5.7.0 || ~5.8.0",
         "illuminate/support": "~5.7.0 || ~5.8.0",
-        "laravie/blueprint": "^0.2"
+        "laravie/blueprint": "^1.0"
     },
     "require-dev": {
         "laravel/lumen-framework": "~5.7.0 || ~5.8.0",
