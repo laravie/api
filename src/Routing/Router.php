@@ -624,13 +624,13 @@ class Router
             return;
         }
 
-        // We need to recompile the route, adding the where clause (for pattern restrictions) and check again
-        if (is_object($route) && $route instanceof IlluminateRoute) {
+        // We need to recompile the route, adding the where clause (for pattern restrictions) and check again.
+        if (\is_object($route) && $route instanceof IlluminateRoute) {
             $route->compiled = false;
             $this->addWhereClausesToRoute($route);
 
-            // If the matching fails, it would be due to a parameter format validation check fail
-            if (! $route->matches($this->container['request'])) {
+            // If the matching fails, it would be due to a parameter format validation check fail.
+            if (! $route->matches($this->container->make('request'))) {
                 throw new NotFoundHttpException('Not Found!');
             }
         }
@@ -867,9 +867,9 @@ class Router
      */
     protected function addWhereClausesToRoute($route)
     {
-        $patterns = app()->make(\Illuminate\Routing\Router::class)->getPatterns();
+        $patterns = \app(\Illuminate\Routing\Router::class)->getPatterns();
 
-        $route->where(array_merge(
+        $route->where(\array_merge(
             $patterns, $route->getAction()['where'] ?? []
         ));
 
