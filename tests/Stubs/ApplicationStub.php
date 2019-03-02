@@ -17,9 +17,49 @@ class ApplicationStub extends Container implements Application
         //
     }
 
-    public function environment()
+    public function bootstrapPath($path = '')
+    {
+        //
+    }
+
+    public function configPath($path = '')
+    {
+        //
+    }
+
+    public function databasePath($path = '')
+    {
+        //
+    }
+
+    public function environmentPath()
+    {
+        //
+    }
+
+    public function resourcePath($path = '')
+    {
+        //
+    }
+
+    public function storagePath()
+    {
+        //
+    }
+
+    public function environment(...$environments)
     {
         return 'testing';
+    }
+
+    public function runningInConsole()
+    {
+        //
+    }
+
+    public function runningUnitTests()
+    {
+        // TODO: Implement runningUnitTests() method.
     }
 
     public function isDownForMaintenance()
@@ -42,17 +82,7 @@ class ApplicationStub extends Container implements Application
         //
     }
 
-    public function getCachedCompilePath()
-    {
-        //
-    }
-
-    public function getCachedPackagesPath()
-    {
-        //
-    }
-
-    public function getCachedServicesPath()
+    public function resolveProvider($provider)
     {
         //
     }
@@ -72,13 +102,98 @@ class ApplicationStub extends Container implements Application
         //
     }
 
-    public function runningInConsole()
+    public function bootstrapWith(array $bootstrappers)
     {
-        return true;
+        //
     }
 
-    public function runningUnitTests()
+    public function configurationIsCached()
     {
-        return true;
+        //
+    }
+
+    public function detectEnvironment(\Closure $callback)
+    {
+        //
+    }
+
+    public function environmentFile()
+    {
+        //
+    }
+
+    public function environmentFilePath()
+    {
+        //
+    }
+
+    public function getCachedConfigPath()
+    {
+        //
+    }
+
+    public function getCachedServicesPath()
+    {
+        //
+    }
+
+    public function getCachedPackagesPath()
+    {
+        //
+    }
+
+    public function getCachedRoutesPath()
+    {
+        //
+    }
+
+    public function getLocale()
+    {
+        //
+    }
+
+    public function getNamespace()
+    {
+        //
+    }
+
+    public function getProviders($provider)
+    {
+        //
+    }
+
+    public function hasBeenBootstrapped()
+    {
+        //
+    }
+
+    public function loadDeferredProviders()
+    {
+        //
+    }
+
+    public function loadEnvironmentFrom($file)
+    {
+        //
+    }
+
+    public function routesAreCached()
+    {
+        //
+    }
+
+    public function setLocale($locale)
+    {
+        //
+    }
+
+    public function shouldSkipMiddleware()
+    {
+        //
+    }
+
+    public function terminate()
+    {
+        //
     }
 }

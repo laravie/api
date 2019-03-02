@@ -84,7 +84,7 @@ class DingoServiceProvider extends ServiceProvider
      */
     protected function registerClassAliases()
     {
-        $aliases = [
+        $serviceAliases = [
             Request::class => 'Dingo\Api\Contract\Http\Request',
             'api.dispatcher' => Dispatcher::class,
             'api.http.validator' => 'Dingo\Api\Http\RequestValidator',
@@ -98,7 +98,7 @@ class DingoServiceProvider extends ServiceProvider
             'api.exception' => [ExceptionHandler::class, 'Dingo\Api\Contract\Debug\ExceptionHandler'],
         ];
 
-        foreach ($aliases as $key => $aliases) {
+        foreach ($serviceAliases as $key => $aliases) {
             foreach ((array) $aliases as $alias) {
                 $this->app->alias($key, $alias);
             }
