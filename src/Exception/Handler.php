@@ -5,6 +5,7 @@ namespace Dingo\Api\Exception;
 use Exception;
 use ReflectionFunction;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Dingo\Api\Contract\Debug\ExceptionHandler;
 use Dingo\Api\Contract\Debug\MessageBagErrors;
 use Illuminate\Validation\ValidationException;
@@ -82,7 +83,7 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
     /**
      * Determine if the exception should be reported.
      *
-     * @param  \Exception  $e
+     * @param \Exception $e
      *
      * @return bool
      */
@@ -180,7 +181,7 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
         $response = $this->newResponseArray();
 
         array_walk_recursive($response, function (&$value, $key) use ($exception, $replacements) {
-            if (starts_with($value, ':') && isset($replacements[$value])) {
+            if (Str::startsWith($value, ':') && isset($replacements[$value])) {
                 $value = $replacements[$value];
             }
         });
@@ -302,7 +303,7 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
 
         return array_filter($input, function ($value) {
             if (is_string($value)) {
-                return ! starts_with($value, ':');
+                return ! Str::startsWith($value, ':');
             }
 
             return true;

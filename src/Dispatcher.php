@@ -4,6 +4,7 @@ namespace Dingo\Api;
 
 use Dingo\Api\Auth\Auth;
 use Dingo\Api\Routing\Router;
+use Illuminate\Support\Str;
 use Dingo\Api\Http\InternalRequest;
 use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
@@ -503,7 +504,7 @@ class Dispatcher
 
         $uri = trim($uri, '/');
 
-        if (starts_with($uri, $this->prefix)) {
+        if (Str::startsWith($uri, $this->prefix)) {
             return $uri;
         }
 
@@ -517,7 +518,9 @@ class Dispatcher
      */
     protected function getAcceptHeader()
     {
-        return sprintf('application/%s.%s.%s+%s', $this->getStandardsTree(), $this->getSubtype(), $this->getVersion(), $this->getFormat());
+        return sprintf(
+            'application/%s.%s.%s+%s', $this->getStandardsTree(), $this->getSubtype(), $this->getVersion(), $this->getFormat()
+        );
     }
 
     /**
