@@ -30,10 +30,6 @@ script:
   - vendor/bin/phpunit -c ./ --verbose
 
 matrix:
-  include:
-    - php: 7.1
-      env: setup=basic laravel=dev-master
   allow_failures:
     - php: nightly
-    - env: setup=basic laravel=dev-master
   fast_finish: true
