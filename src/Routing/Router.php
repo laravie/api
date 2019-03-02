@@ -625,7 +625,7 @@ class Router
         }
 
         // We need to recompile the route, adding the where clause (for pattern restrictions) and check again.
-        if (is_object($route) && $route instanceof IlluminateRoute) {
+        if ($route instanceof IlluminateRoute) {
             $route->compiled = false;
             $this->addWhereClausesToRoute($route);
 
@@ -867,7 +867,7 @@ class Router
      */
     protected function addWhereClausesToRoute($route)
     {
-        $patterns = app()->make(\Illuminate\Routing\Router::class)->getPatterns();
+        $patterns = app(\Illuminate\Routing\Router::class)->getPatterns();
 
         $route->where(array_merge(
             $patterns, $route->getAction()['where'] ?? []
