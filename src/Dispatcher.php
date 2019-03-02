@@ -3,8 +3,8 @@
 namespace Dingo\Api;
 
 use Dingo\Api\Auth\Auth;
-use Dingo\Api\Routing\Router;
 use Illuminate\Support\Str;
+use Dingo\Api\Routing\Router;
 use Dingo\Api\Http\InternalRequest;
 use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;

@@ -4,8 +4,8 @@ namespace Dingo\Api\Exception;
 
 use Exception;
 use ReflectionFunction;
-use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use Illuminate\Http\Response;
 use Dingo\Api\Contract\Debug\ExceptionHandler;
 use Dingo\Api\Contract\Debug\MessageBagErrors;
 use Illuminate\Validation\ValidationException;
