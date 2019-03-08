@@ -3,7 +3,6 @@ sudo: false
 dist: trusty
 
 php:
-  - 7.1
   - 7.2
   - 7.3
   - nightly
@@ -13,8 +12,11 @@ env:
     - setup=basic
   matrix:
     - laravel=5.8.*
+    - laravel=dev-master
     - setup=lowest laravel=5.8.*
+    - setup=lowest laravel=dev-master
     - setup=stable laravel=5.8.*
+    - setup=stable laravel=dev-master
 
 dist: trusty
 
@@ -30,6 +32,13 @@ script:
   - vendor/bin/phpunit -c ./ --verbose
 
 matrix:
+  include:
+    - php: 7.1
+      env: laravel=5.8.*
+    - php: 7.1
+      env: setup=lowest laravel=5.8.*
+    - php: 7.1
+      env: setup=stable laravel=5.8.*
   allow_failures:
     - php: nightly
   fast_finish: true
