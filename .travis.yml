@@ -41,4 +41,7 @@ matrix:
       env: setup=stable laravel=5.8.*
   allow_failures:
     - php: nightly
+    - env: laravel=dev-master
+    - env: setup=lowest laravel=dev-master
+    - env: setup=stable laravel=dev-master
   fast_finish: true
