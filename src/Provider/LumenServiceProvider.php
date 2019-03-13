@@ -63,7 +63,7 @@ class LumenServiceProvider extends DingoServiceProvider
         });
 
         $this->app->resolving(FormRequest::class, function (FormRequest $request, Application $app) {
-            $this->initializeRequest($request, $app->make('request'));
+            $this->initializeRequest($request, $app['request']);
 
             $request->setContainer($app)->setRedirector($app->make(Redirector::class));
         });
