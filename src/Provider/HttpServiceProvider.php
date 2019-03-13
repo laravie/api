@@ -49,7 +49,7 @@ class HttpServiceProvider extends ServiceProvider
     protected function registerRateLimiting()
     {
         $this->app->singleton('api.limiting', function ($app) {
-            return new RateLimitHandler($app, $app->make('cache'), $this->config('throttling'));
+            return new RateLimitHandler($app, $app['cache'], $this->config('throttling'));
         });
     }
 
@@ -74,8 +74,7 @@ class HttpServiceProvider extends ServiceProvider
 
         $this->app->singleton(Accept::class, function ($app) {
             return new Validation\Accept(
-                $this->app->make(AcceptParser::class),
-                $this->config('strict')
+                $this->app[AcceptParser::class], $this->config('strict')
             );
         });
     }
@@ -105,7 +104,7 @@ class HttpServiceProvider extends ServiceProvider
     protected function registerResponseFactory()
     {
         $this->app->singleton('api.http.response', function ($app) {
-            return new ResponseFactory($app->make(Factory::class));
+            return new ResponseFactory($app[Factory::class]);
         });
     }
 
@@ -119,10 +118,10 @@ class HttpServiceProvider extends ServiceProvider
         $this->app->singleton(Request::class, function ($app) {
             $middleware = new Middleware\Request(
                 $app,
-                $app->make(ExceptionHandler::class),
-                $app->make(Router::class),
-                $app->make(RequestValidator::class),
-                $app->make('events')
+                $app[ExceptionHandler::class],
+                $app[Router::class],
+                $app[RequestValidator::class],
+                $app['events']
             );
 
             $middleware->setMiddlewares($this->config('middleware', false));
@@ -131,15 +130,15 @@ class HttpServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(AuthMiddleware::class, function ($app) {
-            return new Middleware\Auth($app->make(Router::class), $app->make(Auth::class));
+            return new Middleware\Auth($app[Router::class], $app[Auth::class]);
         });
 
         $this->app->singleton(RateLimit::class, function ($app) {
-            return new Middleware\RateLimit($app->make(Router::class), $app->make(Handler::class));
+            return new Middleware\RateLimit($app[Router::class], $app[Handler::class]);
         });
 
         $this->app->singleton(PrepareController::class, function ($app) {
-            return new Middleware\PrepareController($app->make(Router::class));
+            return new Middleware\PrepareController($app[Router::class]);
         });
     }
 }

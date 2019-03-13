@@ -31,20 +31,20 @@ class LaravelServiceProvider extends DingoServiceProvider
 
         $kernel = $this->app->make(Kernel::class);
 
-        $this->app->make(Request::class)->mergeMiddlewares(
+        $this->app[Request::class]->mergeMiddlewares(
             $this->gatherAppMiddleware($kernel)
         );
 
         $this->addRequestMiddlewareToBeginning($kernel);
 
-        $this->app->make('events')->listen(RequestWasMatched::class, function (RequestWasMatched $event) {
+        $this->app['events']->listen(RequestWasMatched::class, function (RequestWasMatched $event) {
             $this->replaceRouteDispatcher();
 
             $this->updateRouterBindings();
         });
 
         $this->app->resolving(FormRequest::class, function (FormRequest $request, Application $app) {
-            $this->initializeRequest($request, $app->make('request'));
+            $this->initializeRequest($request, $app['request']);
 
             $request->setContainer($app)->setRedirector($app->make(Redirector::class));
         });
@@ -67,7 +67,7 @@ class LaravelServiceProvider extends DingoServiceProvider
     protected function replaceRouteDispatcher()
     {
         $this->app->singleton('illuminate.route.dispatcher', function ($app) {
-            return new ControllerDispatcher($app->make('api.router.adapter')->getRouter(), $app);
+            return new ControllerDispatcher($app['api.router.adapter']->getRouter(), $app);
         });
     }
 
@@ -79,8 +79,10 @@ class LaravelServiceProvider extends DingoServiceProvider
      */
     protected function updateRouterBindings()
     {
+        $router = $this->app['api.router.adapter']->getRouter();
+
         foreach ($this->getRouterBindings() as $key => $binding) {
-            $this->app->make('api.router.adapter')->getRouter()->bind($key, $binding);
+            $router->bind($key, $binding);
         }
     }
 
@@ -91,7 +93,7 @@ class LaravelServiceProvider extends DingoServiceProvider
      */
     protected function getRouterBindings()
     {
-        $router = $this->app->make('router');
+        $router = $this->app['router'];
 
         $property = (new ReflectionClass($router))->getProperty('binders');
         $property->setAccessible(true);
@@ -119,7 +121,7 @@ class LaravelServiceProvider extends DingoServiceProvider
     protected function registerRouterAdapter()
     {
         $this->app->singleton('api.router.adapter', function ($app) {
-            return new LaravelAdapter($app->make('router'));
+            return new LaravelAdapter($app['router']);
         });
     }
 
@@ -147,7 +149,7 @@ class LaravelServiceProvider extends DingoServiceProvider
      */
     protected function addMiddlewareAlias($name, $class)
     {
-        return $this->app->make('router')->aliasMiddleware($name, $class);
+        return $this->app['router']->aliasMiddleware($name, $class);
     }
 
     /**

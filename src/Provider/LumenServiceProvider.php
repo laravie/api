@@ -34,7 +34,7 @@ class LumenServiceProvider extends DingoServiceProvider
 
         $reflection = new ReflectionClass($this->app);
 
-        $this->app->make(Request::class)->mergeMiddlewares(
+        $this->app[Request::class]->mergeMiddlewares(
             $this->gatherAppMiddleware($reflection)
         );
 

@@ -27,8 +27,8 @@ class RoutingServiceProvider extends ServiceProvider
     {
         $this->app->singleton('api.router', function ($app) {
             $router = new Router(
-                $app->make(Adapter::class),
-                $app->make(ExceptionHandler::class),
+                $app[Adapter::class],
+                $app[ExceptionHandler::class],
                 $app,
                 $this->config('domain'),
                 $this->config('prefix')
@@ -40,7 +40,7 @@ class RoutingServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(ResourceRegistrar::class, function ($app) {
-            return new ResourceRegistrar($app->make(Router::class));
+            return new ResourceRegistrar($app[Router::class]);
         });
     }
 
@@ -50,9 +50,9 @@ class RoutingServiceProvider extends ServiceProvider
     protected function registerUrlGenerator()
     {
         $this->app->singleton('api.url', function ($app) {
-            $url = new UrlGenerator($app->make('request'));
+            $url = new UrlGenerator($app['request']);
 
-            $url->setRouteCollections($app->make(Router::class)->getRoutes());
+            $url->setRouteCollections($app[Router::class]->getRoutes());
 
             $url->setKeyResolver(function () {
                 return $this->app->make('config')->get('app.key');
@@ -70,7 +70,7 @@ class RoutingServiceProvider extends ServiceProvider
     private function requestRebinder()
     {
         return function ($app, $request) {
-            $app->make('api.url')->setRequest($request);
+            $app['api.url']->setRequest($request);
         };
     }
 }
