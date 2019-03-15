@@ -2,6 +2,19 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.1.3
+
+Released: 2019-03-15
+
+### Changes
+
+* Implement Route pattern match checking for params in URL.
+* Replace `str_*` helper with `Illuminate\Support\Str`.
+
+### Fixes
+
+* Fixes unit tests by adding router adapter instance to app container.
+
 ## 2.1.2
 
 Released: 2019-02-19
