@@ -2,6 +2,14 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.1.4
+
+Released: 2019-03-20
+
+### Changes
+
+* Use instance of `Carbon\Carbon` when setting cache for Laravel 5.8 TTL breaking change support.
+
 ## 2.1.3
 
 Released: 2019-03-15
