@@ -4,6 +4,7 @@ namespace Dingo\Api\Transformer\Adapter;
 
 use Dingo\Api\Http\Request;
 use Dingo\Api\Transformer\Binding;
+use League\Fractal\TransformerAbstract;
 use Dingo\Api\Contract\Transformer\Adapter;
 use League\Fractal\Manager as FractalManager;
 use League\Fractal\Resource\Item as FractalItem;
@@ -64,10 +65,10 @@ class Fractal implements Adapter
     /**
      * Transform a response with a transformer.
      *
-     * @param mixed                          $response
-     * @param object                         $transformer
-     * @param \Dingo\Api\Transformer\Binding $binding
-     * @param \Dingo\Api\Http\Request        $request
+     * @param mixed                                     $response
+     * @param League\Fractal\TransformerAbstract|object $transformer
+     * @param \Dingo\Api\Transformer\Binding            $binding
+     * @param \Dingo\Api\Http\Request                   $request
      *
      * @return array
      */
@@ -89,6 +90,11 @@ class Fractal implements Adapter
         if ($this->shouldEagerLoad($response)) {
             $eagerLoads = $this->mergeEagerLoads($transformer, $this->fractal->getRequestedIncludes());
 
+            if ($transformer instanceof TransformerAbstract) {
+                // Only eager load the items in available includes
+                $eagerLoads = \array_intersect($eagerLoads, $transformer->getAvailableIncludes());
+            }
+
             $response->load($eagerLoads);
         }
 
@@ -98,7 +104,7 @@ class Fractal implements Adapter
 
         $binding->fireCallback($resource, $this->fractal);
 
-        $identifier = isset($parameters['identifier']) ? $parameters['identifier'] : null;
+        $identifier = $parameters['identifier'] ?? null;
 
         return $this->fractal->createData($resource, $identifier)->toArray();
     }
@@ -143,7 +149,7 @@ class Fractal implements Adapter
      */
     protected function createResource($response, $transformer, array $parameters)
     {
-        $key = isset($parameters['key']) ? $parameters['key'] : null;
+        $key = $parameters['key'] ?? null;
 
         if ($response instanceof IlluminatePaginator || $response instanceof IlluminateCollection) {
             return new FractalCollection($response, $transformer, $key);
@@ -163,8 +169,8 @@ class Fractal implements Adapter
     {
         $includes = $request->input($this->includeKey);
 
-        if (! is_array($includes)) {
-            $includes = array_map('trim', array_filter(explode($this->includeSeparator, $includes)));
+        if (! \is_array($includes)) {
+            $includes = \array_map('trim', \array_filter(\explode($this->includeSeparator, $includes)));
         }
 
         $this->fractal->parseIncludes($includes);
@@ -190,20 +196,20 @@ class Fractal implements Adapter
      */
     protected function mergeEagerLoads($transformer, $requestedIncludes)
     {
-        $includes = array_merge($requestedIncludes, $transformer->getDefaultIncludes());
+        $includes = \array_merge($requestedIncludes, $transformer->getDefaultIncludes());
 
         $eagerLoads = [];
 
         foreach ($includes as $key => $value) {
-            $eagerLoads[] = is_string($key) ? $key : $value;
+            $eagerLoads[] = \is_string($key) ? $key : $value;
         }
 
-        if (property_exists($transformer, 'lazyLoadedIncludes')) {
-            $eagerLoads = array_diff($eagerLoads, $transformer->lazyLoadedIncludes);
+        if (\property_exists($transformer, 'lazyLoadedIncludes')) {
+            $eagerLoads = \array_diff($eagerLoads, $transformer->lazyLoadedIncludes);
         }
 
-        if (property_exists($transformer, 'lazyLoadedIncludes')) {
-            $eagerLoads = array_diff($eagerLoads, $transformer->lazyLoadedIncludes);
+        if (\property_exists($transformer, 'lazyLoadedIncludes')) {
+            $eagerLoads = \array_diff($eagerLoads, $transformer->lazyLoadedIncludes);
         }
 
         return $eagerLoads;
