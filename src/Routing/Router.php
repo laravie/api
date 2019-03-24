@@ -630,7 +630,7 @@ class Router
             $this->addWhereClausesToRoute($route);
 
             // If the matching fails, it would be due to a parameter format validation check fail.
-            if (! $route->matches($this->container->make('request'))) {
+            if (! $route->matches($this->container['request'])) {
                 throw new NotFoundHttpException('Not Found!');
             }
         }
