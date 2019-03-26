@@ -76,12 +76,11 @@ class RouterTest extends Adapter\BaseAdapterTest
         $this->assertInstanceOf(\Dingo\Api\Routing\Route::class, $routes->getByName('api.users'));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedMessage A version is required for an API group definition.
-     */
     public function testNoGroupVersionThrowsException()
     {
+        $this->expectException('RuntimeException');
+        $this->expectExceptionMessage('A version is required for an API group definition.');
+
         $this->router->group([], function () {
             //
         });

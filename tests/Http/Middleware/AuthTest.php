@@ -22,7 +22,7 @@ class AuthTest extends TestCase
     protected $auth;
     protected $middleware;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = new Container;
         $this->adapter = new RoutingAdapterStub;
@@ -66,11 +66,10 @@ class AuthTest extends TestCase
         });
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     */
     public function testAuthenticationFailsAndExceptionIsThrown()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException');
+
         $exception = new UnauthorizedHttpException('test');
 
         $request = Request::create('test', 'GET');

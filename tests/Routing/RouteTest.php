@@ -15,13 +15,13 @@ class RouteTest extends TestCase
     protected $adapter;
     protected $container;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->adapter = new RoutingAdapterStub;
         $this->container = new Container;
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }

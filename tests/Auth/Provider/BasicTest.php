@@ -13,22 +13,21 @@ class BasicTest extends TestCase
     protected $auth;
     protected $provider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->auth = m::mock('Illuminate\Auth\AuthManager');
         $this->provider = new Basic($this->auth);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     */
     public function testInvalidBasicCredentialsThrowsException()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException');
+
         $request = Request::create('GET', '/', [], [], [], ['HTTP_AUTHORIZATION' => 'Basic 12345']);
 
         $this->auth->shouldReceive('onceBasic')->once()->with('email')->andReturn(new Response('', 401));

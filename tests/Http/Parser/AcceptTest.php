@@ -19,12 +19,11 @@ class AcceptTest extends TestCase
         $this->assertSame('json', $accept['format']);
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
-     * @expectedMessage Accept header could not be properly parsed because of a strict matching process.
-     */
     public function testStrictlyParsingInvalidAcceptHeaderThrowsException()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\BadRequestHttpException');
+        $this->expectExceptionMessage('Accept header could not be properly parsed because of a strict matching process.');
+
         $parser = new Accept('vnd', 'api', 'v1', 'json');
 
         $parser->parse($this->createRequest('foo', 'GET', ['accept' => 'application/vnd.foo.v2+xml']), true);

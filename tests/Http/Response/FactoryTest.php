@@ -15,13 +15,13 @@ class FactoryTest extends TestCase
     protected $transformer;
     protected $factory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->transformer = Mockery::mock(TransformerFactory::class);
         $this->factory = new Factory($this->transformer);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         Mockery::close();
     }
@@ -128,51 +128,45 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf(Paginator::class, $this->factory->withPaginator(new Paginator([new UserStub('Jason')], 1), 'test')->getOriginalContent());
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\HttpException
-     */
     public function testNotFoundThrowsHttpException()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+
         $this->factory->errorNotFound();
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\HttpException
-     */
     public function testBadRequestThrowsHttpException()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+
         $this->factory->errorBadRequest();
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\HttpException
-     */
     public function testForbiddenThrowsHttpException()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+
         $this->factory->errorForbidden();
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\HttpException
-     */
     public function testInternalThrowsHttpException()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+
         $this->factory->errorInternal();
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\HttpException
-     */
     public function testUnauthorizedThrowsHttpException()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+
         $this->factory->errorUnauthorized();
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\HttpException
-     */
     public function testMethodNotAllowedThrowsHttpException()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+
         $this->factory->errorMethodNotAllowed();
     }
 

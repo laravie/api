@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class JsonpTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $formatter = new Jsonp;
         $formatter->setRequest(Request::create('GET', '/', ['callback' => 'foo']));
@@ -21,7 +21,7 @@ class JsonpTest extends TestCase
         Response::setFormatters(['json' => $formatter]);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         Mockery::close();
 

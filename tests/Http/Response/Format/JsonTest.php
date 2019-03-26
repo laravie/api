@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Collection;
 
 class JsonTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         Response::setFormatters(['json' => new Json]);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         Mockery::close();
 

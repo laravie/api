@@ -25,7 +25,7 @@ class DispatcherTest extends TestCase
 {
     protected $container;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = new Container;
         $this->container['request'] = Request::create('/', 'GET');
@@ -54,7 +54,7 @@ class DispatcherTest extends TestCase
         Http\Response::setTransformer($this->transformerFactory);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
@@ -131,11 +131,10 @@ class DispatcherTest extends TestCase
         $this->assertSame('test', $this->dispatcher->get('test'));
     }
 
-    /**
-     * @expectedException \Dingo\Api\Exception\InternalHttpException
-     */
     public function testInternalRequestThrowsExceptionWhenResponseIsNotOkay()
     {
+        $this->expectException('Dingo\Api\Exception\InternalHttpException');
+
         $this->router->version('v1', function () {
             $this->router->get('test', function () {
                 return new \Illuminate\Http\Response('test', 403);
@@ -387,11 +386,10 @@ class DispatcherTest extends TestCase
         $this->assertSame('redirect-test', $response->getTargetUrl());
     }
 
-    /**
-     * @expectedException \Dingo\Api\Exception\InternalHttpException
-     */
     public function testNotOkJsonResponseThrowsException()
     {
+        $this->expectException('Dingo\Api\Exception\InternalHttpException');
+
         $this->router->version('v1', function () {
             $this->router->get('json', function () {
                 return new \Illuminate\Http\JsonResponse(['is' => 'json'], 422);
@@ -401,11 +399,10 @@ class DispatcherTest extends TestCase
         $this->dispatcher->get('json');
     }
 
-    /**
-     * @expectedException \Dingo\Api\Exception\ValidationHttpException
-     */
     public function testFormRequestValidationFailureThrowsValidationException()
     {
+        $this->expectException('Dingo\Api\Exception\ValidationHttpException');
+
         $this->router->version('v1', function () {
             $this->router->get('fail', function () {
                 //Mocking the form validation call is challenging at the moment, so next best thing

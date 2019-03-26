@@ -15,7 +15,7 @@ abstract class BaseAdapterTest extends TestCase
     protected $exception;
     protected $router;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = $this->getContainerInstance();
         $this->container['Illuminate\Container\Container'] = $this->container;
@@ -34,7 +34,7 @@ abstract class BaseAdapterTest extends TestCase
         Http\Response::setFormatters(['json' => new Http\Response\Format\Json]);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }

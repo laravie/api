@@ -18,7 +18,7 @@ class HandlerTest extends TestCase
     protected $parentHandler;
     protected $exceptionHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->parentHandler = m::mock('Illuminate\Contracts\Debug\ExceptionHandler');
         $this->exceptionHandler = new Handler($this->parentHandler, [
@@ -30,7 +30,7 @@ class HandlerTest extends TestCase
         ], false);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }

@@ -13,22 +13,21 @@ class JWTTest extends TestCase
     protected $auth;
     protected $provider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->auth = m::mock('Tymon\JWTAuth\JWTAuth');
         $this->provider = new JWT($this->auth);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
-     */
     public function testValidatingAuthorizationHeaderFailsAndThrowsException()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\BadRequestHttpException');
+
         $request = Request::create('foo', 'GET');
 
         $this->auth->shouldReceive('parseToken')->andReturnSelf();
@@ -37,11 +36,10 @@ class JWTTest extends TestCase
         $this->provider->authenticate($request, m::mock(\Dingo\Api\Routing\Route::class));
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     */
     public function testAuthenticatingFailsAndThrowsException()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException');
+
         $request = Request::create('foo', 'GET');
         $request->headers->set('authorization', 'Bearer foo');
 
