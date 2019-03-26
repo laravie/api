@@ -15,23 +15,22 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class AuthTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = new Container;
         $this->router = m::mock(Router::class);
         $this->auth = new Auth($this->router, $this->container, []);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     */
     public function testExceptionThrownWhenAuthorizationHeaderNotSet()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException');
+
         $this->router->shouldReceive('getCurrentRoute')->once()->andReturn($route = m::mock(Route::class));
         $this->router->shouldReceive('getCurrentRequest')->once()->andReturn($request = Request::create('foo', 'GET'));
 
@@ -43,11 +42,10 @@ class AuthTest extends TestCase
         $this->auth->authenticate();
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
-     */
     public function testExceptionThrownWhenProviderFailsToAuthenticate()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException');
+
         $this->router->shouldReceive('getCurrentRoute')->once()->andReturn($route = m::mock(Route::class));
         $this->router->shouldReceive('getCurrentRequest')->once()->andReturn($request = Request::create('foo', 'GET'));
 

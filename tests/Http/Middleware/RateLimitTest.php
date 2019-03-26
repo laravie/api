@@ -25,7 +25,7 @@ class RateLimitTest extends TestCase
     protected $handler;
     protected $middleware;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = new Container;
         $this->container['config'] = ['cache.default' => 'array', 'cache.stores.array' => ['driver' => 'array']];
@@ -40,7 +40,7 @@ class RateLimitTest extends TestCase
         });
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }

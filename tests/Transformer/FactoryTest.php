@@ -15,7 +15,7 @@ class FactoryTest extends TestCase
 {
     protected $factory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = new Container;
         $container['request'] = Mockery::mock(\Dingo\Api\Http\Request::class);
@@ -23,7 +23,7 @@ class FactoryTest extends TestCase
         $this->factory = new Factory($container, new TransformerStub);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         Mockery::close();
     }
@@ -102,12 +102,11 @@ class FactoryTest extends TestCase
         $this->assertSame(['name' => 'Jason'], $response);
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Unable to find bound transformer for "Dingo\Api\Tests\Stubs\UserStub" class
-     */
     public function testTransformingWithNoTransformerThrowsException()
     {
+        $this->expectException('RuntimeException');
+        $this->expectExceptionMessage('Unable to find bound transformer for "Dingo\Api\Tests\Stubs\UserStub" class');
+
         $this->factory->transform(new UserStub('Jason'));
     }
 }

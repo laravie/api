@@ -11,7 +11,7 @@ class FractalTest extends TestCase
 {
     protected $fractal;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->fractal = new Fractal(new FractalManager());
     }

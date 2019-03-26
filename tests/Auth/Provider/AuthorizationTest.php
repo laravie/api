@@ -10,16 +10,15 @@ use Dingo\Api\Tests\Stubs\AuthorizationProviderStub;
 
 class AuthorizationTest extends TestCase
 {
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
-     */
     public function testExceptionThrownWhenAuthorizationHeaderIsInvalid()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\BadRequestHttpException');
+
         $request = Request::create('GET', '/');
 
         (new AuthorizationProviderStub)->authenticate($request, m::mock(Route::class));

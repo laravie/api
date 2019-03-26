@@ -15,22 +15,21 @@ use Illuminate\Events\Dispatcher as EventDispatcher;
 
 class ResponseTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         Response::setEventDispatcher($this->events = new EventDispatcher);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException
-     * @expectedExceptionMessage Unable to format response according to Accept header.
-     */
     public function testGettingInvalidFormatterThrowsException()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException');
+        $this->expectExceptionMessage('Unable to format response according to Accept header.');
+
         Response::getFormatter('json');
     }
 

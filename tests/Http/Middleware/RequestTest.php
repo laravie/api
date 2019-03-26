@@ -28,7 +28,7 @@ class RequestTest extends TestCase
     protected $events;
     protected $middleware;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->app = new ApplicationStub;
         $this->router = m::mock(Router::class);
@@ -41,7 +41,7 @@ class RequestTest extends TestCase
         $this->middleware = new RequestMiddleware($this->app, $this->handler, $this->router, $this->validator, $this->events);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }

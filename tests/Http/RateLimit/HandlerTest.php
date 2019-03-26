@@ -16,7 +16,7 @@ class HandlerTest extends TestCase
     protected $cache;
     protected $limiter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = new Container;
         $this->container['config'] = ['cache.default' => 'array', 'cache.stores.array' => ['driver' => 'array']];

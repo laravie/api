@@ -13,7 +13,7 @@ class RequestValidatorTest extends TestCase
 {
     protected $container;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = new Container;
         $this->container->instance(AcceptParser::class, new AcceptParser('vnd', 'test', 'v1', 'json'));
