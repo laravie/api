@@ -2,6 +2,18 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.1.5
+
+Released: 2019-04-08
+
+### Added
+
+* Adds a URL generator function "route" to API facade.
+
+### Fixes
+
+* Fixed 500 error when requesting include that didn't exist.
+
 ## 2.1.4
 
 Released: 2019-03-20
