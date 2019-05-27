@@ -126,6 +126,8 @@ class LumenServiceProvider extends DingoServiceProvider
     {
         \array_unshift($middleware, Request::class);
 
+        $property = $reflection->getProperty('middleware');
+        $property->setAccessible(true);
         $property->setValue($this->app, $middleware);
         $property->setAccessible(false);
     }
