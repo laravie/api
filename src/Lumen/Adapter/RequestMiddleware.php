@@ -23,7 +23,6 @@ trait RequestMiddleware
         $this->middleware = $middleware;
     }
 
-
     /**
      * Remove the global application middleware as it's run from this packages
      * Request middleware. Lumen runs middleware later in its life cycle

@@ -313,7 +313,7 @@ class Route extends \Illuminate\Routing\Route
      */
     public function hasThrottle()
     {
-        return ! is_null($this->throttle);
+        return ! \is_null($this->throttle);
     }
 
     /**
