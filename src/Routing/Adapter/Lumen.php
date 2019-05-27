@@ -13,6 +13,7 @@ use FastRoute\RouteCollector;
 use Laravel\Lumen\Application;
 use Dingo\Api\Contract\Routing\Adapter;
 use Dingo\Api\Exception\UnknownVersionException;
+use Dingo\Api\Lumen\Decorator\RequestMiddleware;
 
 class Lumen implements Adapter
 {
@@ -104,7 +105,7 @@ class Lumen implements Adapter
             throw new UnknownVersionException();
         }
 
-        $this->removeMiddlewareFromApp();
+        $this->removeMiddlewareFromLumen();
 
         $routeCollector = $this->mergeOldRoutes($version);
         $dispatcher = \call_user_func($this->dispatcherResolver, $routeCollector);
@@ -250,7 +251,7 @@ class Lumen implements Adapter
      *
      * @return void
      */
-    protected function removeMiddlewareFromApp()
+    protected function removeMiddlewareFromLumen()
     {
         if ($this->middlewareRemoved) {
             return;
@@ -258,20 +259,8 @@ class Lumen implements Adapter
 
         $this->middlewareRemoved = true;
 
-        $reflection = new ReflectionClass($this->app);
-        $property = $reflection->getProperty('middleware');
-        $property->setAccessible(true);
-        $oldMiddlewares = $property->getValue($this->app);
-        $newMiddlewares = [];
-
-        foreach ($oldMiddlewares as $middle) {
-            if (\method_exists($middle, 'terminate') && $middle != 'Dingo\Api\Http\Middleware\Request') {
-                $newMiddlewares[] = $middle;
-            }
-        }
-
-        $property->setValue($this->app, $newMiddlewares);
-        $property->setAccessible(false);
+        $decorator = new RequestMiddleware($this->app);
+        $decorator->removeGlobalMiddlewareFromLumen();
     }
 
     /**

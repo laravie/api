@@ -11,6 +11,7 @@ use Dingo\Api\Http\Middleware\Request;
 use Dingo\Api\Http\Middleware\RateLimit;
 use FastRoute\Dispatcher\GroupCountBased;
 use Dingo\Api\Http\Middleware\PrepareController;
+use Dingo\Api\Lumen\Decorator\RequestMiddleware;
 use FastRoute\RouteParser\Std as StdRouteParser;
 use Illuminate\Http\Request as IlluminateRequest;
 use Dingo\Api\Routing\Adapter\Lumen as LumenAdapter;
@@ -32,13 +33,8 @@ class LumenServiceProvider extends DingoServiceProvider
 
         $this->app->configure('api');
 
-        $reflection = new ReflectionClass($this->app);
-
-        $this->app[Request::class]->mergeMiddlewares(
-            $middleware = $this->gatherAppMiddleware($reflection)
-        );
-
-        $this->addRequestMiddlewareToBeginning($reflection, $middleware);
+        $decorator = new RequestMiddleware($this->app);
+        $decorator->addRequestMiddlewareToBeginning();
 
         // Because Lumen sets the route resolver at a very weird point we're going to
         // have to use reflection whenever the request instance is rebound to
@@ -111,41 +107,6 @@ class LumenServiceProvider extends DingoServiceProvider
         return function ($routeCollector) {
             return new GroupCountBased($routeCollector->getData());
         };
-    }
-
-    /**
-     * Add the request middleware to the beginning of the middleware stack on the
-     * Lumen application instance.
-     *
-     * @param \ReflectionClass $reflection
-     * @param array            $middleware
-     *
-     * @return void
-     */
-    protected function addRequestMiddlewareToBeginning(ReflectionClass $reflection, array $middleware)
-    {
-        \array_unshift($middleware, Request::class);
-
-        $property = $reflection->getProperty('middleware');
-        $property->setAccessible(true);
-        $property->setValue($this->app, $middleware);
-        $property->setAccessible(false);
-    }
-
-    /**
-     * Gather the application middleware besides this one so that we can send
-     * our request through them, exactly how the developer wanted.
-     *
-     * @param \ReflectionClass $reflection
-     *
-     * @return array
-     */
-    protected function gatherAppMiddleware(ReflectionClass $reflection)
-    {
-        $property = $reflection->getProperty('middleware');
-        $property->setAccessible(true);
-
-        return $property->getValue($this->app);
     }
 
     /**
