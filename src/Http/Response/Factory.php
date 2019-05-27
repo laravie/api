@@ -44,7 +44,7 @@ class Factory
         $response = new Response($content);
         $response->setStatusCode(201);
 
-        if (! is_null($location)) {
+        if (! \is_null($location)) {
             $response->header('Location', $location);
         }
 
@@ -64,7 +64,7 @@ class Factory
         $response = new Response($content);
         $response->setStatusCode(202);
 
-        if (! is_null($location)) {
+        if (! \is_null($location)) {
             $response->header('Location', $location);
         }
 

@@ -78,7 +78,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
             throw new AccessDeniedHttpException();
         }
 
-        $validator = \app('validator')->make($this->all(), $this->rules(), $this->messages());
+        $validator = $this->getValidatorInstance()->make($this->all(), $this->rules(), $this->messages());
 
         if ($validator->fails()) {
             throw new ValidationHttpException($validator->errors());

@@ -118,7 +118,7 @@ class LumenServiceProvider extends DingoServiceProvider
      * Lumen application instance.
      *
      * @param \ReflectionClass $reflection
-     * @param array  $middleware
+     * @param array            $middleware
      *
      * @return void
      */

@@ -128,7 +128,7 @@ class Router
     public function version($version, $second, $third = null)
     {
         if (\func_num_args() == 2) {
-            [$version, $callback, $attributes] = [$version, $second, []];
+            [$callback, $attributes] = [$second, []];
         } else {
             [$version, $attributes, $callback] = \func_get_args();
         }

@@ -67,18 +67,6 @@ class Routes extends RouteListCommand
      *
      * @return void
      */
-    public function fire()
-    {
-        $this->routes = $this->router->getRoutes();
-
-        parent::fire();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
     public function handle()
     {
         $this->routes = $this->router->getRoutes();

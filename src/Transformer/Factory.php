@@ -8,11 +8,14 @@ use Dingo\Api\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Container\Container;
 use Dingo\Api\Contract\Transformer\Adapter;
+use Illuminate\Support\Traits\ForwardsCalls;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request as IlluminateRequest;
 
 class Factory
 {
+    use ForwardsCalls;
+
     /**
      * Illuminate container instance.
      *
@@ -243,6 +246,6 @@ class Factory
      */
     public function __call($method, $parameters)
     {
-        return \call_user_func([$this->adapter, $method], ...$parameters);
+        return $this->forwardCallTo($this->adapter, $method, $parameters);
     }
 }

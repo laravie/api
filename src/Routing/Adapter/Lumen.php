@@ -165,7 +165,7 @@ class Lumen implements Adapter
     public function getRouteProperties($route, Request $request)
     {
         $uri = \ltrim(isset($route['uri']) ? $route['uri'] : $request->getRequestUri(), '/');
-        $methods = isset($route['methods']) ? $route['methods'] : (array) $request->getMethod();
+        $methods = $route['methods'] ?? (array) $request->getMethod();
         $action = (isset($route[1]) && \is_array($route[1])) ? $route[1] : $route;
 
         if (\in_array('GET', $methods) && ! \in_array('HEAD', $methods)) {
