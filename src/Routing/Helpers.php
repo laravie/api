@@ -192,7 +192,7 @@ trait Helpers
     public function __get($key)
     {
         $callable = [
-            'api', 'user', 'auth', 'response',
+            'user', 'auth', 'response',
         ];
 
         if (\in_array($key, $callable) && \method_exists($this, $key)) {
