@@ -133,7 +133,7 @@ class Route extends \Illuminate\Routing\Route
 
         // If we have a string based throttle then we'll new up an instance of the
         // throttle through the container.
-        if (is_string($this->throttle)) {
+        if (\is_string($this->throttle)) {
             $this->throttle = $this->container->make($this->throttle);
         }
     }
@@ -143,8 +143,10 @@ class Route extends \Illuminate\Routing\Route
      */
     protected function mergeControllerProperties()
     {
-        if (isset($this->action['uses']) && is_string($this->action['uses']) && Str::contains($this->action['uses'],
-                '@')) {
+        if (isset($this->action['uses'])
+            && \is_string($this->action['uses'])
+            && Str::contains($this->action['uses'], '@')
+        ) {
             $this->action['controller'] = $this->action['uses'];
 
             $this->makeControllerInstance();
@@ -158,13 +160,13 @@ class Route extends \Illuminate\Routing\Route
 
         $controllerMiddleware = [];
 
-        if (method_exists($controller, 'getMiddleware')) {
+        if (\method_exists($controller, 'getMiddleware')) {
             $controllerMiddleware = $controller->getMiddleware();
-        } elseif (method_exists($controller, 'getMiddlewareForMethod')) {
+        } elseif (\method_exists($controller, 'getMiddlewareForMethod')) {
             $controllerMiddleware = $controller->getMiddlewareForMethod($this->controllerMethod);
         }
 
-        $this->middleware = array_merge($this->middleware, $controllerMiddleware);
+        $this->middleware = \array_merge($this->middleware, $controllerMiddleware);
 
         if ($property = $this->findControllerPropertyOptions('throttles')) {
             $this->throttle = $property['class'];
@@ -195,14 +197,14 @@ class Route extends \Illuminate\Routing\Route
     {
         $properties = [];
 
-        foreach ($this->getControllerInstance()->{'get'.ucfirst($name)}() as $property) {
+        foreach ($this->getControllerInstance()->{'get'.\ucfirst($name)}() as $property) {
             if (isset($property['options']) && ! $this->optionsApplyToControllerMethod($property['options'])) {
                 continue;
             }
 
             unset($property['options']);
 
-            $properties = array_merge_recursive($properties, $property);
+            $properties = \array_merge_recursive($properties, $property);
         }
 
         return $properties;
@@ -219,12 +221,13 @@ class Route extends \Illuminate\Routing\Route
     {
         if (empty($options)) {
             return true;
-        } elseif (isset($options['only']) && in_array($this->controllerMethod,
-                $this->explodeOnPipes($options['only']))) {
+        } elseif (isset($options['only'])
+            && \in_array($this->controllerMethod, $this->explodeOnPipes($options['only']))
+        ) {
             return true;
         } elseif (isset($options['except'])) {
-            return ! in_array($this->controllerMethod, $this->explodeOnPipes($options['except']));
-        } elseif (in_array($this->controllerMethod, $this->explodeOnPipes($options))) {
+            return ! \in_array($this->controllerMethod, $this->explodeOnPipes($options['except']));
+        } elseif (\in_array($this->controllerMethod, $this->explodeOnPipes($options))) {
             return true;
         }
 
@@ -240,7 +243,7 @@ class Route extends \Illuminate\Routing\Route
      */
     protected function explodeOnPipes($value)
     {
-        return is_string($value) ? explode('|', $value) : $value;
+        return \is_string($value) ? \explode('|', $value) : $value;
     }
 
     /**
@@ -257,11 +260,11 @@ class Route extends \Illuminate\Routing\Route
         $traits = [];
 
         do {
-            $traits = array_merge(class_uses($controller, false), $traits);
-        } while ($controller = get_parent_class($controller));
+            $traits = \array_merge(\class_uses($controller, false), $traits);
+        } while ($controller = \get_parent_class($controller));
 
         foreach ($traits as $trait => $same) {
-            $traits = array_merge(class_uses($trait, false), $traits);
+            $traits = \array_merge(\class_uses($trait, false), $traits);
         }
 
         return isset($traits[Helpers::class]);
@@ -284,10 +287,11 @@ class Route extends \Illuminate\Routing\Route
      */
     protected function makeControllerInstance()
     {
-        list($this->controllerClass, $this->controllerMethod) = explode('@', $this->action['uses']);
+        list($this->controllerClass, $this->controllerMethod) = \explode('@', $this->action['uses']);
 
-        $this->container->instance($this->controllerClass,
-            $this->controller = $this->container->make($this->controllerClass));
+        $this->container->instance(
+            $this->controllerClass, $this->controller = $this->container->make($this->controllerClass)
+        );
 
         return $this->controller;
     }
@@ -299,7 +303,7 @@ class Route extends \Illuminate\Routing\Route
      */
     public function isProtected()
     {
-        if (isset($this->middleware['api.auth']) || in_array('api.auth', $this->middleware)) {
+        if (isset($this->middleware['api.auth']) || \in_array('api.auth', $this->middleware)) {
             if ($this->controller && isset($this->middleware['api.auth'])) {
                 return $this->optionsApplyToControllerMethod($this->middleware['api.auth']);
             }
@@ -517,7 +521,7 @@ class Route extends \Illuminate\Routing\Route
      */
     public function httpOnly()
     {
-        return in_array('http', $this->action, true);
+        return \in_array('http', $this->action, true);
     }
 
     /**
