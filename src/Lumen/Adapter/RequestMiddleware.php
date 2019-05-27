@@ -1,6 +1,6 @@
 <?php
 
-namespace Dingo\Api\Adapter\Lumen;
+namespace Dingo\Api\Lumen\Adapter;
 
 use Dingo\Api\Http\Middleware\Request;
 
