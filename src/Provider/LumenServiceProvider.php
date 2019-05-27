@@ -35,10 +35,10 @@ class LumenServiceProvider extends DingoServiceProvider
         $reflection = new ReflectionClass($this->app);
 
         $this->app[Request::class]->mergeMiddlewares(
-            $this->gatherAppMiddleware($reflection)
+            $middleware = $this->gatherAppMiddleware($reflection)
         );
 
-        $this->addRequestMiddlewareToBeginning($reflection);
+        $this->addRequestMiddlewareToBeginning($reflection, $middleware);
 
         // Because Lumen sets the route resolver at a very weird point we're going to
         // have to use reflection whenever the request instance is rebound to
@@ -118,16 +118,12 @@ class LumenServiceProvider extends DingoServiceProvider
      * Lumen application instance.
      *
      * @param \ReflectionClass $reflection
+     * @param array  $middleware
      *
      * @return void
      */
-    protected function addRequestMiddlewareToBeginning(ReflectionClass $reflection)
+    protected function addRequestMiddlewareToBeginning(ReflectionClass $reflection, array $middleware)
     {
-        $property = $reflection->getProperty('middleware');
-        $property->setAccessible(true);
-
-        $middleware = $property->getValue($this->app);
-
         \array_unshift($middleware, Request::class);
 
         $property->setValue($this->app, $middleware);
@@ -147,9 +143,7 @@ class LumenServiceProvider extends DingoServiceProvider
         $property = $reflection->getProperty('middleware');
         $property->setAccessible(true);
 
-        $middleware = $property->getValue($this->app);
-
-        return $middleware;
+        return $property->getValue($this->app);
     }
 
     /**

@@ -257,15 +257,7 @@ class Route extends \Illuminate\Routing\Route
             return false;
         }
 
-        $traits = [];
-
-        do {
-            $traits = \array_merge(\class_uses($controller, false), $traits);
-        } while ($controller = \get_parent_class($controller));
-
-        foreach ($traits as $trait => $same) {
-            $traits = \array_merge(\class_uses($trait, false), $traits);
-        }
+        $traits = \class_uses_recursive($controller);
 
         return isset($traits[Helpers::class]);
     }

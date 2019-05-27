@@ -265,8 +265,8 @@ class Lumen implements Adapter
         $newMiddlewares = [];
 
         foreach ($oldMiddlewares as $middle) {
-            if ((new ReflectionClass($middle))->hasMethod('terminate') && $middle != 'Dingo\Api\Http\Middleware\Request') {
-                $newMiddlewares = \array_merge($newMiddlewares, [$middle]);
+            if (\method_exists($middle, 'terminate') && $middle != 'Dingo\Api\Http\Middleware\Request') {
+                $newMiddlewares[] = $middle;
             }
         }
 
