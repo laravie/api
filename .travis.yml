@@ -1,10 +1,9 @@
 language: php
-sudo: false
+dist: xenial
 
 php:
   - 7.2
   - 7.3
-  - nightly
 
 env:
   global:
@@ -12,10 +11,10 @@ env:
   matrix:
     - laravel=5.8.*
     - laravel=dev-master
-    - setup=lowest laravel=5.8.*
-    - setup=lowest laravel=dev-master
     - setup=stable laravel=5.8.*
     - setup=stable laravel=dev-master
+    - setup=lowest laravel=5.8.*
+    - setup=lowest laravel=dev-master
 
 dist: trusty
 
@@ -35,12 +34,11 @@ matrix:
     - php: 7.1
       env: laravel=5.8.*
     - php: 7.1
-      env: setup=lowest laravel=5.8.*
-    - php: 7.1
       env: setup=stable laravel=5.8.*
+    - php: 7.1
+      env: setup=lowest laravel=5.8.*
   allow_failures:
-    - php: nightly
     - env: laravel=dev-master
-    - env: setup=lowest laravel=dev-master
     - env: setup=stable laravel=dev-master
+    - env: setup=lowest laravel=dev-master
   fast_finish: true
