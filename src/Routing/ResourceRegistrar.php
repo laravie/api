@@ -58,7 +58,7 @@ class ResourceRegistrar extends IlluminateResourceRegistrar
         $defaults = $this->resourceDefaults;
 
         foreach ($this->getResourceMethods($defaults, $options) as $m) {
-            $this->{'addResource'.ucfirst($m)}($name, $base, $controller, $options);
+            $this->{'addResource'.\ucfirst($m)}($name, $base, $controller, $options);
         }
     }
 }

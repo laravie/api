@@ -5,6 +5,7 @@ namespace Dingo\Api\Routing;
 use ErrorException;
 use Dingo\Api\Auth\Auth;
 use Dingo\Api\Http\Response\Factory;
+use Illuminate\Support\Traits\ForwardsCalls;
 
 /**
  * @property \Illuminate\Auth\GenericUser|\Illuminate\Database\Eloquent\Model $user
@@ -13,6 +14,8 @@ use Dingo\Api\Http\Response\Factory;
  */
 trait Helpers
 {
+    use ForwardsCalls;
+
     /**
      * Controller scopes.
      *
@@ -214,10 +217,6 @@ trait Helpers
      */
     public function __call($method, $parameters)
     {
-        if (\method_exists($this->response(), $method) || $method == 'array') {
-            return \call_user_func([$this->response(), $method], ...$parameters);
-        }
-
-        throw new ErrorException('Undefined method '.\get_class($this).'::'.$method);
+        return $this->forwardCallTo($this->response(), $method, $parameters);
     }
 }
