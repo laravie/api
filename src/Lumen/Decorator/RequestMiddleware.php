@@ -69,9 +69,7 @@ class RequestMiddleware
         }
 
         $reflection = new ReflectionClass($this->app);
-        $property = $reflection->getProperty('middleware');
-        $property->setAccessible(true);
-        $oldMiddlewares = $property->getValue($this->app);
+        $oldMiddlewares = $this->gatherLumenMiddlewares($reflection);
         $newMiddlewares = [];
 
         foreach ($oldMiddlewares as $middle) {
@@ -80,6 +78,7 @@ class RequestMiddleware
             }
         }
 
+        $property = $reflection->getProperty('middleware');
         $property->setValue($this->app, $newMiddlewares);
         $property->setAccessible(false);
     }
