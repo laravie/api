@@ -4,11 +4,9 @@ namespace Dingo\Api\Routing;
 
 use ErrorException;
 use Dingo\Api\Auth\Auth;
-use Dingo\Api\Dispatcher;
 use Dingo\Api\Http\Response\Factory;
 
 /**
- * @property \Dingo\Api\Dispatcher                                            $api
  * @property \Illuminate\Auth\GenericUser|\Illuminate\Database\Eloquent\Model $user
  * @property \Dingo\Api\Auth\Auth                                             $auth
  * @property \Dingo\Api\Http\Response\Factory                                 $response
@@ -150,16 +148,6 @@ trait Helpers
     public function getAuthenticationProviders()
     {
         return $this->authenticationProviders;
-    }
-
-    /**
-     * Get the internal dispatcher instance.
-     *
-     * @return \Dingo\Api\Dispatcher
-     */
-    public function api()
-    {
-        return \app(Dispatcher::class);
     }
 
     /**

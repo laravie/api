@@ -4,7 +4,6 @@ namespace Dingo\Api\Provider;
 
 use RuntimeException;
 use Dingo\Api\Auth\Auth;
-use Dingo\Api\Dispatcher;
 use Dingo\Api\Http\Request;
 use Dingo\Api\Http\Response;
 use Dingo\Api\Console\Command;
@@ -54,8 +53,6 @@ class DingoServiceProvider extends ServiceProvider
 
         $this->registerExceptionHandler();
 
-        $this->registerDispatcher();
-
         $this->registerAuth();
 
         $this->registerTransformer();
@@ -86,7 +83,6 @@ class DingoServiceProvider extends ServiceProvider
     {
         $serviceAliases = [
             Request::class => 'Dingo\Api\Contract\Http\Request',
-            'api.dispatcher' => Dispatcher::class,
             'api.http.validator' => 'Dingo\Api\Http\RequestValidator',
             'api.http.response' => 'Dingo\Api\Http\Response\Factory',
             'api.router' => 'Dingo\Api\Routing\Router',
@@ -116,29 +112,6 @@ class DingoServiceProvider extends ServiceProvider
             return new ExceptionHandler(
                 $app['Illuminate\Contracts\Debug\ExceptionHandler'], $this->config('errorFormat'), $this->config('debug')
             );
-        });
-    }
-
-    /**
-     * Register the internal dispatcher.
-     *
-     * @return void
-     */
-    public function registerDispatcher()
-    {
-        $this->app->singleton('api.dispatcher', function ($app) {
-            $dispatcher = new Dispatcher(
-                $app, $app['files'], $app['Dingo\Api\Routing\Router'], $app[Auth::class]
-            );
-
-            $dispatcher->setSubtype($this->config('subtype'));
-            $dispatcher->setStandardsTree($this->config('standardsTree'));
-            $dispatcher->setPrefix($this->config('prefix'));
-            $dispatcher->setDefaultVersion($this->config('version'));
-            $dispatcher->setDefaultDomain($this->config('domain'));
-            $dispatcher->setDefaultFormat($this->config('defaultFormat'));
-
-            return $dispatcher;
         });
     }
 
