@@ -173,11 +173,11 @@ class Route extends \Illuminate\Routing\Route
         }
 
         if ($property = $this->findControllerPropertyOptions('scopes')) {
-            $this->scopes = array_merge($this->scopes, $property['scopes']);
+            $this->scopes = \array_merge($this->scopes, $property['scopes']);
         }
 
         if ($property = $this->findControllerPropertyOptions('authenticationProviders')) {
-            $this->authenticationProviders = array_merge($this->authenticationProviders, $property['providers']);
+            $this->authenticationProviders = \array_merge($this->authenticationProviders, $property['providers']);
         }
 
         if ($property = $this->findControllerPropertyOptions('rateLimit')) {
