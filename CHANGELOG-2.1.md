@@ -2,6 +2,18 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.1.6
+
+Released: 2019-06-11
+
+### Changes
+
+* Mark `Dingo\Api\Provider\DingoServiceProvider` as `abstract` and add `validateApiConfiguration()` and `loadApiConfiguration()` methods.
+
+### Fixes
+
+* Fixes loading configuration for Lumen.
+
 ## 2.1.5
 
 Released: 2019-04-08
