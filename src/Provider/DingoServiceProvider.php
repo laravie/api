@@ -11,7 +11,7 @@ use Dingo\Api\Console\Command;
 use Dingo\Api\Exception\Handler as ExceptionHandler;
 use Dingo\Api\Transformer\Factory as TransformerFactory;
 
-class DingoServiceProvider extends ServiceProvider
+abstract class DingoServiceProvider extends ServiceProvider
 {
     /**
      * Boot the service provider.
