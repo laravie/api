@@ -180,6 +180,8 @@ class LumenServiceProvider extends DingoServiceProvider
      */
     protected function loadApiConfiguration()
     {
+        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/api.php'), 'api');
+
         $this->app->configure('api');
     }
 }
