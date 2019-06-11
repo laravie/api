@@ -30,8 +30,6 @@ class LumenServiceProvider extends DingoServiceProvider
     {
         parent::boot();
 
-        $this->app->configure('api');
-
         $reflection = new ReflectionClass($this->app);
 
         $this->app[Request::class]->mergeMiddlewares(
@@ -73,18 +71,6 @@ class LumenServiceProvider extends DingoServiceProvider
             'api.throttle' => RateLimit::class,
             'api.controllers' => PrepareController::class,
         ]);
-    }
-
-    /**
-     * Setup the configuration.
-     *
-     * @return void
-     */
-    protected function setupConfig()
-    {
-        $this->app->configure('api');
-
-        parent::setupConfig();
     }
 
     /**
@@ -185,5 +171,15 @@ class LumenServiceProvider extends DingoServiceProvider
         $form->setUserResolver($current->getUserResolver());
 
         $form->setRouteResolver($current->getRouteResolver());
+    }
+
+    /**
+     * Load API configuration.
+     *
+     * @return void
+     */
+    protected function loadApiConfiguration()
+    {
+        $this->app->configure('api');
     }
 }

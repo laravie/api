@@ -195,4 +195,14 @@ class LaravelServiceProvider extends DingoServiceProvider
 
         $form->setRouteResolver($current->getRouteResolver());
     }
+
+    /**
+     * Load API configuration.
+     *
+     * @return void
+     */
+    protected function loadApiConfiguration()
+    {
+        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/api.php'), 'api');
+    }
 }
