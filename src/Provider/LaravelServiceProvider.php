@@ -210,6 +210,6 @@ class LaravelServiceProvider extends DingoServiceProvider
      */
     protected function loadApiConfiguration()
     {
-        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/api.php'), 'api');
+        $this->mergeConfigFrom(\realpath(__DIR__.'/../../config/api.php'), 'api');
     }
 }
