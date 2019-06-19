@@ -116,7 +116,7 @@ class Route extends \Illuminate\Routing\Route
      */
     protected function setupRouteProperties(Request $request, $route)
     {
-        list($this->uri, $this->methods, $this->action) = $this->adapter->getRouteProperties($route, $request);
+        [$this->uri, $this->methods, $this->action] = $this->adapter->getRouteProperties($route, $request);
 
         $this->versions = Arr::pull($this->action, 'version');
         $this->conditionalRequest = Arr::pull($this->action, 'conditionalRequest', true);
@@ -284,7 +284,7 @@ class Route extends \Illuminate\Routing\Route
      */
     protected function makeControllerInstance()
     {
-        list($this->controllerClass, $this->controllerMethod) = explode('@', $this->action['uses']);
+        [$this->controllerClass, $this->controllerMethod] = explode('@', $this->action['uses']);
 
         $this->container->instance($this->controllerClass,
             $this->controller = $this->container->make($this->controllerClass));
@@ -517,7 +517,8 @@ class Route extends \Illuminate\Routing\Route
      */
     public function httpOnly()
     {
-        return in_array('http', $this->action, true);
+        return in_array('https', $this->action, true)
+            || (array_key_exists('https', $this->action) && $this->action['https']);
     }
 
     /**
