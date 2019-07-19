@@ -41,8 +41,8 @@ class LumenServiceProvider extends DingoServiceProvider
         // Because Lumen sets the route resolver at a very weird point we're going to
         // have to use reflection whenever the request instance is rebound to
         // set the route resolver to get the current route.
-        $this->app->rebinding(IlluminateRequest::class, function ($app, $request) {
-            $request->setRouteResolver(function () use ($app) {
+        $this->app->rebinding(IlluminateRequest::class, static function ($app, $request) {
+            $request->setRouteResolver(static function () use ($app) {
                 $reflection = new ReflectionClass($app);
 
                 $property = $reflection->getProperty('currentRoute');
@@ -51,12 +51,12 @@ class LumenServiceProvider extends DingoServiceProvider
                 return $property->getValue($app);
             });
 
-            $request->setUserResolver(function () use ($app) {
+            $request->setUserResolver(static function () use ($app) {
                 $app->make('api.auth')->user();
             });
         });
 
-        $this->app->afterResolving(ValidatesWhenResolved::class, function ($resolved) {
+        $this->app->afterResolving(ValidatesWhenResolved::class, static function ($resolved) {
             $resolved->validate();
         });
 

@@ -24,7 +24,7 @@ abstract class DingoServiceProvider extends ServiceProvider
 
         Request::setAcceptParser($this->app['Dingo\Api\Http\Parser\Accept']);
 
-        $this->app->rebinding('api.routes', function ($app, $routes) {
+        $this->app->rebinding('api.routes', static function ($app, $routes) {
             $app['api.url']->setRouteCollections($routes);
         });
     }
@@ -191,7 +191,7 @@ abstract class DingoServiceProvider extends ServiceProvider
     protected function validateApiConfiguration()
     {
         if (! $this->app->runningInConsole() && empty($this->config('prefix')) && empty($this->config('domain'))) {
-            throw new RuntimeException('Unable to boot '.DingoServiceProvider::class.', configure an API domain or prefix.');
+            throw new RuntimeException('Unable to boot '.self::class.', configure an API domain or prefix.');
         }
     }
 

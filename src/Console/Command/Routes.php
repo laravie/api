@@ -112,7 +112,7 @@ class Routes extends RouteListCommand
         }
 
         if ($sort = $this->option('sort')) {
-            $routes = Arr::sort($routes, function ($value) use ($sort) {
+            $routes = Arr::sort($routes, static function ($value) use ($sort) {
                 return $value[$sort];
             });
         }
