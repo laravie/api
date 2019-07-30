@@ -15,6 +15,7 @@ use Illuminate\Routing\ControllerDispatcher;
 use Dingo\Api\Http\Middleware\PrepareController;
 use Illuminate\Http\Request as IlluminateRequest;
 use Dingo\Api\Routing\Adapter\Laravel as LaravelAdapter;
+use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 
 class LaravelServiceProvider extends DingoServiceProvider
 {
@@ -43,6 +44,10 @@ class LaravelServiceProvider extends DingoServiceProvider
             $this->updateRouterBindings();
         });
 
+        $this->app->afterResolving(ValidatesWhenResolved::class, static function ($resolved) {
+            $resolved->validateResolved();
+        });
+
         $this->app->resolving(FormRequest::class, function (FormRequest $request, Application $app) {
             $this->initializeRequest($request, $app['request']);
 
@@ -66,7 +71,7 @@ class LaravelServiceProvider extends DingoServiceProvider
      */
     protected function replaceRouteDispatcher()
     {
-        $this->app->singleton('illuminate.route.dispatcher', function ($app) {
+        $this->app->singleton('illuminate.route.dispatcher', static function ($app) {
             return new ControllerDispatcher($app['api.router.adapter']->getRouter(), $app);
         });
     }
@@ -120,7 +125,7 @@ class LaravelServiceProvider extends DingoServiceProvider
      */
     protected function registerRouterAdapter()
     {
-        $this->app->singleton('api.router.adapter', function ($app) {
+        $this->app->singleton('api.router.adapter', static function ($app) {
             return new LaravelAdapter($app['router']);
         });
     }
@@ -210,6 +215,6 @@ class LaravelServiceProvider extends DingoServiceProvider
      */
     protected function loadApiConfiguration()
     {
-        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/api.php'), 'api');
+        $this->mergeConfigFrom(\realpath(__DIR__.'/../../config/api.php'), 'api');
     }
 }

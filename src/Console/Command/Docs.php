@@ -211,7 +211,7 @@ class Docs extends Command
 
         $reflection = new ReflectionClass($controller);
 
-        $interface = Arr::first($reflection->getInterfaces(), function ($key, $value) {
+        $interface = Arr::first($reflection->getInterfaces(), static function ($key, $value) {
             return Str::endsWith($key, 'Docs');
         });
 
