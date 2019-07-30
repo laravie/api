@@ -2,6 +2,14 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.1.7
+
+Released: 2019-07-31
+
+### Changes
+
+* Validate FormRequest when resolving `Illuminate\Contracts\Validation\ValidatesWhenResolved`.
+
 ## 2.1.6
 
 Released: 2019-06-11
