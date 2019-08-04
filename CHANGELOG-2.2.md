@@ -2,6 +2,15 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.2.2
+
+Released: 2019-08-04
+
+### Changes
+
+* Validate FormRequest when resolving `Illuminate\Contracts\Validation\ValidatesWhenResolved`.
+* Use `static function` rather than `function` whenever possible, the PHP engine does not need to instantiate and later GC a `$this` variable for said closure.
+
 ## 2.2.1
 
 Released: 2019-06-11
