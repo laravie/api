@@ -16,7 +16,7 @@ class JWTTest extends TestCase
     protected function setUp(): void
     {
         if (! class_exists('Tymon\JWTAuth\JWTAuth')) {
-            $this->markTestIncomplete('Missing tymon/jwt-auth dependency.');
+            $this->markTestSkipped('Missing tymon/jwt-auth dependency.');
         }
 
         $this->auth = m::mock('Tymon\JWTAuth\JWTAuth');
