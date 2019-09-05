@@ -28,12 +28,12 @@
     },
     "require": {
         "php": "^7.1",
-        "illuminate/routing": "~5.8.0 || ~5.9.0",
-        "illuminate/support": "~5.8.0 || ~5.9.0",
+        "illuminate/routing": "~5.8.0 || ^6.0",
+        "illuminate/support": "~5.8.0 || ^6.0",
         "laravie/blueprint": "^1.0"
     },
     "require-dev": {
-        "laravel/lumen-framework": "~5.8.0 || ~5.9.0",
+        "laravel/lumen-framework": "~5.8.0 || ^6.0",
         "league/fractal": "^0.17",
         "mockery/mockery": "^1.0",
         "orchestra/testbench": "~3.8.0 || ~3.9.0",
@@ -44,7 +44,7 @@
     },
     "suggest": {
         "league/fractal": "Transform response using Fractal (^0.17).",
-        "tymon/jwt-auth": "Protect your API with JSON Web Tokens (^2.0)."
+        "tymon/jwt-auth": "Protect your API with JSON Web Tokens (^1.0)."
     },
     "config": {
         "sort-packages": true
