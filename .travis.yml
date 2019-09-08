@@ -34,11 +34,7 @@ matrix:
     - php: 7.1
       env: laravel=^5.8
     - php: 7.1
-      env: setup=lowest laravel=^5.8
-    - php: 7.1
       env: setup=stable laravel=^5.8
-  allow_failures:
-    - env: laravel=^6.0
-    - env: setup=lowest laravel=^6.0
-    - env: setup=stable laravel=^6.0
+    - php: 7.1
+      env: setup=lowest laravel=^5.8
   fast_finish: true
