@@ -2,6 +2,14 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 2.2.3
+
+Released: 2019-09-08
+
+### Changes
+
+* Add support for Laravel Framework `6.x`.
+
 ## 2.2.2
 
 Released: 2019-08-04

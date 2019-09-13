@@ -9,12 +9,12 @@ env:
   global:
     - setup=basic
   matrix:
-    - laravel=5.8.*
-    - laravel=dev-master
-    - setup=stable laravel=5.8.*
-    - setup=stable laravel=dev-master
-    - setup=lowest laravel=5.8.*
-    - setup=lowest laravel=dev-master
+    - laravel=^5.8
+    - laravel=^6.0
+    - setup=stable laravel=^5.8
+    - setup=stable laravel=^6.0
+    - setup=lowest laravel=^5.8
+    - setup=lowest laravel=^6.0
 
 dist: trusty
 
@@ -30,15 +30,4 @@ script:
   - vendor/bin/phpunit -c ./ --verbose
 
 matrix:
-  include:
-    - php: 7.1
-      env: laravel=5.8.*
-    - php: 7.1
-      env: setup=stable laravel=5.8.*
-    - php: 7.1
-      env: setup=lowest laravel=5.8.*
-  allow_failures:
-    - env: laravel=dev-master
-    - env: setup=stable laravel=dev-master
-    - env: setup=lowest laravel=dev-master
   fast_finish: true
