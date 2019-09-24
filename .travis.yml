@@ -30,4 +30,15 @@ script:
   - vendor/bin/phpunit -c ./ --verbose
 
 matrix:
+  include:
+    - php: 7.4snapshot
+      env: setup=basic laravel=^5.8
+    - php: 7.4snapshot
+      env: setup=basic laravel=^6.0
+    - php: 7.4snapshot
+      env: setup=stable laravel=^5.8
+    - php: 7.4snapshot
+      env: setup=stable laravel=^6.0
+    - php: 7.4snapshot
+      env: setup=lowest laravel=^6.0
   fast_finish: true
