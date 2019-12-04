@@ -6,7 +6,7 @@ about: 'Report a general library issue.'
 | Q                 | A
 | ----------------- | ---
 | Bug               | yes
-| Framework         | Laravel|Lumen
+| Framework         | Laravel/Lumen
 | Framework version | #.#.#
 | Package version   | #.#.#
 | PHP version       | #.#.#
