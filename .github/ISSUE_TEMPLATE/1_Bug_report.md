@@ -1,11 +1,15 @@
+---
+name: "Bug report"
+about: 'Report a general library issue.'
+---
+
 | Q                 | A
 | ----------------- | ---
-| Bug?              | no|yes
-| New Feature?      | no|yes
+| Bug               | yes
 | Framework         | Laravel|Lumen
-| Framework version | 5.x.y
-| Package version   | 1.x.y
-| PHP version       | 5.x.y|7.x.y
+| Framework version | #.#.#
+| Package version   | #.#.#
+| PHP version       | #.#.#
 
 #### Actual Behaviour
 
