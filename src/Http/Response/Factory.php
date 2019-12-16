@@ -271,12 +271,6 @@ class Factory
     {
         if (Str::startsWith($method, 'with')) {
             return \call_user_func([$this, Str::camel(\substr($method, 4))], ...$parameters);
-        } elseif ($method == 'array') {
-            // Because PHP won't let us name the method "array" we'll simply watch for it
-            // in here and return the new binding. Gross. This is now DEPRECATED and
-            // should not be used. Just return an array or a new response instance.
-
-            return new Response($parameters[0]);
         }
 
         throw new ErrorException('Undefined method '.\get_class($this).'::'.$method);

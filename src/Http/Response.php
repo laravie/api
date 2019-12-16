@@ -197,12 +197,16 @@ class Response extends IlluminateResponse
         // case we'll simply leave the content as null and set the original
         // content value and continue.
         try {
-            return parent::setContent($content);
+            if (\is_string($content) || \is_null($content)) {
+                return parent::setContent($content);
+            }
         } catch (UnexpectedValueException $exception) {
-            $this->original = $content;
-
-            return $this;
+            //
         }
+
+        $this->original = $content;
+
+        return $this;
     }
 
     /**
