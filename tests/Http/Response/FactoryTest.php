@@ -169,16 +169,4 @@ class FactoryTest extends TestCase
 
         $this->factory->errorMethodNotAllowed();
     }
-
-    public function testMakingArrayResponse()
-    {
-        $response = $this->factory->array(['foo' => 'bar']);
-        $this->assertSame('{"foo":"bar"}', $response->getContent());
-    }
-
-    public function testPrefixingWithCallsMethodsCorrectly()
-    {
-        $response = $this->factory->withArray(['foo' => 'bar']);
-        $this->assertSame('{"foo":"bar"}', $response->getContent());
-    }
 }
