@@ -2,6 +2,14 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 3.1.0
+
+Released: 2019-12-26
+
+### Changes
+
+* Automatically handle rendering `Laravel\Passport\Exceptions\OAuthServerException` response.
+
 ## 3.0.0
 
 Released: 2019-09-23
