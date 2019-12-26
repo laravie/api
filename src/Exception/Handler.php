@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Dingo\Api\Contract\Debug\ExceptionHandler;
 use Dingo\Api\Contract\Debug\MessageBagErrors;
 use Illuminate\Validation\ValidationException;
+use Laravel\Passport\Exceptions\OAuthServerException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -104,6 +105,10 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof OAuthServerException) {
+            return $exception->render($request);
+        }
+
         return $this->handle($exception);
     }
 
