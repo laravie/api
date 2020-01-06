@@ -335,11 +335,11 @@ class Router
             $action = ['uses' => $action, 'controller' => $action];
         } elseif ($action instanceof Closure) {
             $action = [$action];
-        } elseif (is_array($action)) {
+        } elseif (\is_array($action)) {
             // For this sort of syntax $api->post('login', [LoginController::class, 'login']);
-            if (is_string(Arr::first($action)) && class_exists(Arr::first($action)) && count($action) == 2) {
-                $action = implode('@', $action);
-                $action = ['uses' => $action, 'controller' => $action];
+            if (\is_string($action[0]) && \class_exists($action[0]) && \count($action) == 2) {
+                $controller = \implode('@', $action);
+                $action = ['uses' => $controller, 'controller' => $controller];
             }
         }
 
