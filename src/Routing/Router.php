@@ -337,7 +337,11 @@ class Router
             $action = [$action];
         } elseif (\is_array($action)) {
             // For this sort of syntax $api->post('login', [LoginController::class, 'login']);
-            if (\is_string($action[0]) && \class_exists($action[0]) && \count($action) == 2) {
+            if (! Arr::isAssoc($action)
+                && \count($action) == 2
+                && \is_string($action[0])
+                && \class_exists($action[0])
+            ) {
                 $controller = \implode('@', $action);
                 $action = ['uses' => $controller, 'controller' => $controller];
             }
