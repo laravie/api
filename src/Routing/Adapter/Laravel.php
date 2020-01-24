@@ -2,12 +2,12 @@
 
 namespace Dingo\Api\Routing\Adapter;
 
-use Dingo\Api\Contract\Routing\Adapter;
-use Dingo\Api\Exception\UnknownVersionException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
-use Illuminate\Routing\RouteCollection;
 use Illuminate\Routing\Router;
+use Dingo\Api\Contract\Routing\Adapter;
+use Illuminate\Routing\RouteCollection;
+use Dingo\Api\Exception\UnknownVersionException;
 
 class Laravel implements Adapter
 {
@@ -147,7 +147,7 @@ class Laravel implements Adapter
         $this->createRouteCollections($versions);
 
         // Add where-patterns from original laravel router
-        $action['where'] = array_merge($this->router->getPatterns(), $action['where'] ?? []);
+        $action['where'] = \array_merge($this->router->getPatterns(), $action['where'] ?? []);
 
         $route = new Route($methods, $uri, $action);
         $route->where($action['where']);

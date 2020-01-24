@@ -335,6 +335,16 @@ class Router
             $action = ['uses' => $action, 'controller' => $action];
         } elseif ($action instanceof Closure) {
             $action = [$action];
+        } elseif (\is_array($action)) {
+            // For this sort of syntax $api->post('login', [LoginController::class, 'login']);
+            if (! Arr::isAssoc($action)
+                && \count($action) == 2
+                && \is_string($action[0])
+                && \class_exists($action[0])
+            ) {
+                $controller = \implode('@', $action);
+                $action = ['uses' => $controller, 'controller' => $controller];
+            }
         }
 
         $action = $this->mergeLastGroupAttributes($action);
