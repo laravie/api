@@ -2,6 +2,21 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 3.2.0
+
+Released: 2020-01-24
+
+### Changes
+
+* Enables multi-byte charsets in json formatter.
+* non assoc array route definition support added.
+* Improvement for pattern matching handling.
+* Improvement for compatibility with laravel's named route functions.
+
+### Fixes 
+
+* Fixes a bug which causes duplicate run of `prepareValidation` in a `FormRequest`.
+
 ## 3.1.0
 
 Released: 2019-12-26
