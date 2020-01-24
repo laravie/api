@@ -6,10 +6,13 @@ This changelog references the relevant changes (bug and security fixes) done to 
 
 Released: 2020-01-24
 
+### Added 
+
+* Added on assoc array route definition support.
+
 ### Changes
 
 * Enables multi-byte charsets in json formatter.
-* non assoc array route definition support added.
 * Improvement for pattern matching handling.
 * Improvement for compatibility with laravel's named route functions.
 
