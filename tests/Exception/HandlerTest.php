@@ -2,18 +2,18 @@
 
 namespace Dingo\Api\Tests\Exception;
 
-use Mockery as m;
-use RuntimeException;
-use Illuminate\Http\Response;
-use PHPUnit\Framework\TestCase;
 use Dingo\Api\Exception\Handler;
+use Dingo\Api\Exception\ResourceException;
+use Dingo\Api\Http\Request as ApiRequest;
+use Dingo\Api\Tests\BaseTestCase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Dingo\Api\Http\Request as ApiRequest;
-use Dingo\Api\Exception\ResourceException;
+use Illuminate\Http\Response;
+use Mockery as m;
+use RuntimeException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class HandlerTest extends TestCase
+class HandlerTest extends BaseTestCase
 {
     protected $parentHandler;
     protected $exceptionHandler;
@@ -30,17 +30,12 @@ class HandlerTest extends TestCase
         ], false);
     }
 
-    protected function tearDown(): void
-    {
-        m::close();
-    }
-
     public function testRegisterExceptionHandler()
     {
         $this->exceptionHandler->register(function (HttpException $e) {
             //
         });
-        $this->assertArrayHasKey(\Symfony\Component\HttpKernel\Exception\HttpException::class, $this->exceptionHandler->getHandlers());
+        $this->assertArrayHasKey(HttpException::class, $this->exceptionHandler->getHandlers());
     }
 
     public function testExceptionHandlerHandlesException()
@@ -55,6 +50,7 @@ class HandlerTest extends TestCase
 
         $this->assertSame('foo', $response->getContent());
         $this->assertSame(404, $response->getStatusCode());
+        $this->assertSame($exception, $response->exception);
     }
 
     public function testExceptionHandlerHandlesExceptionAndCreatesNewResponse()
@@ -142,6 +138,7 @@ class HandlerTest extends TestCase
 
         $this->assertSame('{"message":"Uh oh","status_code":500}', $response->getContent());
         $this->assertSame(500, $response->getStatusCode());
+        $this->assertSame($exception, $response->exception);
     }
 
     public function testResourceExceptionErrorsAreIncludedInResponse()

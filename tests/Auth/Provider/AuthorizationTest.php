@@ -2,22 +2,18 @@
 
 namespace Dingo\Api\Tests\Auth\Provider;
 
-use Mockery as m;
 use Dingo\Api\Routing\Route;
-use Illuminate\Http\Request;
-use PHPUnit\Framework\TestCase;
+use Dingo\Api\Tests\BaseTestCase;
 use Dingo\Api\Tests\Stubs\AuthorizationProviderStub;
+use Illuminate\Http\Request;
+use Mockery as m;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-class AuthorizationTest extends TestCase
+class AuthorizationTest extends BaseTestCase
 {
-    protected function tearDown(): void
-    {
-        m::close();
-    }
-
     public function testExceptionThrownWhenAuthorizationHeaderIsInvalid()
     {
-        $this->expectException('Symfony\Component\HttpKernel\Exception\BadRequestHttpException');
+        $this->expectException(BadRequestHttpException::class);
 
         $request = Request::create('GET', '/');
 
