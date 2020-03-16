@@ -2,19 +2,20 @@
 
 namespace Dingo\Api\Exception;
 
-use Throwable;
-use ReflectionFunction;
+use Dingo\Api\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Dingo\Api\Contract\Debug\ExceptionHandler;
 use Dingo\Api\Contract\Debug\MessageBagErrors;
+use Illuminate\Contracts\Debug\ExceptionHandler as IlluminateExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Laravel\Passport\Exceptions\OAuthServerException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use ReflectionFunction;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Illuminate\Contracts\Debug\ExceptionHandler as IlluminateExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class Handler implements ExceptionHandler, IlluminateExceptionHandler
 {
@@ -163,11 +164,11 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
                     $response = new Response($response, $this->getExceptionStatusCode($exception));
                 }
 
-                return $response;
+                return $response->withException($exception);
             }
         }
 
-        return $this->genericResponse($exception);
+        return $this->genericResponse($exception)->withException($exception);
     }
 
     /**

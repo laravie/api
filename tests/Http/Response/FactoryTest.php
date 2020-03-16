@@ -2,28 +2,35 @@
 
 namespace Dingo\Api\Tests\Http\Response;
 
-use Mockery;
-use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Collection;
-use Dingo\Api\Tests\Stubs\UserStub;
+use Closure;
 use Dingo\Api\Http\Response\Factory;
-use Illuminate\Pagination\Paginator;
+use Dingo\Api\Tests\BaseTestCase;
+use Dingo\Api\Tests\Stubs\UserStub;
 use Dingo\Api\Transformer\Factory as TransformerFactory;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Item;
+use Mockery;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class FactoryTest extends TestCase
+class FactoryTest extends BaseTestCase
 {
+    /**
+     * @var TransformerFactory|Mockery\LegacyMockInterface|Mockery\MockInterface
+     */
     protected $transformer;
+    /**
+     * @var Factory
+     */
     protected $factory;
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->transformer = Mockery::mock(TransformerFactory::class);
         $this->factory = new Factory($this->transformer);
-    }
-
-    protected function tearDown(): void
-    {
-        Mockery::close();
     }
 
     public function testMakingACreatedResponse()
@@ -82,17 +89,17 @@ class FactoryTest extends TestCase
 
     public function testMakingCollectionResponseWithThreeParameters()
     {
-        $this->transformer->shouldReceive('register')->twice()->with(\Dingo\Api\Tests\Stubs\UserStub::class, 'test', [], Mockery::on(function ($param) {
-            return $param instanceof \Closure;
+        $this->transformer->shouldReceive('register')->twice()->with(UserStub::class, 'test', [], Mockery::on(function ($param) {
+            return $param instanceof Closure;
         }));
 
         $this->assertInstanceOf(Collection::class, $this->factory->collection(new Collection([new UserStub('Jason')]), 'test', function ($resource, $fractal) {
             $this->assertInstanceOf(\League\Fractal\Resource\Collection::class, $resource);
-            $this->assertInstanceOf(\League\Fractal\Manager::class, $fractal);
+            $this->assertInstanceOf(Manager::class, $fractal);
         })->getOriginalContent());
         $this->assertInstanceOf(Collection::class, $this->factory->withCollection(new Collection([new UserStub('Jason')]), 'test', function ($resource, $fractal) {
             $this->assertInstanceOf(\League\Fractal\Resource\Collection::class, $resource);
-            $this->assertInstanceOf(\League\Fractal\Manager::class, $fractal);
+            $this->assertInstanceOf(Manager::class, $fractal);
         })->getOriginalContent());
     }
 
@@ -106,17 +113,17 @@ class FactoryTest extends TestCase
 
     public function testMakingItemResponseWithThreeParameters()
     {
-        $this->transformer->shouldReceive('register')->twice()->with(\Dingo\Api\Tests\Stubs\UserStub::class, 'test', [], Mockery::on(function ($param) {
-            return $param instanceof \Closure;
+        $this->transformer->shouldReceive('register')->twice()->with(UserStub::class, 'test', [], Mockery::on(function ($param) {
+            return $param instanceof Closure;
         }));
 
-        $this->assertInstanceOf(\Dingo\Api\Tests\Stubs\UserStub::class, $this->factory->item(new UserStub('Jason'), 'test', function ($resource, $fractal) {
-            $this->assertInstanceOf(\League\Fractal\Resource\Item::class, $resource);
-            $this->assertInstanceOf(\League\Fractal\Manager::class, $fractal);
+        $this->assertInstanceOf(UserStub::class, $this->factory->item(new UserStub('Jason'), 'test', function ($resource, $fractal) {
+            $this->assertInstanceOf(Item::class, $resource);
+            $this->assertInstanceOf(Manager::class, $fractal);
         })->getOriginalContent());
-        $this->assertInstanceOf(\Dingo\Api\Tests\Stubs\UserStub::class, $this->factory->withItem(new UserStub('Jason'), 'test', function ($resource, $fractal) {
-            $this->assertInstanceOf(\League\Fractal\Resource\Item::class, $resource);
-            $this->assertInstanceOf(\League\Fractal\Manager::class, $fractal);
+        $this->assertInstanceOf(UserStub::class, $this->factory->withItem(new UserStub('Jason'), 'test', function ($resource, $fractal) {
+            $this->assertInstanceOf(Item::class, $resource);
+            $this->assertInstanceOf(Manager::class, $fractal);
         })->getOriginalContent());
     }
 
@@ -130,42 +137,42 @@ class FactoryTest extends TestCase
 
     public function testNotFoundThrowsHttpException()
     {
-        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+        $this->expectException(HttpException::class);
 
         $this->factory->errorNotFound();
     }
 
     public function testBadRequestThrowsHttpException()
     {
-        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+        $this->expectException(HttpException::class);
 
         $this->factory->errorBadRequest();
     }
 
     public function testForbiddenThrowsHttpException()
     {
-        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+        $this->expectException(HttpException::class);
 
         $this->factory->errorForbidden();
     }
 
     public function testInternalThrowsHttpException()
     {
-        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+        $this->expectException(HttpException::class);
 
         $this->factory->errorInternal();
     }
 
     public function testUnauthorizedThrowsHttpException()
     {
-        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+        $this->expectException(HttpException::class);
 
         $this->factory->errorUnauthorized();
     }
 
     public function testMethodNotAllowedThrowsHttpException()
     {
-        $this->expectException('Symfony\Component\HttpKernel\Exception\HttpException');
+        $this->expectException(HttpException::class);
 
         $this->factory->errorMethodNotAllowed();
     }
