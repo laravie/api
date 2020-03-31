@@ -21,6 +21,8 @@ dist: trusty
 
 before_install:
   - if [[ $xdebug = 'true' ]] ; then phpenv config-rm xdebug.ini; fi
+  - travis_retry composer self-update
+  - composer config discard-changes true
 
 install:
   - travis_retry composer require "laravel/framework=${laravel}" --prefer-source --no-interaction --no-suggest
