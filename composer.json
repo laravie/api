@@ -36,7 +36,8 @@
         "laravel/lumen-framework": "^7.0",
         "league/fractal": "^0.17",
         "mockery/mockery": "^1.3",
-        "orchestra/testbench": "^5.0"
+        "orchestra/testbench": "^5.0",
+        "tymon/jwt-auth": "^1.0"
     },
     "replace": {
         "dingo/api": "*"
