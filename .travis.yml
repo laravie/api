@@ -22,9 +22,9 @@ before_install:
   - composer config discard-changes true
 
 install:
-  - travis_retry composer require "laravel/framework=${laravel}" --prefer-dist --no-interaction --no-suggest
-  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
+  - travis_retry composer require "laravel/framework=${laravel}" --prefer-source --no-interaction --no-suggest
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-source --no-interaction --no-suggest --prefer-stable; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-source --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
 
 script:
   - vendor/bin/phpunit -c ./ --verbose
