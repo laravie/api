@@ -153,7 +153,7 @@ class Factory
      *
      * @param array $array
      * @param $transformer
-     * @param array $parameters
+     * @param array        $parameters
      * @param Closure|null $after
      *
      * @return Response
