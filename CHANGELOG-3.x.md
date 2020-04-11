@@ -2,6 +2,14 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `laravie/api`.
 
+## 3.2.1
+
+Released: 2020-04-08
+
+### Fixes
+
+* Fix `http` and `https` detection.
+
 ## 3.2.0
 
 Released: 2020-01-24
