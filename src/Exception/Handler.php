@@ -366,7 +366,7 @@ class Handler implements ExceptionHandler, IlluminateExceptionHandler
 
         $exception = $reflection->getParameters()[0];
 
-        return $exception->getClass()->getName();
+        return $exception->getType()->getName();
     }
 
     /**
