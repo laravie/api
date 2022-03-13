@@ -22,7 +22,7 @@ jobs:
         os: 
           - ubuntu-latest
 
-    name: PHP${{ matrix.php }} with Laravel ${{ matrix.laravel }} on ${{ matrix.os }}
+    name: PHP${{ matrix.php }}-${{ matrix.os }} with Laravel ${{ matrix.laravel }} (${{ matrix.dependencies }})
 
     steps:
       - name: Checkout code
@@ -44,6 +44,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "laravel/lumen-framework:${{ matrix.laravel }}" --no-interaction --no-update
+          composer require "league/fractal:^0.20" --no-interaction --no-update
 
       - name: Install dependencies
         uses: "ramsey/composer-install@v1"
@@ -69,7 +70,7 @@ jobs:
         os: 
           - ubuntu-latest
 
-    name: PHP${{ matrix.php }} with Laravel ${{ matrix.laravel }} on ${{ matrix.os }}
+    name: PHP${{ matrix.php }}-${{ matrix.os }} with Laravel ${{ matrix.laravel }} (${{ matrix.dependencies }})
 
     steps:
       - name: Checkout code
@@ -118,7 +119,7 @@ jobs:
         os: 
           - ubuntu-latest
 
-    name: PHP${{ matrix.php }} with Laravel ${{ matrix.laravel }} on ${{ matrix.os }}
+    name: PHP${{ matrix.php }}-${{ matrix.os }} with Laravel ${{ matrix.laravel }} (${{ matrix.dependencies }})
 
     steps:
       - name: Checkout code
@@ -165,7 +166,7 @@ jobs:
         os: 
           - ubuntu-latest
 
-    name: PHP${{ matrix.php }} with Laravel ${{ matrix.laravel }} on ${{ matrix.os }}
+    name: PHP${{ matrix.php }}-${{ matrix.os }} with Laravel ${{ matrix.laravel }} (${{ matrix.dependencies }})
 
     steps:
       - name: Checkout code
