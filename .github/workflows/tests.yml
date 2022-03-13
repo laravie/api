@@ -7,7 +7,7 @@ on:
     - cron: '0 0 * * 3'
 
 jobs:
-  tests-on-php-80:
+  tests-on-php-81:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
