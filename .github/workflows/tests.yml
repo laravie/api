@@ -16,7 +16,6 @@ jobs:
           - 8.1  
         laravel: 
           - 8.x
-          - 9.x
         os: 
           - ubuntu-latest
           - windows-latest
@@ -57,7 +56,6 @@ jobs:
         laravel: 
           - 7.x
           - 8.x
-          - 9.x
         os: 
           - ubuntu-latest
           - windows-latest
