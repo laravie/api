@@ -27,24 +27,24 @@
         }
     },
     "require": {
-        "php": "^7.3 || ^8.0",
-        "illuminate/routing": " ^6.0 || ^7.0 || ^8.0",
-        "illuminate/support": "^6.0 || ^7.0 || ^8.0",
-        "laravie/blueprint": "1.x-dev"
+        "php": "^7.2 || ^8.0",
+        "illuminate/routing": "^7.0 || ^8.0",
+        "illuminate/support": "^7.0 || ^8.0",
+        "laravie/blueprint": "^1.1"
     },
     "require-dev": {
-        "laravel/lumen-framework": "^8.0",
-        "league/fractal": "^0.19.0",
+        "laravel/lumen-framework": "^7.0 || ^8.0",
+        "league/fractal": "^0.19",
         "mockery/mockery": "^1.4.4",
-        "orchestra/testbench": "^5.0 | ^6.0",
-        "tymon/jwt-auth": "^1.0.x-dev"
+        "orchestra/testbench": "^5.0 || ^6.0",
+        "tymon/jwt-auth": "^1.0"
     },
     "replace": {
         "dingo/api": "*"
     },
     "suggest": {
-        "league/fractal": "Transform response using Fractal (^0.19.0).",
-        "tymon/jwt-auth": "Protect your API with JSON Web Tokens (^1.0.x-dev)."
+        "league/fractal": "Transform response using Fractal (^0.19).",
+        "tymon/jwt-auth": "Protect your API with JSON Web Tokens (^1.0)."
     },
     "extra": {
         "branch": {
