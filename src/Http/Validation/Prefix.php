@@ -36,6 +36,10 @@ class Prefix implements Validator
      */
     public function validate(Request $request)
     {
+        if(\is_null($this->prefix)) {
+            return false;
+        }
+
         $prefix = $this->filterAndExplode($this->prefix);
 
         $path = $this->filterAndExplode($request->getPathInfo());
@@ -50,7 +54,7 @@ class Prefix implements Validator
      *
      * @return array
      */
-    protected function filterAndExplode($array)
+    protected function filterAndExplode(string|array $array)
     {
         return \array_filter(\explode('/', $array));
     }

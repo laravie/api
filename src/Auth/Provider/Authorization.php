@@ -26,8 +26,10 @@ abstract class Authorization implements \Dingo\Api\Contract\Auth\Provider
      */
     public function validateAuthorizationHeader(Request $request)
     {
-        if (Str::startsWith(\strtolower($request->headers->get('authorization')), $this->getAuthorizationMethod())) {
-            return true;
+        $auth_method = $request->headers->get('authorization');
+        
+        if($auth_method) {
+            return Str::startsWith(\strtolower($auth_method), $this->getAuthorizationMethod());
         }
 
         throw new BadRequestHttpException();
